@@ -248,7 +248,7 @@ th{color:var(--mute);font-weight:500}
       <li>内容根据通行的音乐史资料编写。有争议或不确定的地方(比如"巴赫"的小步舞曲其实是佩措尔德写的、《致爱丽丝》的爱丽丝是谁)都已注明。参考速度是常见录音的大致速度,不是标准答案。</li>
       <li>"听一听"会打开 YouTube 搜索,需要联网。其它所有内容离线可用。</li>
       <li>"我的笔记"保存在<b>当前这台设备</b>的浏览器里,手机和电脑各存各的,不会上传。换浏览器或清除浏览数据会丢失。</li>
-      <li>"学琴之路"一页在公开版本里不含任何人名、学校、项目、比赛或地点的名称,只有年份、曲目和分析;对应的真实名称只在家里电脑的本地版本里显示。</li>
+      <li>"学琴之路"一页在公开版本里不含任何人名、学校、项目、比赛或地点的名称,只有年份、曲目和分析。对应的真实名称以加密形式(AES-256,密码派生密钥)嵌在页面里,在"学琴之路"底部输入密码才能看到;勾选"记住"后,解密结果保存在这台设备的浏览器里,点"锁定并忘记"即可清除。家里电脑的本地版本直接显示,并写着手机密码。</li>
       <li>作曲家人像和时代画作来自 Wikipedia / Wikimedia Commons(点图片可打开出处页面),第一次联网打开时加载,之后离线也能看。1840年以前的作曲家没有照片,显示的是油画或版画肖像。</li>
     </ul>
   </div>
@@ -1538,6 +1538,7 @@ const JOURNEY = {
  ]
 };
 
+const PRIVATE_BLOB = {"v":1,"kdf":"PBKDF2-SHA256","iter":200000,"salt":"SBWBDuBNsFIEZ4bQnmKVBA==","iv":"nVmKwuaq4ogLs2j7xA3lSQ==","ct":"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","mac":"DPVtGw74tNQ6wsXPh6yXRazoSSOJPDpsQo3dF3Yszps="};
 
 </script>
 <script>
@@ -1546,8 +1547,22 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 PIANO.forEach(p=>{if(PLAYED_EXISTING[p.id])p.played=PLAYED_EXISTING[p.id]});
 const PIECES=[...PIANO.map(p=>({...p,inst:"piano"})),...VIOLIN.map(p=>({...p,inst:"violin"}))];
-const KID=(typeof JOURNEY_KEY!=="undefined"&&JOURNEY_KEY.name)||"孩子";   // the name exists only in the local build
-const PLAYED_LABEL=KID==="孩子"?"孩子弹过":KID+" 弹过";
+// Private key: inlined in the local build (JOURNEY_KEY), encrypted in the public build (PRIVATE_BLOB, unlocked with a passphrase)
+let KEY=(typeof JOURNEY_KEY!=="undefined")?JOURNEY_KEY:null, KEY_SRC=KEY?"local":null;
+try{if(!KEY&&localStorage.getItem("mp-private")){KEY=JSON.parse(localStorage.getItem("mp-private"));KEY_SRC="remembered"}}catch(e){}
+const kid=()=>(KEY&&KEY.name)||"孩子";
+const playedLabel=()=>kid()==="孩子"?"孩子弹过":kid()+" 弹过";
+async function unlockPrivate(pass){
+  const b=PRIVATE_BLOB,b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+  const salt=b64(b.salt),iv=b64(b.iv),ct=b64(b.ct),mac=b64(b.mac);
+  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pass),"PBKDF2",false,["deriveBits"]);
+  const bits=new Uint8Array(await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt,iterations:b.iter},base,512));
+  const macKey=await crypto.subtle.importKey("raw",bits.slice(32),{name:"HMAC",hash:"SHA-256"},false,["verify"]);
+  const data=new Uint8Array(iv.length+ct.length);data.set(iv);data.set(ct,iv.length);
+  if(!await crypto.subtle.verify("HMAC",macKey,mac,data))throw new Error("wrong passphrase");
+  const aesKey=await crypto.subtle.importKey("raw",bits.slice(0,32),{name:"AES-CBC"},false,["decrypt"]);
+  return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-CBC",iv},aesKey,ct)));
+}
 const NOW=new Set((typeof JOURNEY!=="undefined"&&JOURNEY.now&&JOURNEY.now.pieces)||[]);
 const PERIOD_NAME=Object.fromEntries(ERAS.map(p=>[p.id,p.name]));
 const store={get(k){try{return localStorage.getItem(k)||""}catch(e){return ""}},set(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}};
@@ -1586,7 +1601,7 @@ function pieceHTML(p){
   const li=a=>"<ul>"+a.map(x=>"<li>"+T(x)+"</li>").join("")+"</ul>";
   const yt="https://www.youtube.com/results?search_query="+encodeURIComponent(p.q);
   const gs=genresOf(p), sur=p.composer==="folk"?"Folk":c.en.split(" ").pop();
-  return `<details class="piece" id="${p.id}"><summary><span class="t">${p.inst==="piano"?"🎹":"🎻"} ${esc(p.title)}</span><span class="c">${esc(c.name)} ${esc(sur)}</span>${p.played?`<span class="badge">★ ${PLAYED_LABEL} ${esc(p.played)}</span>`:""}${NOW.has(p.id)?`<span class="badge now">▶ 正在弹 ${esc(JOURNEY.now.asof)}</span>`:""}<span class="s2">${gs.map(g=>esc(g.name.split(" ")[0])).join(" · ")}${gs.length?" · ":""}${esc(p.en)}</span><span class="h">${esc(p.hook)}</span></summary>
+  return `<details class="piece" id="${p.id}"><summary><span class="t">${p.inst==="piano"?"🎹":"🎻"} ${esc(p.title)}</span><span class="c">${esc(c.name)} ${esc(sur)}</span>${p.played?`<span class="badge">★ ${playedLabel()} ${esc(p.played)}</span>`:""}${NOW.has(p.id)?`<span class="badge now">▶ 正在弹 ${esc(JOURNEY.now.asof)}</span>`:""}<span class="s2">${gs.map(g=>esc(g.name.split(" ")[0])).join(" · ")}${gs.length?" · ":""}${esc(p.en)}</span><span class="h">${esc(p.hook)}</span></summary>
   <div class="body">
    <div class="meta" style="align-items:center">${ava(p.composer,"sm")}<span class="chip">作曲 ${esc(c.name)} ${esc(c.en)}</span><span class="chip">${esc(p.year)}</span><button class="chip chiplink" data-goto="history" data-anchor="era-${p.period}">${esc(PERIOD_NAME[p.period]||"")} ›</button><button class="chip chiplink" data-goto="composers" data-anchor="c-${p.composer}">关于${esc(c.name)} ›</button>${p.bpm?`<span class="chip">参考速度 ≈ ${p.bpm} BPM</span>`:""}</div>
    ${gs.length?`<h4>这是什么体裁 What kind of piece</h4>`+gs.map(g=>`<p><b>${esc(g.name)}</b>:${T(g.what)} <button class="chip chiplink" data-goto="history" data-anchor="genre-${g.id}">更多 ›</button></p>`).join(""):""}
@@ -1817,8 +1832,7 @@ function openPiece(id){byComposer=null;byEra=null;byGenre=null;inst="all";$$("#i
 document.addEventListener("click",e=>{const b=e.target.closest("[data-piece]");if(b&&b.dataset.piece)openPiece(b.dataset.piece)});
 (function journey(){
   const Tj=()=>G(new Set()),pieceBtn=(id,label)=>{const p=PIECES.find(x=>x.id===id);return p?`<button class="chip chiplink" data-piece="${id}">${esc(label||p.title)} ›</button>`:""};
-  $("#jTitle").textContent=KID==="孩子"?"孩子的学琴之路":KID+" 的学琴之路";
-  $('#instSeg [data-v="played"]').textContent="★ "+PLAYED_LABEL;
+  renderPrivate();
   $("#jIntro").innerHTML=Tj()(JOURNEY.intro);
   if(JOURNEY.now)$("#jNow").innerHTML=`<div class="card" style="border-left:4px solid var(--ok)"><h3>▶ 现在在弹 Now playing <span class="note">${esc(JOURNEY.now.asof)}</span></h3><div class="meta">${JOURNEY.now.pieces.map(id=>pieceBtn(id)).join("")}</div><p class="note">${Tj()(JOURNEY.now.note)}</p></div>`;
   $("#jStats").innerHTML=JOURNEY.stats.map(([k,v])=>`<div class="card stat"><b>${esc(k)}</b>${esc(v)}</div>`).join("");
@@ -1828,8 +1842,20 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-piece]");i
   $("#jLevel").innerHTML=`<p class="note">${esc(JOURNEY.level.note)}</p><table><tr><th>时间</th><th>代表曲目</th><th>大致等级(参考)</th></tr>${JOURNEY.level.rows.map(r=>`<tr><td style="white-space:nowrap">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</table><p>${Tj()(JOURNEY.level.external)}</p>`;
   $("#jObs").innerHTML=JOURNEY.observations.map(o=>`<div class="card"><p>"${esc(o.q)}" <span class="note">— ${esc(o.when)}</span></p><p>→ ${Tj()(o.so)}</p></div>`).join("");
   $("#jNext").innerHTML=JOURNEY.next.map(n=>`<div class="card"><h3>${esc(n.t)}</h3><p>${Tj()(n.d)}</p></div>`).join("");
-  if(typeof JOURNEY_KEY!=="undefined")$("#jKey").innerHTML=`<h2 class="grp">名称对照 Name key — 只在这台电脑的本地版本显示,公开的 app 里没有</h2><div class="card"><table>${JOURNEY_KEY.key.map(k=>`<tr><td style="white-space:nowrap">${esc(k[0])}</td><td>${esc(k[1])}</td></tr>`).join("")}<tr><td>生日</td><td>${esc(JOURNEY_KEY.birthday)}</td></tr></table><p class="note">来源:${esc(JOURNEY_KEY.source)}</p></div>`;
 })();
+function renderPrivate(){
+  $("#jTitle").textContent=kid()==="孩子"?"孩子的学琴之路":kid()+" 的学琴之路";
+  $('#instSeg [data-v="played"]').textContent="★ "+playedLabel();
+  const k=$("#jKey");
+  if(KEY){
+    k.innerHTML=`<h2 class="grp">名称对照 Name key — ${KEY_SRC==="local"?"这台电脑的本地版本":"已解锁 unlocked"}</h2><div class="card"><table>${KEY.key.map(r=>`<tr><td style="white-space:nowrap">${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")}<tr><td>生日</td><td>${esc(KEY.birthday||"")}</td></tr>${KEY.phonePass?`<tr><td style="white-space:nowrap">手机解锁密码</td><td><code>${esc(KEY.phonePass)}</code> — 在手机上打开公开版的"学琴之路",输入它即可看到这张表</td></tr>`:""}</table><p class="note">来源:${esc(KEY.source||"")}</p>${KEY_SRC!=="local"?`<div class="bar" style="margin-top:8px"><button class="btn" id="lockBtn">🔒 锁定,并在此设备上忘记</button></div>`:""}</div>`;
+    if(KEY_SRC!=="local")$("#lockBtn").onclick=()=>{try{localStorage.removeItem("mp-private")}catch(e){}KEY=null;KEY_SRC=null;renderPrivate();renderPieces()};
+  }else if(typeof PRIVATE_BLOB!=="undefined"){
+    k.innerHTML=`<h2 class="grp">🔒 私密信息 Private details</h2><div class="card"><p>人名、学校、项目、比赛和地点的真实名称加密保存在这个页面里,只有输入密码才能看到。密码写在家里电脑的本地版本里(名称对照表的最后一行)。</p><div class="bar"><input type="password" id="pwd" placeholder="密码 Password" autocomplete="current-password" style="padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-size:15px"><label class="note"><input type="checkbox" id="rememberPw" checked> 在这台设备上记住</label><button class="btn pri" id="unlockBtn">解锁 Unlock</button></div><p class="note" id="pwMsg"></p></div>`;
+    $("#unlockBtn").onclick=async()=>{const m=$("#pwMsg");m.textContent="解密中…";try{const data=await unlockPrivate($("#pwd").value.trim());KEY=data;KEY_SRC="unlocked";if($("#rememberPw").checked){try{localStorage.setItem("mp-private",JSON.stringify(data))}catch(e){}}renderPrivate();renderPieces()}catch(e){m.textContent="密码不对(或浏览器不支持解密)。请核对家里电脑上显示的密码。"}};
+    $("#pwd").addEventListener("keydown",e=>{if(e.key==="Enter")$("#unlockBtn").click()});
+  }else k.innerHTML="";
+}
 
 renderPieces();
 loadImages();
