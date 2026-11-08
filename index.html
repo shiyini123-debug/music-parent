@@ -59,7 +59,9 @@ h2.grp{font-size:15px;color:var(--acc2);margin:22px 0 8px;letter-spacing:.5px}
 .piece>summary{list-style:none;cursor:pointer;padding:10px 14px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
 .piece>summary::-webkit-details-marker{display:none}
 .piece>summary .t{font-weight:600;font-size:16px}
-.piece>summary .e{color:var(--mute);font-size:13px}
+.piece>summary .c{color:var(--acc);font-weight:600;font-size:14px}
+.piece>summary .s2{flex-basis:100%;color:var(--mute);font-size:13px}
+.gcat{font-size:15px;color:var(--acc2);margin:18px 0 8px;letter-spacing:.5px}
 .piece>summary .h{flex-basis:100%;color:var(--mute);font-size:14px}
 .piece[open]>summary{border-bottom:1px solid var(--line)}
 .body{padding:6px 16px 14px}
@@ -141,8 +143,9 @@ th{color:var(--mute);font-weight:500}
   <div class="card" style="margin-top:12px"><h3>用中国历史来记</h3><ul id="hooks"></ul></div>
   <h2 class="grp">时代 Eras — 从中世纪到今天</h2>
   <div id="eras"></div>
-  <h2 class="grp">体裁与曲式 Genres & forms — 节目单上的这些词是什么意思?</h2>
-  <div id="genres" class="grid"></div>
+  <h2 class="grp">体裁与曲式 Genres & forms — 奏鸣曲、协奏曲、夜曲……这些词是什么意思?</h2>
+  <p class="note">每张曲目卡片上都标了它的体裁;点卡片里的"更多 ›"会跳到这里。"孩子的曲目里有 N 首 →"可以只看那一类。</p>
+  <div id="genres"></div>
 </section>
 
 <section id="composers">
@@ -426,23 +429,7 @@ const ERAS = [
  {id:"folk", name:"民歌 Folk", years:"", context:"", traits:[], where:"", who:["folk"], listen:[], tip:"", hidden:true}
 ];
 
-const GENRES = [
- {name:"交响曲 Symphony", what:"为整个管弦乐队写的大型作品,通常4个乐章(快—慢—舞曲—快),像一部长篇小说。", hear:"几十个乐器一起演奏;一首通常30–80分钟。", eg:"贝多芬《第五交响曲》(命运)、德沃夏克《自新大陆》"},
- {name:"协奏曲 Concerto", what:"一件独奏乐器(钢琴、小提琴…)与乐队'对话'和'竞赛',通常3个乐章(快—慢—快)。", hear:"一个人站在乐队前面独奏;乐章快结束时常有独奏者一人炫技的'华彩段' (cadenza)。", eg:"维瓦尔第《四季》、柴可夫斯基《第一钢琴协奏曲》、门德尔松《小提琴协奏曲》——以后两个孩子都可能学到协奏曲"},
- {name:"奏鸣曲 Sonata", what:"为一件或两件乐器写的多乐章作品(常为3个)。钢琴奏鸣曲是钢琴文献的核心;小提琴奏鸣曲通常是小提琴+钢琴。", hear:"一到两个人;快—慢—快。", eg:"莫扎特 K.545、贝多芬《月光》《悲怆》;小奏鸣曲 (sonatina) 是给学生的迷你版"},
- {name:"室内乐 Chamber music", what:"几个人的小型合奏,每人一个声部,原本在家中'房间'里演奏,所以叫室内乐。最经典的是弦乐四重奏(2把小提琴+中提琴+大提琴)。", hear:"2–9个人,没有指挥,互相用眼神配合。", eg:"海顿、莫扎特、贝多芬的弦乐四重奏;舒伯特《鳟鱼五重奏》。兄弟俩小提琴+钢琴合奏就是室内乐!"},
- {name:"歌剧 Opera", what:"用音乐讲故事的戏剧,演员唱出所有台词,有乐队、布景、服装。", hear:"咏叹调 (aria) 是角色抒发情感的独唱;宣叙调 (recitative) 是像说话一样推进剧情的段落。", eg:"莫扎特《魔笛》(很适合孩子)、威尔第《茶花女》、普契尼《图兰朵》(以中国为背景,用了《茉莉花》旋律)"},
- {name:"清唱剧与弥撒 Oratorio & Mass", what:"宗教题材的大型声乐作品,有合唱、独唱和乐队,但不表演、没有布景。", hear:"大合唱为主。", eg:"亨德尔《弥赛亚》、巴赫《马太受难曲》、莫扎特《安魂曲》"},
- {name:"组曲与舞曲 Suite & dances", what:"把几首不同的舞曲串在一起。巴洛克组曲常见:阿勒曼德、库朗特、萨拉班德、小步舞曲、加沃特、吉格。", hear:"每首短小,节奏和性格各异。", eg:"巴赫《大提琴无伴奏组曲》、柴可夫斯基《胡桃夹子组曲》"},
- {name:"赋格 Fugue", what:"一个短小主题在几个声部里轮流出现、互相追逐模仿,是复调音乐的顶峰。", hear:"像几个人轮唱《两只老虎》,但规则复杂得多。", eg:"巴赫《平均律》中每首前奏曲后面都跟一首赋格"},
- {name:"主题与变奏 Theme & variations", what:"先呈现一个简单主题,然后一遍遍变化:换节奏、换调、加装饰、换情绪。", hear:"每一段都能隐约听出原来的旋律。", eg:"莫扎特《小星星变奏曲》K.265——弟弟拉的第一首曲子的'大哥版'"},
- {name:"练习曲 Étude", what:"专门训练某项技术的曲子。肖邦、李斯特把它提升成音乐会上的艺术品。", hear:"同一种技术(音型)贯穿全曲。", eg:"车尔尼、布格缪勒(教学用);肖邦《革命练习曲》(音乐会用)"},
- {name:"性格小品 Character piece", what:"浪漫时期的短小钢琴曲,每首描写一个画面或心情,常有标题。", hear:"几分钟,一种情绪。", eg:"舒曼《童年情景》、门德尔松《无词歌》、格里格《抒情小品》、肖邦的夜曲、前奏曲"},
- {name:"夜曲 Nocturne", what:"'夜晚的歌':左手流动伴奏,右手唱梦幻般的旋律。爱尔兰作曲家菲尔德首创,肖邦写到极致。", hear:"安静、抒情、像夜色。", eg:"肖邦《降E大调夜曲》Op.9 No.2"},
- {name:"艺术歌曲 Art song (Lied)", what:"把一首诗谱成独唱+钢琴的歌,钢琴不只是伴奏,而是描绘诗中画面。", hear:"一位歌手 + 一位钢琴家。", eg:"舒伯特《魔王》《鳟鱼》、舒曼《两个掷弹兵》(弟弟拉过它的小提琴版)"},
- {name:"交响诗 Symphonic poem", what:"单乐章的管弦乐作品,讲一个故事或描绘一个场景(标题音乐)。", hear:"像没有画面的电影配乐。", eg:"斯美塔那《伏尔塔瓦河》、圣桑《骷髅之舞》"},
- {name:"序曲 Overture", what:"歌剧开场前的器乐曲,预告剧中的主要旋律和气氛;后来也有独立的'音乐会序曲'。", hear:"5–10分钟,很有精神。", eg:"罗西尼《威廉·退尔》序曲、莫扎特《费加罗的婚礼》序曲"}
-];
+
 
 Object.assign(COMPOSERS, {
   hildegard:{name:"希尔德加德", en:"Hildegard von Bingen", years:"1098–1179", period:"medieval", extra:true,
@@ -603,7 +590,7 @@ const TERMS = {
  "斯美塔那":"Bedřich Smetana","圣桑":"Camille Saint-Saëns","柯达伊":"Zoltán Kodály",
  "小丘丘":"Chouchou","埃斯特哈齐":"Esterházy","阿尔贝蒂低音":"Alberti bass","通奏低音":"basso continuo","主导动机":"leitmotif","美泉宫":"Schönbrunn Palace",
  // works
- "《四季·春》":"The Four Seasons: Spring","《四季》":"The Four Seasons","《弥赛亚》":"Messiah","《马太受难曲》":"St Matthew Passion","《魔笛》":"The Magic Flute",
+ "《四季·春》":"The Four Seasons: Spring","《四季》":"The Four Seasons","《意大利协奏曲》":"Italian Concerto","《平均律》中的前奏曲与赋格":"Preludes and Fugues from the Well-Tempered Clavier","《弦乐小夜曲》":"Eine kleine Nachtmusik","《军队波兰舞曲》":"'Military' Polonaise","《英雄波兰舞曲》":"'Heroic' Polonaise","《小狗圆舞曲》":"'Minute' Waltz","《华丽圆舞曲》":"Valse brillante","《幻想即兴曲》":"Fantaisie-Impromptu","《军队进行曲》":"Marche militaire","《挪威舞曲》":"Norwegian Dances","《西班牙舞曲》":"Spanish Dances","《哈林舞曲》":"Halling","《两首阿拉伯风格曲》":"Deux Arabesques","《西班牙小夜曲》":"Spanish Serenade","《小托卡塔》":"Toccatina","《两只老虎》":"Frère Jacques","《弥赛亚》":"Messiah","《马太受难曲》":"St Matthew Passion","《魔笛》":"The Magic Flute",
  "《天鹅湖》":"Swan Lake","《胡桃夹子组曲》":"The Nutcracker Suite","《胡桃夹子》":"The Nutcracker","《培尔·金特》":"Peer Gynt","《平均律钢琴曲集》":"The Well-Tempered Clavier",
  "《平均律》":"The Well-Tempered Clavier","《童年情景》":"Kinderszenen (Scenes from Childhood)","《少年曲集》":"Album für die Jugend (Album for the Young)",
  "《儿童曲集》":"Children's Album","《儿童园地》":"Children's Corner","《抒情小品》":"Lyric Pieces","《魔弹射手》":"Der Freischütz","《迷娘》":"Mignon",
@@ -1304,6 +1291,72 @@ PIANO.push(
  bpm:0, praise:["这么多架钢琴一起,你们是怎么对齐的?","肖邦的圆舞曲我居然在里面听出来了!"], q:"Nils Henrik Asheim Piano Actions The Great Spin"}
 );
 
+// Genres & forms, grouped by category, and the genre(s) of every piece in the app.
+// Shown on each piece card ("这是什么体裁") and in the History tab.
+const GENRES = [
+ // ---- large-scale & ensemble works
+ {id:"symphony", cat:"大型与合奏作品 Large-scale & ensemble works", name:"交响曲 Symphony", what:"为整个管弦乐队写的大型作品,通常4个乐章(快—慢—舞曲—快),像一部长篇小说。", hear:"几十个乐器一起演奏;一首通常30–80分钟。", eg:"贝多芬《第五交响曲》(命运)、德沃夏克《自新大陆》"},
+ {id:"concerto", cat:"大型与合奏作品 Large-scale & ensemble works", name:"协奏曲 Concerto", what:"一件独奏乐器(钢琴、小提琴…)与乐队'对话'和'竞赛',通常3个乐章(快—慢—快)。乐章快结束时常有独奏者一人炫技的'华彩段' (cadenza)。巴赫的《意大利协奏曲》是个例外:一个人在键盘上同时'扮演'独奏和乐队。", hear:"一个人站在乐队前面独奏;乐队'全体'和独奏轮流。", eg:"维瓦尔第《四季》、贝多芬第一钢琴协奏曲、门德尔松小提琴协奏曲——以后两个孩子都可能学到协奏曲"},
+ {id:"sonata", cat:"大型与合奏作品 Large-scale & ensemble works", name:"奏鸣曲 Sonata", what:"为一件(或两件)乐器写的多乐章作品,通常3个乐章:快—慢—快。第一乐章几乎总是用'奏鸣曲式' (sonata form) 写成:两个性格不同的主题先后登场(呈示)→ 被打乱、变形(展开)→ 原样回来(再现)。小奏鸣曲 (sonatina) 是给学生的迷你版。钢琴奏鸣曲是钢琴文献的核心;小提琴奏鸣曲通常是小提琴+钢琴。", hear:"一到两个人;乐章之间会停一下——这时不鼓掌。", eg:"莫扎特 K.545、K.280、K.311,贝多芬《月光》、Op.10 No.1,海顿 e小调奏鸣曲,克莱门蒂小奏鸣曲"},
+ {id:"chamber", cat:"大型与合奏作品 Large-scale & ensemble works", name:"室内乐 Chamber music", what:"几个人的小型合奏,每人一个声部,原本在家中'房间'里演奏,所以叫室内乐。最经典的是弦乐四重奏(2把小提琴+中提琴+大提琴);钢琴三重奏 = 钢琴+小提琴+大提琴。", hear:"2–9个人,没有指挥,互相用眼神配合。", eg:"莫扎特降B大调钢琴三重奏、博凯里尼弦乐五重奏(小步舞曲)、舒伯特《鳟鱼五重奏》。兄弟俩小提琴+钢琴合奏就是室内乐!"},
+ {id:"fourhands", cat:"大型与合奏作品 Large-scale & ensemble works", name:"四手联弹 Piano four hands", what:"两个人并排坐在同一架钢琴前,一个弹高音部 (primo),一个弹低音部 (secondo)。19世纪没有唱片,家庭就靠四手联弹来'听'交响曲和舞曲,所以大量作品有四手联弹版。", hear:"两个人、一架琴;配合是否整齐是关键。", eg:"格里格《挪威舞曲》、莫什科夫斯基《西班牙舞曲》、舒伯特《军队进行曲》"},
+ {id:"ensemble", cat:"大型与合奏作品 Large-scale & ensemble works", name:"合奏与群体作品 Ensemble & group pieces", what:"多位演奏者一起演奏,没有指挥时靠互相听、互相看。当代作曲家常为学生群体写作品,例如让十几个孩子在几架钢琴上同时演奏。", hear:"看他们如何同时开始、同时停下;听个人声音'消失'在整体里。", eg:"阿斯海姆《大旋转》(Piano Actions)"},
+ {id:"tonepoem", cat:"大型与合奏作品 Large-scale & ensemble works", name:"交响诗 Symphonic poem", what:"单乐章的管弦乐作品,讲一个故事或描绘一个场景(标题音乐)。", hear:"像没有画面的电影配乐。", eg:"斯美塔那《伏尔塔瓦河》、圣桑《骷髅之舞》"},
+ {id:"overture", cat:"大型与合奏作品 Large-scale & ensemble works", name:"序曲 Overture", what:"歌剧开场前的器乐曲,预告剧中的主要旋律和气氛;后来也有独立的'音乐会序曲'。", hear:"5–10分钟,很有精神。", eg:"罗西尼《威廉·退尔》序曲、莫扎特《费加罗的婚礼》序曲"},
+ // ---- dances
+ {id:"minuet", cat:"舞曲 Dances", name:"小步舞曲 Minuet", what:"17–18世纪法国宫廷最流行的舞,3拍子,步子小而优雅,中等速度。巴洛克组曲和古典交响曲、奏鸣曲里常有一个小步舞曲乐章。结构通常是两段各重复一次 (A A B B),有时中间插一段性格不同的'三声中部' (Trio) 再回到开头。", hear:"'1-2-3'能数出来,第一拍稍重;不快不慢,像端庄地走路。", eg:"巴赫/佩措尔德 G大调小步舞曲、贝多芬 G大调小步舞曲、博凯里尼小步舞曲"},
+ {id:"gavotte", cat:"舞曲 Dances", name:"加沃特舞曲 Gavotte", what:"法国民间舞,后来进入宫廷。2拍子(或4拍子),特点是每个乐句从小节的中间开始,听起来像'抬起—落下',轻快优雅。", hear:"每句开头像被'抬'起来;比小步舞曲更跳。", eg:"戈塞克《加沃特》、托马《迷娘》中的加沃特、吕利《加沃特》"},
+ {id:"bourree", cat:"舞曲 Dances", name:"布列舞曲 Bourrée", what:"法国奥弗涅地区的快速民间舞,2拍子,每句从最后一拍'弱起'开始,有弹性、有劲头。巴赫、亨德尔常把它放进组曲。", hear:"比加沃特更快更有冲劲,像在蹦跳。", eg:"亨德尔《布列舞曲》(铃木第2册)"},
+ {id:"musette", cat:"舞曲 Dances", name:"风笛舞曲 Musette", what:"Musette 本是法国的一种小风笛;模仿它的舞曲有一个一直不变的低音(像风笛的嗡嗡声),上面是欢快的旋律。", hear:"低音'嗡——'一直不动,旋律在上面跳。", eg:"巴赫家庭笔记本中的《风笛舞曲》"},
+ {id:"waltz", cat:"舞曲 Dances", name:"圆舞曲 Waltz", what:"19世纪最流行的舞:成对旋转,3拍子,'嘭-嚓-嚓',第一拍重、后两拍轻。维也纳的施特劳斯家族写的是真跳的圆舞曲;肖邦的圆舞曲是'用来听的舞'——优雅、怀念,或者炫技。", hear:"左手'嘭-嚓-嚓'一听就知道;注意有没有旋转的感觉。", eg:"肖邦《小狗圆舞曲》《华丽圆舞曲》Op.34、e小调圆舞曲,勃拉姆斯圆舞曲"},
+ {id:"polonaise", cat:"舞曲 Dances", name:"波兰舞曲 Polonaise", what:"波兰贵族庄严的行进舞,3拍子,节奏型'哒—哒哒 哒 哒 哒'非常有辨识度,像骑士列队。肖邦在流亡中把它写成波兰民族精神的象征。", hear:"庄严、有气势;不是旋转而是'走'。", eg:"肖邦《军队波兰舞曲》Op.40 No.1、《英雄波兰舞曲》Op.53"},
+ {id:"mazurka", cat:"舞曲 Dances", name:"玛祖卡舞曲 Mazurka", what:"波兰马佐夫舍地区的民间舞,3拍子,但重音常落在第二或第三拍,还有即兴式的装饰和弹性速度。肖邦写了五十多首,是他最私密、最'波兰'的音乐。", hear:"三拍子里重音'不对劲';时而忧郁时而倔强。", eg:"肖邦玛祖卡 Op.6、Op.7、Op.17"},
+ {id:"folkdance", cat:"舞曲 Dances", name:"民族舞曲 National & folk dances", what:"作曲家把本国民间舞的节奏和旋律写进古典音乐:挪威的哈林舞 (halling)、春舞 (springar),西班牙舞曲,匈牙利的恰尔达什 (csárdás)……这是19世纪民族乐派的标志。", hear:"强烈、带重音的节奏;常模仿民间乐器(风笛、民间小提琴、吉他、响板)。", eg:"格里格《挪威舞曲》《哈林舞曲》、莫什科夫斯基《西班牙舞曲》、勃拉姆斯《匈牙利舞曲》"},
+ // ---- baroque keyboard genres
+ {id:"prelude", cat:"巴洛克键盘体裁 Baroque keyboard genres", name:"前奏曲 Prelude", what:"原意是'正曲之前的热身',巴洛克时期常和赋格成对。肖邦把它变成独立的短小诗篇——24首前奏曲每个调一首,有的不到一分钟。", hear:"短;往往一种音型或一种情绪从头到尾。", eg:"巴赫 C大调前奏曲、肖邦 e小调前奏曲"},
+ {id:"fugue", cat:"巴洛克键盘体裁 Baroque keyboard genres", name:"赋格 Fugue", what:"一个短小主题先由一个声部唱出,然后第二、第三个声部依次用同一个主题'追'进来,互相模仿、交织——像轮唱《两只老虎》,但规则严密得多。巴洛克复调音乐的顶峰,几乎总和前奏曲成对出现:'前奏曲与赋格'。", hear:"数一数主题进来了几次,在高、中、低哪个声部。", eg:"巴赫《平均律》中的前奏曲与赋格(G大调、c小调)"},
+ {id:"invention", cat:"巴洛克键盘体裁 Baroque keyboard genres", name:"创意曲 Invention", what:"巴赫为教学写的小型复调曲:两只手各一条独立旋律(二部),互相模仿、对话。学'让两只手同样清楚'的经典教材,也是学赋格之前的台阶。", hear:"左右手像两个人在接话。", eg:"巴赫二部创意曲第1首(C大调)、第4首(d小调)"},
+ {id:"suite", cat:"巴洛克键盘体裁 Baroque keyboard genres", name:"组曲 Suite", what:"把几首不同的舞曲串在一起。巴洛克组曲常见:阿勒曼德、库朗特、萨拉班德、小步舞曲、加沃特、吉格。后来也指从芭蕾、戏剧配乐里选出来的一组曲子。", hear:"每首短小,节奏和性格各异。", eg:"巴赫《大提琴无伴奏组曲》、柴可夫斯基《胡桃夹子组曲》"},
+ {id:"toccata", cat:"巴洛克键盘体裁 Baroque keyboard genres", name:"托卡塔 Toccata", what:"意大利文'触碰'——快速、有力、展示手指技巧的曲子,常有重复的敲击式音型。小型的叫 Toccatina(小托卡塔)。", hear:"急促、机械感、有冲劲。", eg:"卡巴列夫斯基《小托卡塔》、巴赫 d小调托卡塔与赋格(管风琴)"},
+ // ---- romantic short pieces
+ {id:"character", cat:"浪漫小品 Romantic short pieces", name:"性格小品 Character piece", what:"浪漫时期的短小钢琴曲,每首描写一个画面或心情,常有标题。格里格的《抒情小品》、舒曼的《童年情景》、柴可夫斯基的《四季》都是成套的性格小品。", hear:"几分钟,一种情绪;标题就是提示。", eg:"舒曼《梦幻曲》《异国他乡》、格里格《小咏叹调》《小鸟》、柴可夫斯基《十月》"},
+ {id:"nocturne", cat:"浪漫小品 Romantic short pieces", name:"夜曲 Nocturne", what:"'夜晚的歌':左手流动的伴奏,右手唱梦幻般的旋律。爱尔兰作曲家菲尔德首创,肖邦写到极致。", hear:"安静、抒情、像夜色。", eg:"肖邦《降E大调夜曲》Op.9 No.2"},
+ {id:"impromptu", cat:"浪漫小品 Romantic short pieces", name:"即兴曲 Impromptu", what:"'像即兴演奏一样'的浪漫小品,其实是精心写成的;常有一个激动的外段和一个歌唱的中段。", hear:"开头像一阵风,中间突然温柔。", eg:"肖邦《幻想即兴曲》、舒伯特即兴曲 Op.90"},
+ {id:"arabesque", cat:"浪漫小品 Romantic short pieces", name:"阿拉伯风格曲 Arabesque", what:"名字来自阿拉伯装饰图案:缠绕、流动、对称的线条。音乐上指旋律像花纹一样盘旋的小品。布格缪勒的《阿拉伯风格曲》同时也是一首练习曲。", hear:"流动的音型一串接一串。", eg:"德彪西《两首阿拉伯风格曲》、布格缪勒《阿拉伯风格曲》"},
+ {id:"serenade", cat:"浪漫小品 Romantic short pieces", name:"小夜曲 Serenade", what:"原指傍晚在情人窗下唱的歌,后来泛指轻松愉快、常在户外演奏的作品。西班牙风味的小夜曲常模仿吉他拨弦。", hear:"轻松、浪漫,伴奏像拨弦。", eg:"瓦克斯《西班牙小夜曲》、莫扎特《弦乐小夜曲》、舒伯特《小夜曲》"},
+ // ---- voice & stage
+ {id:"opera", cat:"声乐与舞台 Voice & stage", name:"歌剧 Opera", what:"用音乐讲故事的戏剧,演员唱出所有台词,有乐队、布景、服装。咏叹调 (aria) 是角色抒发情感的独唱;宣叙调 (recitative) 是像说话一样推进剧情的段落。", hear:"有人唱、有剧情。", eg:"莫扎特《魔笛》(很适合孩子)、威尔第《茶花女》、普契尼《图兰朵》(以中国为背景,用了《茉莉花》旋律)"},
+ {id:"oratorio", cat:"声乐与舞台 Voice & stage", name:"清唱剧与弥撒 Oratorio & Mass", what:"宗教题材的大型声乐作品,有合唱、独唱和乐队,但不表演、没有布景。", hear:"大合唱为主。", eg:"亨德尔《弥赛亚》、巴赫《马太受难曲》、莫扎特《安魂曲》"},
+ {id:"lied", cat:"声乐与舞台 Voice & stage", name:"艺术歌曲 Art song (Lied)", what:"把一首诗谱成独唱+钢琴的歌,钢琴不只是伴奏,而是描绘诗中的画面。改编给乐器演奏时,乐器就要'替人唱'。", hear:"一位歌手 + 一位钢琴家;或一件乐器'唱'出歌词的情绪。", eg:"舒伯特《魔王》《鳟鱼》、舒曼《两个掷弹兵》(铃木第2册有小提琴版)"},
+ {id:"excerpt", cat:"声乐与舞台 Voice & stage", name:"歌剧、清唱剧选段改编 Arrangements from operas & oratorios", what:"把歌剧或清唱剧里最好听的合唱、咏叹调改编给小提琴或钢琴演奏。铃木教材里很多。", hear:"旋律特别'好唱'——它本来就是给人唱的。", eg:"亨德尔《犹大·马加比》合唱、韦伯《猎人合唱》、托马《迷娘》中的加沃特"},
+ {id:"song", cat:"声乐与舞台 Voice & stage", name:"歌曲改编 Song arrangements", what:"把赞美诗、圣诞歌、流行歌曲改编给乐器演奏。学琴初期用得多,因为旋律大家都熟,孩子可以专心练姿势和音色。", hear:"你很可能会跟着唱。", eg:"《来吧,孩子们》《很久以前》"},
+ {id:"folk", cat:"声乐与舞台 Voice & stage", name:"民歌与童谣 Folk songs & nursery rhymes", what:"没有确定作者、口口相传的歌。铃木第1册前半部分几乎都是,因为旋律简单好记。", hear:"短小、重复多、一听就会。", eg:"《划船》《风之歌》《五月之歌》《去告诉罗迪阿姨》"},
+ // ---- forms & techniques
+ {id:"variations", cat:"曲式与写法 Forms & techniques", name:"主题与变奏 Theme & variations", what:"先呈现一个简单主题,然后一遍遍变化:换节奏、换调、加装饰、换情绪。每一段都能隐约听出原来的旋律。", hear:"数变奏:'这是第几次换衣服了?'", eg:"莫扎特《小星星变奏曲》K.265——铃木第一首曲子的'大哥版';贝多芬的变奏曲"},
+ {id:"rondo", cat:"曲式与写法 Forms & techniques", name:"回旋曲 Rondo", what:"一个主题 (A) 反复回来,中间插入不同的段落:A-B-A-C-A,像副歌一次次回来。古典奏鸣曲、协奏曲的末乐章常用这种写法。", hear:"数一数开头那段旋律回来了几次。", eg:"莫扎特《土耳其进行曲》、贝多芬《致爱丽丝》"},
+ // ---- studies & teaching
+ {id:"etude", cat:"练习与教学 Studies & teaching", name:"练习曲 Étude", what:"专门训练某项技术的曲子:音阶、琶音、八度、跳跃……车尔尼、阿农是纯技术训练;布格缪勒给练习曲加了标题和故事;肖邦、李斯特把它提升成音乐会上的艺术品(音乐会练习曲)。", hear:"同一种技术(音型)贯穿全曲。", eg:"车尔尼 Op.299、阿农;李斯特《钟》(La Campanella)"},
+ {id:"perpetuum", cat:"练习与教学 Studies & teaching", name:"无穷动 Perpetuum mobile", what:"从头到尾不停的快速音符,像上了发条。帕格尼尼等人写过炫技版,铃木第1册有入门版。", hear:"一刻不停,考验节奏的稳定。", eg:"铃木《无穷动》、帕格尼尼《无穷动》"},
+ {id:"tempo", cat:"练习与教学 Studies & teaching", name:"以速度命名的小曲 Pieces named after their tempo", what:"有些小曲没有标题,只用速度术语做名字:Allegro(快板)、Allegretto(小快板)、Andantino(小行板)。名字就是演奏速度的指示。", hear:"名字告诉你它该多快。", eg:"铃木第1册《快板》《小快板》《小行板》"},
+ {id:"album", cat:"练习与教学 Studies & teaching", name:"儿童曲集 Children's albums", what:"作曲家专门为孩子写的成套短曲,每首有标题和画面:舒曼《少年曲集》、柴可夫斯基《儿童曲集》、德彪西《儿童园地》、哈恰图良《儿童画册》、卡巴列夫斯基、布格缪勒。短小但音乐上很完整,大人也爱听。", hear:"每首1–3分钟,一个画面。", eg:"《快乐的农夫》《古老的法国歌曲》《格拉杜斯博士》《狂野的骑士》"}
+];
+
+// piece id -> genre id(s)
+const PIECE_GENRE = {
+  // violin
+  v01:"variations", v02:"folk", v03:"folk", v04:"folk", v05:"song", v06:"folk", v07:"song", v08:"tempo", v09:"perpetuum", v10:"tempo",
+  v11:"tempo", v12:"etude", v13:"minuet", v14:"minuet", v15:"minuet", v16:"album", v17:"gavotte", v18:"excerpt", v19:"musette", v20:"excerpt",
+  v21:"variations", v22:"waltz", v23:"bourree", v24:"lied", v25:"character", v26:["gavotte","excerpt"], v27:"gavotte", v28:"minuet", v29:["minuet","chamber"],
+  // piano - general
+  p01:"minuet", p02:"prelude", p03:"sonata", p04:"sonata", p05:"rondo", p06:"sonata", p07:"album", p08:"character", p09:"prelude", p10:"waltz",
+  p11:"album", p12:["arabesque","etude"], p13:"character", p14:"toccata", p15:"album",
+  // piano - played
+  k01:"invention", k02:"fugue", k03:"fugue", k04:"concerto", k05:"sonata", k06:"sonata", k07:"sonata", k08:["rondo","sonata"], k09:"chamber", k10:"sonata",
+  k11:"album", k12:"album", k13:"character", k14:"nocturne", k15:"waltz", k16:"waltz", k17:"waltz", k18:"impromptu", k19:"polonaise", k20:"etude",
+  k21:"character", k22:["fourhands","folkdance"], k23:"character", k24:"arabesque", k25:"album", k26:["fourhands","folkdance"], k27:"serenade", k28:"etude",
+  k29:"concerto", k30:"folkdance", k31:"variations", k32:"mazurka", k33:"ensemble"
+};
+
 
 </script>
 <script>
@@ -1341,15 +1394,18 @@ function showTab(t){$$("#nav button").forEach(b=>b.classList.toggle("on",b.datas
 $$("#nav button").forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 
 // ---------- pieces
-let inst="all", byComposer=null, byEra=null;
+let inst="all", byComposer=null, byEra=null, byGenre=null;
+const genresOf=p=>[].concat(PIECE_GENRE[p.id]||[]).map(id=>GENRES.find(g=>g.id===id)).filter(Boolean);
 function pieceHTML(p){
   const c=COMPOSERS[p.composer]||{name:p.composer,en:""};
   const T=G(new Set([c.name]));
   const li=a=>"<ul>"+a.map(x=>"<li>"+T(x)+"</li>").join("")+"</ul>";
   const yt="https://www.youtube.com/results?search_query="+encodeURIComponent(p.q);
-  return `<details class="piece" id="${p.id}"><summary><span class="t">${p.inst==="piano"?"🎹":"🎻"} ${esc(p.title)}</span><span class="e">${esc(p.en)}</span>${p.played?`<span class="badge">★ 孩子弹过 ${esc(p.played)}</span>`:""}<span class="h">${esc(p.hook)}</span></summary>
+  const gs=genresOf(p), sur=p.composer==="folk"?"Folk":c.en.split(" ").pop();
+  return `<details class="piece" id="${p.id}"><summary><span class="t">${p.inst==="piano"?"🎹":"🎻"} ${esc(p.title)}</span><span class="c">${esc(c.name)} ${esc(sur)}</span>${p.played?`<span class="badge">★ 孩子弹过 ${esc(p.played)}</span>`:""}<span class="s2">${gs.map(g=>esc(g.name.split(" ")[0])).join(" · ")}${gs.length?" · ":""}${esc(p.en)}</span><span class="h">${esc(p.hook)}</span></summary>
   <div class="body">
    <div class="meta" style="align-items:center">${ava(p.composer,"sm")}<span class="chip">作曲 ${esc(c.name)} ${esc(c.en)}</span><span class="chip">${esc(p.year)}</span><button class="chip chiplink" data-goto="history" data-anchor="era-${p.period}">${esc(PERIOD_NAME[p.period]||"")} ›</button><button class="chip chiplink" data-goto="composers" data-anchor="c-${p.composer}">关于${esc(c.name)} ›</button>${p.bpm?`<span class="chip">参考速度 ≈ ${p.bpm} BPM</span>`:""}</div>
+   ${gs.length?`<h4>这是什么体裁 What kind of piece</h4>`+gs.map(g=>`<p><b>${esc(g.name)}</b>:${T(g.what)} <button class="chip chiplink" data-goto="history" data-anchor="genre-${g.id}">更多 ›</button></p>`).join(""):""}
    <h4>背景故事 Background</h4><p>${T(p.bg)}</p>
    <h4>讲的是什么 · 情绪 What it's about</h4><p>${T(p.about)}</p>
    ${p.skill?`<h4>这首在练什么 Skill</h4><p>${T(p.skill)}</p>`:""}
@@ -1363,12 +1419,12 @@ function pieceHTML(p){
 }
 function renderPieces(){
   const q=$("#q").value.trim().toLowerCase();
-  const list=PIECES.filter(p=>(inst==="all"||p.inst===inst||(inst==="played"&&p.played))&&(!byComposer||p.composer===byComposer)&&(!byEra||p.period===byEra)&&(!q||[p.title,p.en,p.hook,(COMPOSERS[p.composer]||{}).name,(COMPOSERS[p.composer]||{}).en].join(" ").toLowerCase().includes(q)));
+  const list=PIECES.filter(p=>(inst==="all"||p.inst===inst||(inst==="played"&&p.played))&&(!byComposer||p.composer===byComposer)&&(!byEra||p.period===byEra)&&(!byGenre||genresOf(p).some(g=>g.id===byGenre))&&(!q||[p.title,p.en,p.hook,(COMPOSERS[p.composer]||{}).name,(COMPOSERS[p.composer]||{}).en].join(" ").toLowerCase().includes(q)));
   const groups={};list.forEach(p=>{const g=(p.inst==="piano"?"🎹 钢琴 · ":"🎻 小提琴 · ")+p.group;(groups[g]=groups[g]||[]).push(p)});
   $("#list").innerHTML=Object.entries(groups).map(([g,ps])=>`<h2 class="grp">${esc(g)} (${ps.length})</h2>`+ps.map(pieceHTML).join("")).join("")||"<p class='note'>没有找到。试试别的关键词。</p>";
-  const f=byComposer?COMPOSERS[byComposer].name:byEra?PERIOD_NAME[byEra]:null;
+  const f=byComposer?COMPOSERS[byComposer].name:byEra?PERIOD_NAME[byEra]:byGenre?(GENRES.find(g=>g.id===byGenre)||{}).name:null;
   $("#filterNote").innerHTML=f?`只显示:${esc(f)} · <a href="#" id="clearComp">显示全部</a>`:"";
-  if(f)$("#clearComp").onclick=e=>{e.preventDefault();byComposer=null;byEra=null;renderPieces()};
+  if(f)$("#clearComp").onclick=e=>{e.preventDefault();byComposer=null;byEra=null;byGenre=null;renderPieces()};
   applyImages();
 }
 $$("#instSeg button").forEach(b=>b.onclick=()=>{inst=b.dataset.v;$$("#instSeg button").forEach(x=>x.classList.toggle("on",x===b));renderPieces()});
@@ -1394,8 +1450,10 @@ $("#eras").innerHTML=ERAS.filter(e=>!e.hidden).map(e=>{const kids=PIECES.filter(
   <p><b>入门先听:</b> ${e.listen.map(l=>`<a href="${yt(l[1])}" target="_blank" rel="noopener">▶ ${esc(l[0])}</a>`).join(" · ")}</p>
   <p class="note">💡 ${T(e.tip)}</p>
   ${kids?`<button class="btn" data-era="${e.id}">孩子的曲目里有 ${kids} 首属于这个时期 →</button>`:""}</div>`}).join("");
-$("#eras").addEventListener("click",e=>{const b=e.target.closest("[data-era]");if(!b)return;byEra=b.dataset.era;byComposer=null;inst="all";$$("#instSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v==="all"));$("#q").value="";renderPieces();showTab("pieces")});
-$("#genres").innerHTML=GENRES.map(g=>{const T=G(new Set([g.name.split(" ")[0]]));return `<div class="card"><h3>${esc(g.name)}</h3><p>${T(g.what)}</p><p class="note"><b>怎么认:</b>${T(g.hear)}</p><p class="note"><b>例子:</b>${T(g.eg)}</p></div>`}).join("");
+$("#eras").addEventListener("click",e=>{const b=e.target.closest("[data-era]");if(!b)return;byEra=b.dataset.era;byComposer=null;byGenre=null;inst="all";$$("#instSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v==="all"));$("#q").value="";renderPieces();showTab("pieces")});
+$("#genres").innerHTML=[...new Set(GENRES.map(g=>g.cat))].map(cat=>`<h3 class="gcat">${esc(cat)}</h3><div class="grid">`+GENRES.filter(g=>g.cat===cat).map(g=>{const T=G(new Set([g.name.split(" ")[0]]));const kids=PIECES.filter(p=>genresOf(p).some(x=>x.id===g.id)).length;
+  return `<div class="card" id="genre-${g.id}"><h3>${esc(g.name)}</h3><p>${T(g.what)}</p><p class="note"><b>怎么认:</b>${T(g.hear)}</p><p class="note"><b>例子:</b>${T(g.eg)}</p>${kids?`<button class="btn" data-genre="${g.id}">孩子的曲目里有 ${kids} 首 →</button>`:""}</div>`}).join("")+"</div>").join("");
+$("#genres").addEventListener("click",e=>{const b=e.target.closest("[data-genre]");if(!b)return;byGenre=b.dataset.genre;byComposer=null;byEra=null;inst="all";$$("#instSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v==="all"));$("#q").value="";renderPieces();showTab("pieces")});
 const cats=[...new Set(GLOSSARY.map(g=>g[0]))];let glCat=cats[0];
 $("#glSeg").innerHTML=cats.map(c=>`<button data-v="${esc(c)}">${esc(c)}</button>`).join("");
 function renderGloss(){$$("#glSeg button").forEach(b=>b.classList.toggle("on",b.dataset.v===glCat));const rows=GLOSSARY.filter(g=>g[0]===glCat);const hasBpm=rows.some(r=>r[3]);$("#gloss").innerHTML=`<tr><th>术语 Term</th><th>意思</th>${hasBpm?"<th>大约 BPM</th>":""}</tr>`+rows.map(r=>`<tr><td><b>${esc(r[1])}</b></td><td>${G(new Set())(r[2])}</td>${hasBpm?`<td>${esc(r[3])}</td>`:""}</tr>`).join("")}
@@ -1406,7 +1464,7 @@ const counts={};PIECES.forEach(p=>counts[p.composer]=(counts[p.composer]||0)+1);
 const born=c=>parseInt((c.years.match(/\d{4}/)||["9999"])[0],10);
 $("#comps").innerHTML=ERAS.map(e=>{const cs=Object.entries(COMPOSERS).filter(([,c])=>c.period===e.id).sort((a,b)=>born(a[1])-born(b[1]));if(!cs.length)return"";
   return `<h2 class="grp">${esc(e.name)} ${esc(e.years)}</h2><div class="grid">`+cs.map(([id,c])=>`<div class="card" id="c-${id}"><div class="chead">${ava(id)}<div><h3>${esc(c.name)}</h3><div class="note">${esc(c.en)}</div><div class="note">${esc(c.years)}${counts[id]?' · <span class="comp-has">● 孩子的曲目里有</span>':""}</div></div></div><p>${G(new Set([c.name]))(c.bio)}</p>${counts[id]?`<button class="btn" data-comp="${id}">看曲目 (${counts[id]})</button>`:""}</div>`).join("")+"</div>"}).join("");
-$("#comps").addEventListener("click",e=>{const b=e.target.closest("[data-comp]");if(!b)return;byComposer=b.dataset.comp;byEra=null;inst="all";$$("#instSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v==="all"));$("#q").value="";renderPieces();showTab("pieces")});
+$("#comps").addEventListener("click",e=>{const b=e.target.closest("[data-comp]");if(!b)return;byComposer=b.dataset.comp;byEra=null;byGenre=null;inst="all";$$("#instSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v==="all"));$("#q").value="";renderPieces();showTab("pieces")});
 
 // ---------- audio core (pure functions exposed for testing)
 const NOTE=["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"];
