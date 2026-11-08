@@ -165,6 +165,9 @@ th{color:var(--mute);font-weight:500}
   <h2 class="grp">分析三:老师的话说明了什么 What the teachers' words suggest</h2>
   <p class="note">邮件里老师的话(转述,不是原文)和它背后的含义。</p>
   <div id="jObs"></div>
+  <h2 class="grp">他自己的话 In his own words</h2>
+  <p class="note">来自他在 2025 和 2026 年申请时自己写的信(中文为翻译,斜体为挪威语原文节选)。</p>
+  <div id="jWords"></div>
   <h2 class="grp">接下来 + 家长能做什么 What's next & how to help</h2>
   <div class="grid" id="jNext"></div>
   <div id="jKey"></div>
@@ -1033,7 +1036,7 @@ const PIANO = [
  bpm:160, praise:["好有冲劲,像骑马冲锋!"], q:"Kabalevsky Toccatina Op 27 No 12"},
 {id:"p15", group:"印象派 Impressionism", title:"格拉杜斯博士", en:"Doctor Gradus ad Parnassum (Children's Corner)", composer:"debussy", year:"1908", period:"impressionism",
  hook:"德彪西取笑枯燥的钢琴练习曲:一个小女孩在练琴,越练越走神。",
- bg:"出自《儿童园地》,写给女儿'小丘丘'。标题拿克莱门蒂的练习曲集《通往帕纳斯山之路》(Gradus ad Parnassum) 开玩笑——就是孩子们必须弹的那种无聊练习曲。德彪西想象一个孩子在练习,刚开始很认真,中间走神做白日梦,最后急急忙忙弹完了事。",
+ bg:"出自《儿童园地》,写给女儿'小丘丘'。标题拿克莱门蒂的练习曲集《通往帕纳斯山之路》(Gradus ad Parnassum) 开玩笑——就是孩子们必须弹的那种无聊练习曲。德彪西想象一个孩子在练习,刚开始很认真,中间走神做白日梦,最后急急忙忙弹完了事。2026年比赛的评委写道:这首里'做出了很多细节,音乐的塑形很好';建议继续做对比,在歌唱性的段落里找到更多的安静,好让细节和音色有更多空间。",
  about:"幽默、流动、带画面感。开头像认真的手指练习,中间慢下来、和声变朦胧(走神了),最后加速冲刺。",
  structure:["开头:像练习曲一样流动的十六分音符","中段:慢下来,朦胧梦幻(孩子走神)","回归:又开始认真练习","结尾:越来越快,冲向结束(终于练完了!)"],
  checks:["开头流动的音符是否均匀轻盈","中段是否有'走神/做梦'的朦胧感(速度放松、音色变柔)","结尾冲刺是否兴奋有力","踏板是否营造了色彩而不糊"],
@@ -1052,12 +1055,14 @@ Object.assign(COMPOSERS, {
     bio:"法国管风琴家和作曲家,在巴黎教堂任职,写了大量轻巧好听的钢琴沙龙小品,适合学生演奏。今天名气不大,资料也较少。"},
   czerny:{name:"车尔尼", en:"Carl Czerny", years:"1791–1857", period:"classical",
     bio:"维也纳钢琴教育家,贝多芬的学生、李斯特的老师——处在钢琴史最关键的一条传承线上。他写了上千首练习曲,几乎每个学钢琴的孩子都练过。阿农 (Charles-Louis Hanon, 1819–1900) 是法国的钢琴教师,他的《钢琴演奏家》手指练习也是全世界通用的技术教材。"},
+  scarlatti:{name:"斯卡拉蒂", en:"Domenico Scarlatti", years:"1685–1757", period:"baroque",
+    bio:"意大利作曲家,和巴赫、亨德尔同年出生。后半生在葡萄牙和西班牙宫廷当公主的音乐教师,为她写了 555 首单乐章的键盘奏鸣曲——短小、机智、常常模仿西班牙吉他和响板,手要跨越、交叉、快速重复音。编号用 K.(Kirkpatrick)或 L.(Longo)。"},
   vanhal:{name:"万哈尔", en:"Johann Baptist Vanhal", years:"1739–1813", period:"classical",
     bio:"波希米亚(今捷克)出生的作曲家,在维也纳工作,是海顿、莫扎特的同代人——据记载他曾和海顿、莫扎特、迪特斯多夫一起拉过弦乐四重奏。他写了大量旋律好听、结构清楚的教学小品,他的小回旋曲和小奏鸣曲至今是初学者常弹的曲目。名字也拼作 Wanhal。"},
   asheim:{name:"阿斯海姆", en:"Nils Henrik Asheim", years:"1960–", period:"contemporary",
     bio:"挪威作曲家、管风琴家,出生于奥斯陆,长期在斯塔万格工作。他的作品常把古典传统和当代、即兴、跨界的元素放在一起,也常为学生和非职业演奏者的大型群体创作——很多孩子一起演奏一部作品。"}
 });
-Object.assign(WIKI, {khachaturian:"Aram_Khachaturian", moszkowski:"Moritz_Moszkowski", wachs:"", czerny:"Carl_Czerny", asheim:"Nils_Henrik_Asheim", vanhal:"Johann_Baptist_Wanhal"});
+Object.assign(WIKI, {khachaturian:"Aram_Khachaturian", moszkowski:"Moritz_Moszkowski", wachs:"", czerny:"Carl_Czerny", asheim:"Nils_Henrik_Asheim", vanhal:"Johann_Baptist_Wanhal", scarlatti:"Domenico_Scarlatti"});
 
 // badges for cards that were already in the app
 const PLAYED_EXISTING = {p03:"2022", p04:"2023", p06:"2025(含第三乐章)", p15:"2025–2026"};
@@ -1127,9 +1132,9 @@ PIANO.push(
  checks:["开头主题是否轻巧、清楚,不慌","A大调'进行曲'段落是否有气势,左手的'鼓声'整齐","速度是否稳定(很多人越弹越快)","强弱对比"],
  mistakes:["越弹越快","左手'鼓声'太乱太响,盖住右手"],
  bpm:120, praise:["真的像军乐队在打鼓!","你从2022年就弹过这首,现在听起来稳多了。"], q:"Mozart Rondo alla turca K 331"},
-{id:"k09", group:"古典 Classical", title:"降B大调钢琴三重奏(可能是 K.502)", en:"Piano Trio in B-flat major (probably K. 502)", composer:"mozart", year:"1786", period:"classical", played:"2024",
+{id:"k09", group:"古典 Classical", title:"降B大调钢琴三重奏 K.502", en:"Piano Trio in B-flat major, K. 502", composer:"mozart", year:"1786", period:"classical", played:"2024",
  hook:"钢琴、小提琴、大提琴三个人一起'聊天'——第一次真正的室内乐。",
- bg:"邮件里写的是'莫扎特降B大调三重奏',最可能是1786年写的 K.502(那一年他还写了《费加罗的婚礼》)。莫扎特的钢琴三重奏里,钢琴往往是主角,小提琴和大提琴与它对话。",
+ bg:"1786年写成,那一年莫扎特还写了《费加罗的婚礼》(2025年的申请表上写明了 K.502)。莫扎特的钢琴三重奏里,钢琴往往是主角,小提琴和大提琴与它对话。",
  about:"明朗、温暖、像朋友之间愉快的交谈。三件乐器轮流说出旋律,又互相伴奏。",
  structure:["第1乐章 Allegro:一个亲切的主题在三件乐器间传递","第2乐章 Larghetto:慢,抒情","第3乐章 Allegretto:轻快、愉悦地结束"],
  checks:["三个人是否'一起呼吸':开头、换速度、结尾都整齐","钢琴是否会在别人唱旋律时变轻(这叫'平衡')","有没有互相看、互相听","一个人出错时其他人是否稳住"],
@@ -1193,7 +1198,7 @@ PIANO.push(
  bpm:200, praise:["真像小狗在追自己的尾巴,转啊转!"], q:"Chopin Minute Waltz Op 64 No 1"},
 {id:"k17", group:"浪漫 Romantic", title:"降A大调华丽圆舞曲 Op.34 No.1", en:"Waltz in A-flat major 'Valse brillante', Op. 34 No. 1", composer:"chopin", year:"1835(1838年出版)", period:"romantic", played:"2026",
  hook:"舞会开场的号角!孩子在比赛中演奏并获奖的曲目之一。",
- bg:"肖邦在1835年写成,1838年以'三首华丽圆舞曲'出版,这是第一首。它是真正'舞会气氛'的圆舞曲:节日、灯光、旋转的裙子。孩子2026年用它参加了钢琴比赛。乐谱上常常只印 Grande valse brillante,而 Op.18(降E大调)也叫这个名字,所以报名时一度写成了 Op.18,后来由老师更正为 Op.34 No.1。",
+ bg:"肖邦在1835年写成,1838年以'三首华丽圆舞曲'出版,这是第一首。它是真正'舞会气氛'的圆舞曲:节日、灯光、旋转的裙子。孩子2026年用它参加了钢琴比赛。乐谱上常常只印 Grande valse brillante,而 Op.18(降E大调)也叫这个名字,所以报名时一度写成了 Op.18,后来由老师更正为 Op.34 No.1。比赛评委写道:特别喜欢这首里'那股推进力、俏皮的速度伸缩和音乐的律动';建议是速度别快到让控制消失——'让音乐多呼吸'。",
  about:"开头像号角宣布'舞会开始';接着是一个又一个不同性格的舞曲段落——有的轻盈、有的热烈、有的俏皮;结尾辉煌。",
  structure:["引子:号角般的和弦","A:主圆舞曲,明亮","B、C:几个不同的舞曲段落轮流出现(俏皮的、热烈的、歌唱的)","A:主题回来","尾声:快速、华丽地收尾"],
  checks:["引子是否有气势","每个段落性格是否不同","左手圆舞曲节奏是否轻盈有弹性","快速段落清楚","结尾辉煌但不乱"],
@@ -1257,7 +1262,7 @@ PIANO.push(
  bpm:76, praise:["好像在看水波一层层流过去。"], q:"Debussy Arabesque No 1"},
 {id:"k25", group:"20世纪 20th c.", title:"儿童画册(选曲)", en:"Children's Album / Pictures of Childhood (selected pieces)", composer:"khachaturian", year:"1947 / 1965", period:"c20", played:"2023–2025",
  hook:"《马刀舞》作者写给孩子的小曲:有亚美尼亚的节奏和现代的和声。",
- bg:"哈恰图良写了两册给孩子的钢琴曲(1947年、1965年)。每首都有标题,比如'伊万在唱歌''伊万今天不能出去玩'这类孩子生活的场景,还有一首有名的《托卡塔》。孩子学了第一册(1947年)里的好几首——邮件里提到第2、3、4、5、9、10首——2024年秋在音乐会上弹过其中几首,2025年春的独奏会上也有六首。",
+ bg:"哈恰图良写了两册给孩子的钢琴曲(1947年、1965年)。每首都有标题,比如'伊万在唱歌''伊万今天不能出去玩'这类孩子生活的场景,还有一首有名的《托卡塔》。孩子学了第一册(1947年)里的好几首,2024年秋在音乐会上弹过其中几首;2025年5月3日的独奏会上演奏了六首:第3首《利亚多病了》、第4首《生日》、第5首《练习曲》、第6首《音乐图画》、第9首《骑士进行曲》、第10首《民谣风格》。每首标题就是它讲的故事:生病的小朋友、生日聚会、一幅音乐的画、骑兵的进行。",
  about:"短小、有画面感:有的抒情忧伤,有的节奏强烈、不规则,带东方(亚美尼亚)的味道;和声有时'不太常规',是20世纪的声音。",
  structure:["每首1–3分钟,通常是 A-B-A 或一个画面从头到尾","注意每首的标题——它就是这首曲子讲的故事"],
  checks:["每首的性格是否鲜明(问孩子标题是什么)","节奏是否清楚,尤其是不规则的重音","抒情的曲子是否能'唱'出来"],
@@ -1287,9 +1292,9 @@ PIANO.push(
  checks:["每个音是否一样响、一样长(均匀)","速度稳定,不越来越快","手腕放松(看他的手,不应该僵硬或耸肩)","慢练是否认真——慢而准,比快而乱更好"],
  mistakes:["只追求快,音不均匀","手腕和肩膀紧张"],
  bpm:120, praise:["这些音像一颗颗珍珠一样均匀。","我知道练习曲很枯燥,你坚持练得真好。"], q:"Czerny School of Velocity Op 299"},
-{id:"k29", group:"古典 Classical", title:"第一钢琴协奏曲 Op.15", en:"Piano Concerto No. 1 in C major, Op. 15", composer:"beethoven", year:"1795(1801年出版)", period:"classical", played:"2023 计划",
+{id:"k29", group:"古典 Classical", title:"第一钢琴协奏曲 Op.15", en:"Piano Concerto No. 1 in C major, Op. 15", composer:"beethoven", year:"1795(1801年出版)", period:"classical", played:"2024–2025",
  hook:"贝多芬的'第一'协奏曲其实是他写的第二部——出版顺序颠倒了编号。",
- bg:"贝多芬二十多岁刚在维也纳站稳脚跟时写成,1795年首演由他自己担任钢琴独奏。虽然编号第一,实际写作晚于降B大调的'第二'协奏曲,只是先出版。献给他的学生凯格列维奇伯爵小姐。邮件里:2022年底老师写道新年后开始学这首协奏曲,之后没有再提到——究竟学了多少,问问孩子。",
+ bg:"贝多芬二十多岁刚在维也纳站稳脚跟时写成,1795年首演由他自己担任钢琴独奏。虽然编号第一,实际写作晚于降B大调的'第二'协奏曲,只是先出版。献给他的学生凯格列维奇伯爵小姐。2022年底老师就写道新年后要开始学这首协奏曲;2025年3月申请周六少年班的表格上,它被列为'过去一年练习/演出过的曲目'之一——所以 2024/25 学年确实练了(至少一个乐章)。具体练到哪里,问问孩子。",
  about:"C大调,明亮、庆典般的气氛。第一乐章像军乐队的进行;第二乐章转到降A大调,深情宽广;第三乐章回旋曲,俏皮,带着乡村舞蹈的幽默。",
  structure:["第1乐章:乐队先奏出长长的引子,钢琴才进入","钢琴与乐队轮流发展主题","华彩段 (cadenza):钢琴独自炫技(贝多芬自己写了三个版本)","第2乐章 Largo:宽广的慢歌","第3乐章 Rondo:俏皮的主题一次次回来"],
  checks:["钢琴第一次进入时是否清楚、有自信","和伴奏(乐队或第二架钢琴)是否对齐","慢乐章是否歌唱","回旋曲主题每次回来是否同样有精神"],
@@ -1311,9 +1316,9 @@ PIANO.push(
  checks:["每个变奏里能不能听出原来的主题","小调变奏的情绪有没有变化","各变奏之间速度是否一致,不忽快忽慢"],
  mistakes:["变奏之间速度乱","小调变奏没有情绪变化"],
  bpm:84, praise:["我每一段都能听出那个主题,只是穿了不同的衣服!"], q:"Beethoven Six Variations WoO 70 Nel cor piu non mi sento"},
-{id:"k32", group:"浪漫 Romantic", title:"玛祖卡舞曲 Op.6(可能是前三首)", en:"Mazurkas, Op. 6 (probably Nos. 1–3)", composer:"chopin", year:"1830–1832", period:"romantic", played:"2024",
+{id:"k32", group:"浪漫 Romantic", title:"玛祖卡舞曲(含 F大调一首,独奏会曲目)", en:"Mazurkas — incl. the Mazurka in F major (probably Op. 68 No. 3)", composer:"chopin", year:"约1829–1830", period:"romantic", played:"2024–2025",
  hook:"肖邦最'波兰'的音乐:三拍子,但重音落在'不该'落的地方。",
- bg:"玛祖卡 (mazurka) 是波兰马佐夫舍地区的民间舞,三拍子,重音常在第二或第三拍——和圆舞曲'嘭-嚓-嚓'第一拍重完全不同。肖邦一生写了五十多首玛祖卡,Op.6 是他最早出版的一组(四首:升f小调、升c小调、E大调、降e小调),写于离开波兰前后。邮件里写的是'最早的三首玛祖卡',很可能就是 Op.6 的前三首。",
+ bg:"玛祖卡 (mazurka) 是波兰马佐夫舍地区的民间舞,三拍子,重音常在第二或第三拍——和圆舞曲'嘭-嚓-嚓'第一拍重完全不同。肖邦一生写了五十多首玛祖卡。2024 年秋老师布置了'最早的三首玛祖卡';2025 年 5 月 3 日的独奏会上他演奏了一首 F大调玛祖卡——最可能是 Op.68 No.3(肖邦少年时代写的、去世后出版的早期玛祖卡之一,F大调,里面有一段模仿风笛的民间旋律)。所以那'最早的三首'很可能就是 Op.68 的前三首。",
  about:"带着乡愁的舞蹈:时而忧郁、时而倔强、时而调皮。低音常有像风笛一样的'空五度',旋律里有即兴般的装饰音。",
  structure:["短小的段落反复出现,通常 A-B-A","中段常换一种情绪或调性","结尾有时'没说完'就停住"],
  checks:["三拍子里的重音是否落在第二或第三拍——这是玛祖卡的灵魂","是否有弹性速度 (rubato),像民间舞者的即兴","民间的粗犷和肖邦的优雅是否都有一点"],
@@ -1329,12 +1334,20 @@ PIANO.push(
  bpm:0, praise:["这么多架钢琴一起,你们是怎么对齐的?","肖邦的圆舞曲我居然在里面听出来了!"], q:"Nils Henrik Asheim Piano Actions The Great Spin"},
 {id:"k34", group:"古典 Classical", title:"回旋曲(具体哪一首不详)", en:"Rondo (which one is not recorded)", composer:"vanhal", year:"18世纪后期", period:"classical", played:"2021",
  hook:"6 岁时第一首有记录的演出曲目:在老年人的圣诞午餐上开场。",
- bg:"2021 年 12 月,第一所音乐学校为老年人圣诞午餐安排的小型演出,节目单第一行写着'6 岁,万哈尔《回旋曲》'——其他演出者都是 14 岁的大孩子。万哈尔写过多首给初学者的小回旋曲(常见的有 C 大调、F 大调的),邮件里没有写是哪一首。",
+ bg:"2021 年 11 月 22 日第一所音乐学校的圣诞音乐会节目单上写着'6 岁,万哈尔《回旋曲》';12 月 4 日又在为老年人举办的圣诞午餐上演奏它,节目单第一行——其他演出者都是 14 岁的大孩子。万哈尔写过多首给初学者的小回旋曲(常见的有 C 大调、F 大调的),邮件里没有写是哪一首。",
  about:"回旋曲 (rondo):一个轻快的主题一次次回来,中间穿插新的段落。初学者的回旋曲通常短小、明亮、好记,像一首小儿歌反复出现副歌。",
  structure:["A:主题,轻快","B:新段落","A:主题回来","(C:再一段新的)","A:主题最后一次,结束"],
  checks:["主题每次回来是否一样清楚、一样精神","节奏是否稳定","两手是否均匀"],
  mistakes:["中间段落变慢","主题回来时犹豫"],
- bpm:108, praise:["这是你 6 岁时上台弹的曲子,还记得吗?"], q:"Vanhal Rondo easy piano"}
+ bpm:108, praise:["这是你 6 岁时上台弹的曲子,还记得吗?"], q:"Vanhal Rondo easy piano"},
+{id:"k35", group:"巴洛克 Baroque", title:"C大调奏鸣曲(具体哪一首不详)", en:"Sonata in C major (K. number not recorded)", composer:"scarlatti", year:"约1740–1750年代", period:"baroque", played:"2025",
+ hook:"独奏会上的一首斯卡拉蒂:短小、机智、像西班牙吉他在弹。",
+ bg:"2025 年 5 月 3 日的独奏会节目单上有'斯卡拉蒂 C大调奏鸣曲',没有写 K. 编号。斯卡拉蒂有多首 C大调奏鸣曲,学生常弹的是 K.159(《狩猎》,6/8拍,像号角)和 K.95、K.420 等——问问孩子是哪一首。斯卡拉蒂的'奏鸣曲'和后来莫扎特的不同:只有一个乐章,两段各反复一次。",
+ about:"明快、俏皮、充满西班牙宫廷的阳光;双手常交叉,有快速的重复音和装饰音,像吉他和响板。",
+ structure:["A段(反复)","B段(反复)——巴洛克两段式;两段结尾的音型常常一样"],
+ checks:["快速重复音和装饰音是否清楚","节奏是否有弹性和舞蹈感","两段反复时有没有强弱变化","手交叉时是否干净"],
+ mistakes:["装饰音含糊","越弹越快"],
+ bpm:116, praise:["像吉他在弹一样,好有西班牙味道!"], q:"Scarlatti Sonata C major K 159"}
 );
 
 // Genres & forms, grouped by category, and the genre(s) of every piece in the app.
@@ -1400,7 +1413,7 @@ const PIECE_GENRE = {
   k01:"invention", k02:"fugue", k03:"fugue", k04:"concerto", k05:"sonata", k06:"sonata", k07:"sonata", k08:["rondo","sonata"], k09:"chamber", k10:"sonata",
   k11:"album", k12:"album", k13:"character", k14:"nocturne", k15:"waltz", k16:"waltz", k17:"waltz", k18:"impromptu", k19:"polonaise", k20:"etude",
   k21:"character", k22:["fourhands","folkdance"], k23:"character", k24:"arabesque", k25:"album", k26:["fourhands","folkdance"], k27:"serenade", k28:"etude",
-  k29:"concerto", k30:"folkdance", k31:"variations", k32:"mazurka", k33:"ensemble", k34:"rondo"
+  k29:"concerto", k30:"folkdance", k31:"variations", k32:"mazurka", k33:"ensemble", k34:"rondo", k35:"sonata"
 };
 
 // 学琴之路 — PUBLIC, anonymised: no personal names, schools, programmes, competitions or venues.
@@ -1419,12 +1432,12 @@ const JOURNEY = {
   {when:"2023-06", age:"7岁11个月", what:"第一次合奏:和老师四手联弹格里格,并与一位长笛手合作。", piece:"k22"},
   {when:"2024 春", age:"8岁9个月", what:"莫扎特钢琴三重奏,和小提琴、大提琴一起排练并演出——第一次真正的室内乐。", piece:"k09"},
   {when:"2025-03 → 05", age:"9岁9个月", what:"用录音(莫扎特 K.280 第一乐章 + 巴赫 G大调前奏曲与赋格)申请,被国家音乐学院的周六少年班和地区青少年人才项目录取(5月5日);5月18日项目为他指定了国家音乐学院的老师——老师丙。", piece:"k06"},
-  {when:"2025-05-03", age:"9岁10个月", what:"第一场完整的独奏会:巴赫前奏曲与赋格、莫扎特 K.280 全曲、哈恰图良六首。", piece:"k02"},
+  {when:"2025-05-03", age:"9岁10个月", what:"第一场完整的独奏会(约 40 分钟):巴赫 G大调前奏曲与赋格;莫扎特 K.280 全曲(三个乐章);斯卡拉蒂 C大调奏鸣曲;哈恰图良《儿童画册》六首(《利亚多病了》《生日》《练习曲》《音乐图画》《骑士进行曲》《民谣风格》);肖邦 F大调玛祖卡;贝多芬《月光》第一乐章。", piece:"k06"},
   {when:"2026-01-17", age:"10岁6个月", what:"人才项目秋季结业音乐会,在国家音乐学院的音乐厅,和同学四手联弹;主办方:'听你们演奏是一种享受'。", piece:"k26"},
   {when:"2026-01-28", age:"10岁7个月", what:"音乐特色学校的入学试奏(莫扎特 K.311 第一乐章),2026 年秋入学。", piece:"k07"},
   {when:"2026-03 → 05", age:"10岁9个月", what:"一个春天学了三首肖邦圆舞曲,其中《小狗圆舞曲》大约一周学会;两场音乐会。4月获准继续人才项目第二年(两位老师的推荐信 + 他自己写的动机信)。", piece:"k16"},
   {when:"2026-09-19", age:"11岁3个月", what:"参加当代作曲家的群体钢琴作品《大旋转》,在一家美术馆的音乐厅演出。", piece:"k33"},
-  {when:"2026-10", age:"11岁4个月", what:"地区青少年钢琴比赛第一组别获胜:肖邦《华丽圆舞曲》Op.34 No.1 + 德彪西《格拉杜斯博士》。", piece:"k17"}
+  {when:"2026-10", age:"11岁4个月", what:"地区青少年钢琴比赛第一组别获胜:肖邦《华丽圆舞曲》Op.34 No.1 + 德彪西《格拉杜斯博士》。评委书面评语:'展现出很大的天赋,技术对这个年龄来说非常好';建议:速度别快到让控制消失,'让音乐多呼吸'。", piece:"k17"}
  ],
  years:[
   {label:"2020 夏 – 2021 夏", age:"4岁11个月 – 6岁", title:"启蒙:第一所音乐学校,疫情中的第一年", items:[
@@ -1436,7 +1449,7 @@ const JOURNEY = {
    pieces:[]},
   {label:"2021/22 学年", age:"6岁", title:"回到线下,第一首有记录的曲子", items:[
    "9月起恢复线下课和线下小组课(周二)。",
-   "11月22日:在一座教堂礼堂举行的圣诞音乐会(3–9岁组),全体孩子一起唱三首歌;学校事后写道'所有学生唱和弹都非常棒'。",
+   "11月22日:在一座教堂礼堂举行的圣诞音乐会(3–9岁组),节目单上他的曲目是万哈尔《回旋曲》(6岁);全体孩子一起唱三首歌;学校事后写道'所有学生唱和弹都非常棒'。",
    "12月4日:为老年人圣诞午餐演出,节目单第一个:'6岁,万哈尔《回旋曲》'——其他演出者都是 14 岁。",
    "2022年1–2月:启蒙老师认为他可以上 40 分钟的课了,学校调整其他学生的时间来安排,2月1日起每周二 40 分钟。",
    "4月25日:春季音乐会(4–9岁组);5月7日街头市集演出,名单上有他,但那天没能去。",
@@ -1463,8 +1476,9 @@ const JOURNEY = {
    "11月:K.280 第一乐章和第二、三乐章分别在两场音乐会上演奏;12月再次与长笛手合作。",
    "1月:贝多芬《月光》(包括最后乐章)成为作业;他自己提出想弹李斯特《钟》。1月底教堂音乐会:K.280 第一乐章。",
    "2–3月:录音申请国家音乐学院的周六少年班和地区青少年人才项目——两个都被录取,2025/26 学年起参加。",
-   "5月3日:第一场完整的独奏会(9岁10个月):巴赫前奏曲与赋格、莫扎特 K.280 全曲、哈恰图良六首,可能还有贝多芬。"],
-   pieces:["k25","k06","k02","k32","k19","p06","k20"]},
+   "这一学年还练了贝多芬第一钢琴协奏曲——3月的申请表把它列为'过去一年练习/演出过的曲目'之一(和 K.280、巴赫前奏曲与赋格、《月光》、莫扎特三重奏 K.502 并列)。",
+   "5月3日:第一场完整的独奏会(9岁10个月),曲目:巴赫 G大调前奏曲与赋格 · 莫扎特 K.280 全曲 · 斯卡拉蒂 C大调奏鸣曲 · 哈恰图良《儿童画册》六首 · 肖邦 F大调玛祖卡 · 贝多芬《月光》第一乐章。"],
+   pieces:["k25","k06","k02","k35","k32","k29","k09","p06","k20"]},
   {label:"2025/26 学年", age:"10岁", title:"浪漫派的门打开了;进入人才项目", items:[
    "2025年5月:被地区青少年人才项目(与国家音乐学院合办)录取。项目包括:国家音乐学院老师的个别课(每学年 8 节 60 分钟)、几次全天合奏集训(钢琴学生弹四手联弹或双钢琴)、秋季合奏音乐会和春季独奏音乐会。老师甲参与了为他选定国家音乐学院的老师——老师丙。",
    "8–9月:和同学四手联弹莫什科夫斯基《西班牙舞曲》第1、2首(第1首弹低音声部,第2首弹高音声部)——这是项目布置的合奏曲目,老师甲在课上陪练,9月22日先在文化学校的家庭音乐会上和老师甲合奏了一遍。",
@@ -1485,7 +1499,7 @@ const JOURNEY = {
  threads:[
   {name:"巴洛克 · 复调 Baroque counterpoint", steps:[["2023","二部创意曲 第1、4首","k01"],["2024","G大调前奏曲(先学前奏曲)","k02"],["2024–25","G大调前奏曲与赋格全曲,用于录音和独奏会","k02"],["2025","《意大利协奏曲》开始,后暂缓","k04"],["2026","c小调前奏曲与赋格","k03"]],
    skill:"两手各自独立 → 三个声部同时清楚 → 大型巴洛克作品的耐力和成熟度。老师几乎每年安排一首新的巴赫——'每年一首巴赫'是传统的做法。"},
-  {name:"古典 · 奏鸣曲 Classical sonata line", steps:[["2021","万哈尔《回旋曲》(6岁)","k34"],["2022","克莱门蒂小奏鸣曲 Op.36 No.1 全曲","p03"],["2023","莫扎特 K.545 第一乐章","p04"],["2024–25","莫扎特 K.280 全曲","k06"],["2026","莫扎特 K.311","k07"],["2026","海顿 e小调奏鸣曲","k05"],["2026","贝多芬 Op.10 No.1","k10"]],
+  {name:"古典 · 奏鸣曲 Classical sonata line", steps:[["2021","万哈尔《回旋曲》(6岁)","k34"],["2022","克莱门蒂小奏鸣曲 Op.36 No.1 全曲","p03"],["2023","莫扎特 K.545 第一乐章","p04"],["2024–25","莫扎特 K.280 全曲","k06"],["2025","斯卡拉蒂 C大调奏鸣曲(独奏会)","k35"],["2024–25","贝多芬第一钢琴协奏曲(开始)","k29"],["2026","莫扎特 K.311","k07"],["2026","海顿 e小调奏鸣曲","k05"],["2026","贝多芬 Op.10 No.1","k10"]],
    skill:"从'迷你奏鸣曲'到真正的三乐章奏鸣曲,再到小调的、有戏剧性的海顿和贝多芬——这是理解奏鸣曲式、培养均匀清晰触键的主线。《土耳其进行曲》2022年学、2026年在大师班上重弹,是看成长最好的标尺。"},
   {name:"浪漫 · 歌唱与炫技 Romantic singing & virtuosity", steps:[["2022–23","格里格《小鸟》、舒曼小品","k21"],["2022 / 2025","肖邦夜曲 Op.9 No.2(7岁布置,10岁真正练成)","k14"],["2025","贝多芬《月光》含第三乐章","p06"],["2026","三首肖邦圆舞曲:e小调、《小狗》、Op.34 No.1","k17"],["2025–26","《幻想即兴曲》、波兰舞曲 Op.40、李斯特《钟》","k18"]],
    skill:"先学'让钢琴唱歌'(夜曲、小品),再进入需要速度、跳跃和踏板控制的炫技作品。2026年春一个季度学了三首肖邦圆舞曲,说明读谱和记忆的速度已经很快。"},
@@ -1506,8 +1520,13 @@ const JOURNEY = {
    ["2025 · 10岁","《月光》含第三乐章、肖邦夜曲 Op.9 No.2、《意大利协奏曲》(开始)","约 8 级 → 文凭级"],
    ["2026 · 11岁","肖邦 Op.34 No.1、《小狗圆舞曲》、《幻想即兴曲》、贝多芬 Op.10 No.1、海顿、德彪西","约 8 级 → 文凭级(ARSM / DipABRSM 水平的曲目);李斯特《钟》属于音乐会级别,正在慢慢学"]
   ],
-  external:"外部印证:2025年通过录音被国家音乐学院的周六少年班和地区青少年人才项目录取;2026年1月通过音乐特色学校的入学试奏;2026年10月在地区青少年钢琴比赛的组别中获胜。"
+  external:"外部印证:2025年通过录音被国家音乐学院的周六少年班和地区青少年人才项目录取;2026年1月通过音乐特色学校的入学试奏;2026年10月在地区青少年钢琴比赛的组别中获胜,三位评委的书面评语写道'技术对这个年龄来说非常好'。"
  },
+ words:[
+  {when:"2025年3月 · 9岁 · 申请人才项目的动机信", zh:"我5岁开始弹钢琴,我非常喜欢!学新曲子很好玩,我觉得自己弹出来的声音很好听。钢琴是我最喜欢的,虽然我也喜欢游泳、踢足球和冬天滑雪。……我知道加入以后必须多练习,我想每天至少要练一个小时,才能跟上两位老师的作业。我准备好努力了,弹钢琴很开心,所以我会尽力!", no:"Jeg begynte å spille piano da jeg var 5 år, og jeg liker det veldig godt! … Piano er det jeg liker aller best, selv om jeg også liker å svømme, spille fotball og stå på ski om vinteren. … Jeg er klar til å jobbe hardt og jeg synes det er gøy å spille piano, så jeg skal gjøre mitt beste!"},
+  {when:"2025年3月 · 9岁 · 申请周六少年班", zh:"我申请是因为我热爱弹钢琴,想变得更好。我觉得和别人一起演奏很好玩,期待新的挑战帮助我成长为音乐家。我也希望交到喜欢音乐的新朋友,和他们一起演奏;想参加市政厅的音乐会和大师班,因为那会让我更自信,也给我一个机会展示学到的东西。我有动力多练、学新东西、努力成为更好的钢琴家。", no:"Jeg søker fordi jeg elsker å spille piano, og jeg ønsker å bli enda bedre. … Jeg håper også å få nye venner som liker å spille musikk … Jeg er motivert for å øve mye, lære nytt og jobbe hardt for å bli en bedre pianist."},
+  {when:"2026年2月 · 10岁 · 申请人才项目第二年的动机信", zh:"这一年除了我的老师,我还跟国家音乐学院的老师上课。我学到了更多技术,学会怎样在钢琴上做出更好听的音色;也学会了更有表情地演奏,去想音乐应该怎样传达,而不只是弹对音。这些课既有挑战又让人振奋,我觉得自己进步了。我还交了一个新朋友,我们一起四手联弹《西班牙舞曲》,在合奏课和音乐会上都弹了。我学会了更好地倾听、一起保持速度、合作。在音乐学院的大厅里开音乐会特别激动,希望还能再来一次。……听到别的孩子演奏,我就想自己多练。我每天都练。", no:"Jeg har lært mer om teknikk og hvordan jeg kan lage en finere klang på piano. Jeg har også lært å spille med mer uttrykk og å tenke på hvordan musikken skal formidles, ikke bare spille riktige toner. … Jeg har lært å lytte bedre, holde tempo sammen og samarbeide når vi spiller. … Når jeg hører dem spille, får jeg lyst til å øve mer selv. Jeg øver hver dag."}
+ ],
  observations:[
   {q:"一整节 30 分钟很难集中注意力——改成 20 分钟", when:"2020-07 · 妈妈与学校", so:"起点就是一个普通的 4 岁多孩子。专注力不是天生的,是一年年练出来的:20 分钟(2020)→ 30 → 40 分钟(2022)→ 后来一场 40 分钟的独奏会(2025)。"},
   {q:"让他(5岁)提前加入 6–18 岁学生的小组课吧", when:"2020-09 · 启蒙老师", so:"老师在第一个学期就看出他能跟上大孩子;小组课里有唱歌和基础乐理——早期的唱歌训练也许是今天'唱歌般触键'的来源之一(这是推测)。"},
@@ -1522,6 +1541,8 @@ const JOURNEY = {
   {q:"孩子说老师给的曲子很难——'他以前已经驾驭过莫扎特和巴赫'", when:"2025-11 · 老师甲", so:"老师用他自己的过去回答'太难了':你做到过。家长也可以这样回应。"},
   {q:"他在项目里交到了许多同龄的音乐朋友;'像他已经是的那位钢琴家一样'每天练 1–2 小时", when:"2026-02 · 老师甲", so:"两个信号:同伴对这个年龄很重要;老师已经把他当作'钢琴家'而不是'学琴的孩子'来要求。"},
   {q:"这一年他付出很大努力;这些课和'在好的舞台上与好的音乐伙伴一起演奏'非常宝贵;老师丙是一位非常好的老师", when:"2026-05 · 老师甲写给人才项目", so:"主课老师对人才项目第一年的总结——课、舞台、同伴三样都值。"},
+  {q:"很大的天赋,技术对这个年龄非常好;有力量、音色好(尤其强奏),节奏感自然;肖邦里特别喜欢那股推进力、俏皮的速度伸缩和音乐的律动;德彪西里细节多、塑形好", when:"2026-10 · 比赛评委(三位)书面评语", so:"这是第一份来自老师之外的专业评价,和老师们的话一致:技术和推进力是强项。'速度伸缩' (agogikk) 指他会在乐句里自然地快一点慢一点——这正是你在卡片里读到的'弹性速度'。"},
+  {q:"推进力很棒,但别让速度快到音乐内容和控制消失——让音乐多呼吸;德彪西里继续做对比,在歌唱的段落找到更多安静", when:"2026-10 · 比赛评委的建议", so:"下一阶段最具体的目标:不是弹得更快,而是在快的地方留出呼吸、在慢的地方更安静。你在家听他练时,可以只问一句:'这里有没有呼吸?'"},
   {q:"《意大利协奏曲》先放一放——'太成人'", when:"2025-11 · 老师甲", so:"老师衡量的不只是手指能不能弹,还有音乐上的成熟度。被推迟不是退步。"},
   {q:"《小狗圆舞曲》大约一周学会", when:"2026-03 · 老师甲", so:"读谱和记忆速度很快,技术上这首曲子已不构成障碍。"},
   {q:"赛后把《幻想即兴曲》拿出来慢练", when:"2026-09 · 老师甲", so:"高峰之后刻意放慢——这是保护性的安排。这段时间家长不必追问'什么时候弹完'。"},
@@ -1539,7 +1560,7 @@ const JOURNEY = {
  ]
 };
 
-const PRIVATE_BLOB = {"v":1,"kdf":"PBKDF2-SHA256","iter":200000,"salt":"ukDvRNVPQrcSgHcoSdV4+Q==","iv":"jVBpl1LOwco3noZT7V9gtg==","ct":"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","mac":"bBrvKvEY0mPrnD6jsKFzBfm6oWPXAdveyLrEL7WH9Lc="};
+const PRIVATE_BLOB = {"v":1,"kdf":"PBKDF2-SHA256","iter":200000,"salt":"5Zd4zMCXGmPfB3APS/RejA==","iv":"oB//10/4rKPpAKIrO+bFxA==","ct":"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","mac":"qCfJ6z2g5DwcJd5PWyJJ/tORw0ApNfGm8EgGk4030ok="};
 
 </script>
 <script>
@@ -1842,6 +1863,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-piece]");i
   $("#jThreads").innerHTML=JOURNEY.threads.map(t=>`<div class="card"><h3>${esc(t.name)}</h3><div class="steps">${t.steps.map((s,i)=>`${i?'<span class="arrow">→</span>':""}<button class="step${s[2]?" chiplink":""}" data-piece="${s[2]||""}"><b>${esc(s[0])}</b>${esc(s[1])}</button>`).join("")}</div><p class="note" style="margin-top:8px">${Tj()(t.skill)}</p></div>`).join("");
   $("#jLevel").innerHTML=`<p class="note">${esc(JOURNEY.level.note)}</p><table><tr><th>时间</th><th>代表曲目</th><th>大致等级(参考)</th></tr>${JOURNEY.level.rows.map(r=>`<tr><td style="white-space:nowrap">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</table><p>${Tj()(JOURNEY.level.external)}</p>`;
   $("#jObs").innerHTML=JOURNEY.observations.map(o=>`<div class="card"><p>"${esc(o.q)}" <span class="note">— ${esc(o.when)}</span></p><p>→ ${Tj()(o.so)}</p></div>`).join("");
+  $("#jWords").innerHTML=(JOURNEY.words||[]).map(w=>`<div class="card"><p class="note">${esc(w.when)}</p><p>"${Tj()(w.zh)}"</p><p class="note" style="font-style:italic">${esc(w.no)}</p></div>`).join("");
   $("#jNext").innerHTML=JOURNEY.next.map(n=>`<div class="card"><h3>${esc(n.t)}</h3><p>${Tj()(n.d)}</p></div>`).join("");
 })();
 const normPass=s=>s.trim().toLowerCase().replace(/[\s_–—－·]+/g,"-").replace(/-+/g,"-");
