@@ -28,6 +28,8 @@ nav button.on{background:var(--bg);color:var(--ink);opacity:1;font-weight:600}
 .chiplink:hover{background:var(--acc);color:#fff}
 .comp-has{font-size:12px;color:var(--ok)}
 .en{color:var(--mute);font-size:.86em;margin:0 1px}
+.badge{background:#fff1c2;color:#7a5200;border-radius:20px;padding:1px 9px;font-size:12px;font-weight:600;white-space:nowrap}
+@media (prefers-color-scheme: dark){.badge{background:#4a3a12;color:#ffd97a}}
 .ava{width:76px;height:76px;border-radius:50%;object-fit:cover;object-position:top;background:var(--chip);flex:none;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--acc);overflow:hidden}
 .ava img{width:100%;height:100%;object-fit:cover;object-position:top}
 .ava.sm{width:44px;height:44px;font-size:18px}
@@ -109,7 +111,7 @@ th{color:var(--mute);font-weight:500}
 <section id="pieces" class="on">
   <div class="bar">
     <div class="seg" id="instSeg">
-      <button data-v="all" class="on">全部</button><button data-v="piano">🎹 钢琴</button><button data-v="violin">🎻 小提琴</button>
+      <button data-v="all" class="on">全部</button><button data-v="piano">🎹 钢琴</button><button data-v="violin">🎻 小提琴</button><button data-v="played">★ 孩子弹过</button>
     </div>
     <input type="search" id="q" placeholder="搜索:曲名、作曲家、英文名… 例如 Mozart、月光、Minuet">
   </div>
@@ -204,7 +206,7 @@ th{color:var(--mute);font-weight:500}
   </div>
   <div class="card"><h3>关于内容</h3>
     <ul>
-      <li>曲目目前是常见教材:铃木小提琴第1–2册,以及学琴约6年的孩子常弹的钢琴曲。孩子实际在弹的曲子不在里面?告诉 Claude 曲名,就能加卡片。</li>
+      <li>曲目包括常见教材(铃木小提琴第1–2册、常见钢琴曲),以及标有"★ 孩子弹过"的曲子——它们来自2022–2026年和老师的往来邮件。孩子开始弹新曲子?告诉 Claude 曲名,就能加卡片。</li>
       <li>内容根据通行的音乐史资料编写。有争议或不确定的地方(比如"巴赫"的小步舞曲其实是佩措尔德写的、《致爱丽丝》的爱丽丝是谁)都已注明。参考速度是常见录音的大致速度,不是标准答案。</li>
       <li>"听一听"会打开 YouTube 搜索,需要联网。其它所有内容离线可用。</li>
       <li>"我的笔记"保存在<b>当前这台设备</b>的浏览器里,手机和电脑各存各的,不会上传。换浏览器或清除浏览数据会丢失。</li>
@@ -1014,12 +1016,257 @@ const PIANO = [
  bpm:132, praise:["中间那段好像在发呆,哈哈,你练琴时也这样吗?"], q:"Debussy Doctor Gradus ad Parnassum"}
 ];
 
+// Pieces the older child has actually played (from teacher e-mails, 2022-2026). Public app: no names.
+// `played` = year(s) shown on the "孩子弹过" badge. Uncertain identifications say so in the text.
+Object.assign(COMPOSERS, {
+  khachaturian:{name:"哈恰图良", en:"Aram Khachaturian", years:"1903–1978", period:"c20",
+    bio:"亚美尼亚裔苏联作曲家。最有名的是芭蕾《加雅涅》里的《马刀舞》——那段疯狂的木琴旋律几乎人人听过。他把亚美尼亚民间音乐的节奏和色彩写进古典音乐,也为孩子写了两册《儿童画册》(Children's Album)。"},
+  moszkowski:{name:"莫什科夫斯基", en:"Moritz Moszkowski", years:"1854–1925", period:"romantic",
+    bio:"德国-波兰钢琴家、作曲家,19世纪末在柏林和巴黎非常走红。他的《西班牙舞曲》四手联弹版卖出了惊人的数量,是当年家庭客厅里最流行的乐谱之一。晚年因为音乐潮流改变而陷入贫困。"},
+  wachs:{name:"瓦克斯", en:"Paul Wachs", years:"1851–1915", period:"romantic",
+    bio:"法国管风琴家和作曲家,在巴黎教堂任职,写了大量轻巧好听的钢琴沙龙小品,适合学生演奏。今天名气不大,资料也较少。"},
+  czerny:{name:"车尔尼", en:"Carl Czerny", years:"1791–1857", period:"classical",
+    bio:"维也纳钢琴教育家,贝多芬的学生、李斯特的老师——处在钢琴史最关键的一条传承线上。他写了上千首练习曲,几乎每个学钢琴的孩子都练过。阿农 (Charles-Louis Hanon, 1819–1900) 是法国的钢琴教师,他的《钢琴演奏家》手指练习也是全世界通用的技术教材。"}
+});
+Object.assign(WIKI, {khachaturian:"Aram_Khachaturian", moszkowski:"Moritz_Moszkowski", wachs:"", czerny:"Carl_Czerny"});
+
+// badges for cards that were already in the app
+const PLAYED_EXISTING = {p03:"2022", p04:"2023", p06:"2025(含第三乐章)", p15:"2025–2026"};
+
+PIANO.push(
+{id:"k01", group:"巴洛克 Baroque", title:"二部创意曲 第1首 & 第4首", en:"Two-Part Inventions No. 1 in C major, BWV 772 & No. 4 in D minor, BWV 775", composer:"bach", year:"1720–1723", period:"baroque", played:"2023",
+ hook:"巴赫写给儿子的'作曲课':两只手各弹一条独立的旋律,像两个人在对话。",
+ bg:"巴赫为长子威廉·弗里德曼写了一本键盘学习本,后来整理成15首二部创意曲和15首三部'辛弗尼亚'(1723年誊清)。他在扉页上写明目的:让学生学会两个声部都弹得清楚,学会'如歌的演奏',并且学会如何发展一个音乐想法。三百年来几乎所有钢琴学生都弹过。",
+ about:"第1首(C大调)明亮、好奇,一个短短的小动机被两只手轮流模仿、上下翻转,像在玩接龙。第4首(d小调)是3/8拍,急促、有点紧张,一串串快速音符在两手之间追逐。",
+ structure:["开头:右手先说出一个短小的'动机'","左手马上模仿同一个动机,两手交替对话","中段:动机换调、倒过来、拉长,越走越远","结尾:回到开头的调,两手一起收住"],
+ checks:["两只手是否一样清楚——左手不是伴奏,是另一个'说话的人'","每次动机出现时能不能听出来","快速音符是否均匀","几乎不用踏板,声音干净"],
+ mistakes:["只听得到右手","速度忽快忽慢","用踏板弄糊"],
+ bpm:76, praise:["我听出左手和右手在说同一句话,一个说完另一个接!"], q:"Bach Invention 1 BWV 772 Invention 4 BWV 775"},
+{id:"k02", group:"巴洛克 Baroque", title:"G大调前奏曲与赋格", en:"Prelude and Fugue in G major (Well-Tempered Clavier, Book I BWV 860 or Book II BWV 884)", composer:"bach", year:"1722 / 1742", period:"baroque", played:"2024–2025",
+ hook:"一首流动的前奏曲,接一首三个声部互相追逐的赋格——明亮、愉快的G大调。",
+ bg:"出自巴赫《平均律钢琴曲集》,每个调都有一对'前奏曲 + 赋格'。邮件里没有写明是第一册(BWV 860)还是第二册(BWV 884)——两首都是G大调、都明朗轻快,问问孩子乐谱上写的是哪一册。",
+ about:"前奏曲像一阵不停流动的溪水,手指在键盘上一直跑;赋格是一个短小活泼的'主题',先一个声部唱,然后第二个、第三个声部依次加入模仿,像轮唱。",
+ structure:["前奏曲:一种音型从头流到尾,和声慢慢变化","赋格开始:一个声部单独唱出主题","第二、第三个声部依次进来,唱同一个主题","中间:主题在不同的调和声部里出现,有时藏在中间","结尾:所有声部汇合,明亮地收住"],
+ checks:["前奏曲是否流畅均匀,没有'卡顿'","赋格里每次主题出现时,能不能听到它(哪怕在中间声部)","几个声部是否都清楚,不是一团","节奏稳定"],
+ mistakes:["赋格只听得到最上面的声部","前奏曲速度不稳"],
+ bpm:96, praise:["赋格里那个小主题我听到了好几次,在不同的高度出现!"], q:"Bach Prelude and Fugue G major Well-Tempered Clavier"},
+{id:"k03", group:"巴洛克 Baroque", title:"c小调前奏曲与赋格", en:"Prelude and Fugue in C minor (Well-Tempered Clavier, probably Book I, BWV 847)", composer:"bach", year:"1722", period:"baroque", played:"2026",
+ hook:"前奏曲像一台高速运转的机器,赋格像一支有点俏皮的小舞曲。",
+ bg:"出自《平均律钢琴曲集》。邮件只写了'c小调',最常被学生弹的是第一册的 BWV 847,下面按这首介绍——如果孩子弹的是第二册 (BWV 871),结构会不同。BWV 847 的前奏曲是很多人的'炫技入门'。",
+ about:"前奏曲:两只手一刻不停地弹同样的快速音型,像机器、像雨点,紧张而有力;快结束时突然变成急板、然后慢下来像即兴、再冲向结尾。赋格:三个声部,主题短促、有弹性,带一点舞蹈感。",
+ structure:["前奏曲:两手同样的音型不停运转","前奏曲后段:突然加速 (Presto) → 慢下来 (Adagio) → 再快速收尾","赋格:主题先出现,另外两个声部依次加入","中间有轻快的'插段'把主题连起来","结尾停在明亮的C大调和弦上(巴洛克常见的'小调里的光')"],
+ checks:["前奏曲的音符是否均匀有力,不乱","前奏曲结尾的速度变化有没有做出来","赋格的主题每次出现是否清楚、有弹性","几个声部是否分得开"],
+ mistakes:["前奏曲越弹越快或越弹越乱","赋格太重,失去舞蹈感"],
+ bpm:120, praise:["前奏曲像一台停不下来的机器,好有力量!","最后那一下变成大调,好像天亮了。"], q:"Bach Prelude and Fugue C minor BWV 847"},
+{id:"k04", group:"巴洛克 Baroque", title:"意大利协奏曲", en:"Italian Concerto in F major, BWV 971", composer:"bach", year:"1735", period:"baroque", played:"2025",
+ hook:"一个人、一架琴,模仿一整个乐队和独奏家的对话。",
+ bg:"1735年出版于巴赫的《键盘练习曲集》第二部。当时意大利协奏曲(维瓦尔第式)非常流行:乐队全体 (tutti) 和独奏 (solo) 轮流演奏。巴赫把这种效果搬到一件键盘乐器上——原本用两层键盘的羽管键琴,一层响一层轻,在钢琴上就要靠手指做出'乐队'和'独奏'的对比。",
+ about:"第一乐章阳光、自信,像乐队开场;第二乐章是一首长长的、装饰很多的咏叹调,左手是低沉稳定的伴奏;第三乐章急板,飞快、欢乐。",
+ structure:["第1乐章:'乐队'大声齐奏的主题 ↔ 轻声的'独奏'段落轮流出现","第2乐章 Andante:右手像歌唱家一样唱出华丽的旋律","第3乐章 Presto:快速、欢快,'乐队'和'独奏'继续对答"],
+ checks:["能不能听出'大声的全体'和'轻声的独奏'两种音色","第二乐章的旋律是否像唱歌、装饰音是否自然","第三乐章是否轻快干净,不乱","三个乐章性格是否不同(快—慢—快)"],
+ mistakes:["整首一个音量,听不出乐队和独奏","第三乐章太快导致不清楚"],
+ bpm:100, praise:["我好像听到一个乐队和一个独奏家在轮流演奏!"], q:"Bach Italian Concerto BWV 971"},
+{id:"k05", group:"古典 Classical", title:"e小调奏鸣曲 Hob. XVI:34", en:"Piano Sonata in E minor, Hob. XVI:34", composer:"haydn", year:"约1780年代初(1784年出版)", period:"classical", played:"2026",
+ hook:"'交响曲之父'海顿少见的小调奏鸣曲:紧张、急促,又带着幽默。",
+ bg:"海顿一生写了六十多首钢琴奏鸣曲,大部分是明亮的大调。这首e小调是其中情绪最紧张的之一,1780年代初在伦敦出版。Hob. 是海顿作品目录编号(编者 Hoboken 的名字)。",
+ about:"第一乐章急板,6/8拍,像一路奔跑、有点不安;第二乐章转到G大调,慢而抒情、装饰很多;第三乐章写着'天真地' (innocentemente),小调和大调交替,俏皮又有点调皮。",
+ structure:["第1乐章 Presto:急促的小调主题 → 对比的第二主题 → 展开 → 再现","第2乐章 Adagio:大调的慢歌,最后不完全结束,直接接到第三乐章","第3乐章 Molto vivace:小调的主题和大调的段落轮流出现"],
+ checks:["第一乐章是否有紧张、向前冲的感觉,又不慌乱","慢乐章的装饰音是否轻柔自然","最后乐章的'天真'和'调皮'有没有表现出来","音色清晰、踏板少"],
+ mistakes:["第一乐章冲得太快,音符不清","慢乐章太重"],
+ bpm:120, praise:["第一乐章好像有人在赶路,好紧张!"], q:"Haydn Piano Sonata E minor Hob XVI 34"},
+{id:"k06", group:"古典 Classical", title:"F大调奏鸣曲 K.280", en:"Piano Sonata No. 2 in F major, K. 280", composer:"mozart", year:"1774–1775", period:"classical", played:"2024–2025",
+ hook:"18岁的莫扎特:一个活力四射的第一乐章,一个罕见的悲伤慢乐章。",
+ bg:"莫扎特在慕尼黑一口气写了六首钢琴奏鸣曲(K.279–284),这是第二首。那时他18岁,正为一部歌剧在慕尼黑演出。这组奏鸣曲受海顿影响很大。孩子用这首奏鸣曲的第一乐章参加过入学和才艺选拔的录音。",
+ about:"第一乐章3/4拍、充满能量,有突然的强弱对比;第二乐章是f小调的西西里舞曲 (siciliano),缓慢、哀伤,在莫扎特早期作品里很少见;第三乐章急板,轻快地跑跳。",
+ structure:["第1乐章 Allegro assai:有力的开头 → 轻巧的第二主题 → 短的展开部 → 再现","第2乐章 Adagio:摇曳的6/8拍,小调,像一首悲伤的歌","第3乐章 Presto:轻快的3/8拍,一路奔跑到结尾"],
+ checks:["第一乐章的强弱对比是否清楚(突然强、突然弱)","快速音阶是否均匀","第二乐章有没有'哀伤'的情绪,旋律连贯","三个乐章性格是否鲜明不同"],
+ mistakes:["左手伴奏太重","第二乐章太快、没有情绪"],
+ bpm:132, praise:["第二乐章好难过,但很美。","第一乐章那些忽强忽弱的地方好有精神!"], q:"Mozart Piano Sonata K 280 F major"},
+{id:"k07", group:"古典 Classical", title:"D大调奏鸣曲 K.311", en:"Piano Sonata No. 9 in D major, K. 311", composer:"mozart", year:"1777", period:"classical", played:"2026",
+ hook:"21岁的莫扎特在去巴黎的路上写的:明亮、外向、像一场演出。",
+ bg:"1777年莫扎特和母亲离开萨尔茨堡去找工作,途经曼海姆时写了这首奏鸣曲。曼海姆有当时欧洲最好的乐团,这首曲子也带着'乐队'的辉煌效果。这次旅行很不顺利——第二年母亲在巴黎病逝。孩子用第一乐章参加过入学试奏。",
+ about:"第一乐章'有精神的快板',明亮自信;第二乐章行板'富有表情',温柔歌唱;第三乐章是6/8拍的回旋曲,欢快,中间还有一段像即兴华彩的自由段落。",
+ structure:["第1乐章 Allegro con spirito:辉煌的开头,快速音阶和跳音很多;再现部莫扎特故意把两个主题顺序调换","第2乐章 Andante con espressione:G大调,温柔的歌","第3乐章 Rondeau:欢快的主题反复回来,中间有一段华彩式的自由段落"],
+ checks:["第一乐章是否明亮、有'精神' (con spirito)","跳音是否轻巧、快速音阶是否清楚","第二乐章是否像唱歌,有呼吸","第三乐章的主题每次回来是否同样轻快"],
+ mistakes:["弹得太重,失去莫扎特的轻盈","第二乐章节奏拖沓"],
+ bpm:132, praise:["好明亮,像早晨的阳光!","慢乐章好温柔。"], q:"Mozart Piano Sonata K 311 D major"},
+{id:"k08", group:"古典 Classical", title:"土耳其进行曲", en:"Rondo alla turca — Piano Sonata No. 11 in A major, K. 331, III", composer:"mozart", year:"约1783", period:"classical", played:"2022 · 2026",
+ hook:"全世界最有名的钢琴曲之一:模仿土耳其军乐队的鼓和镲。",
+ bg:"这是K.331奏鸣曲的第三乐章。18世纪的维也纳流行'土耳其风':奥斯曼帝国的禁卫军乐队 (Janissary band) 用大鼓、镲、三角铁,声音震撼。莫扎特用钢琴模仿——左手密集的分解和弦就是'鼓声'。这首奏鸣曲很特别:第一乐章是主题与变奏,没有用常规的奏鸣曲式。",
+ about:"一支热闹的军乐队走过来了:a小调的主题紧张、俏皮;转到A大调时,左手'咚咚'的分解和弦像大鼓和镲,雄壮又欢乐。",
+ structure:["A:a小调的著名主题,轻快地'走'","B:转到A大调,左手模仿鼓声的分解和弦,像进行曲","A与B交替出现(回旋曲)","尾声:A大调的大段'鼓声',热烈收尾"],
+ checks:["开头主题是否轻巧、清楚,不慌","A大调'进行曲'段落是否有气势,左手的'鼓声'整齐","速度是否稳定(很多人越弹越快)","强弱对比"],
+ mistakes:["越弹越快","左手'鼓声'太乱太响,盖住右手"],
+ bpm:120, praise:["真的像军乐队在打鼓!","你从2022年就弹过这首,现在听起来稳多了。"], q:"Mozart Rondo alla turca K 331"},
+{id:"k09", group:"古典 Classical", title:"降B大调钢琴三重奏(可能是 K.502)", en:"Piano Trio in B-flat major (probably K. 502)", composer:"mozart", year:"1786", period:"classical", played:"2024",
+ hook:"钢琴、小提琴、大提琴三个人一起'聊天'——第一次真正的室内乐。",
+ bg:"邮件里写的是'莫扎特降B大调三重奏',最可能是1786年写的 K.502(那一年他还写了《费加罗的婚礼》)。莫扎特的钢琴三重奏里,钢琴往往是主角,小提琴和大提琴与它对话。",
+ about:"明朗、温暖、像朋友之间愉快的交谈。三件乐器轮流说出旋律,又互相伴奏。",
+ structure:["第1乐章 Allegro:一个亲切的主题在三件乐器间传递","第2乐章 Larghetto:慢,抒情","第3乐章 Allegretto:轻快、愉悦地结束"],
+ checks:["三个人是否'一起呼吸':开头、换速度、结尾都整齐","钢琴是否会在别人唱旋律时变轻(这叫'平衡')","有没有互相看、互相听","一个人出错时其他人是否稳住"],
+ mistakes:["钢琴太响,盖过小提琴和大提琴","各弹各的,没有互相配合"],
+ bpm:120, praise:["你们三个配合得好好,好像在聊天。","你弹得轻的时候,小提琴就特别清楚——你在听他们!"], q:"Mozart Piano Trio B flat K 502"},
+{id:"k10", group:"古典 Classical", title:"c小调奏鸣曲 Op.10 No.1", en:"Piano Sonata No. 5 in C minor, Op. 10 No. 1", composer:"beethoven", year:"1796–1798", period:"classical", played:"2026",
+ hook:"年轻贝多芬的'愤怒小调':c小调,和《悲怆》《命运》是同一个调。",
+ bg:"贝多芬二十多岁刚到维也纳闯荡时写的三首奏鸣曲之一,1798年出版。c小调对贝多芬有特别的意义——他最激烈的作品《悲怆奏鸣曲》《第五交响曲(命运)》都是c小调。",
+ about:"第一乐章像一个人猛地站起来:突然的强音、上冲的和弦,接着是柔和的回答;第二乐章转到降A大调,深沉、安静;第三乐章极快 (Prestissimo),紧张、短促、像一阵旋风。",
+ structure:["第1乐章 Allegro molto e con brio:有力的'冲'上去的开头 ↔ 温柔的回答,强烈对比","第2乐章 Adagio molto:宽广的慢歌,有很多细腻装饰","第3乐章 Prestissimo:飞快、紧凑,突然结束在轻声里"],
+ checks:["强和弱的对比是否大胆、清楚","第一乐章开头的冲劲和后面的温柔是否形成反差","慢乐章是否安静、有深度,不赶","终乐章快而不乱"],
+ mistakes:["强弱对比不够,听起来平","慢乐章太快"],
+ bpm:120, praise:["开头那一下好有力量,像贝多芬在发脾气!","慢乐章好安静。"], q:"Beethoven Piano Sonata Op 10 No 1"},
+{id:"k11", group:"浪漫 Romantic", title:"狂野的骑士", en:"The Wild Rider, Op. 68 No. 8 (Album for the Young)", composer:"schumann", year:"1848", period:"romantic", played:"2023",
+ hook:"一个孩子骑着木马满屋子冲:不到一分钟,紧张又好玩。",
+ bg:"出自舒曼为女儿们写的《少年曲集》,和《快乐的农夫》是同一本书。原标题 Wilder Reiter。孩子小时候弹过,老师后来还让他重新弹给她听。",
+ about:"a小调,短促的跳音,像马蹄'哒哒哒';旋律先在右手,中间换到左手,最后又回到右手。",
+ structure:["A:右手跳跃的旋律(骑马冲)","B:旋律换到左手,转到大调","A:回到右手,冲到结尾"],
+ checks:["跳音是否短促有弹性,像马蹄","旋律在左手时是否清楚","速度稳定,有冲劲"],
+ mistakes:["跳音拖成连奏","旋律换到左手时听不见"],
+ bpm:132, praise:["真像骑马在冲,哒哒哒!"], q:"Schumann Wild Rider Op 68 No 8"},
+{id:"k12", group:"浪漫 Romantic", title:"旋律", en:"Melody, Op. 68 No. 1 (Album for the Young)", composer:"schumann", year:"1848", period:"romantic", played:"2023",
+ hook:"《少年曲集》的第一首:学会让钢琴'唱歌'。",
+ bg:"舒曼把这首放在整本曲集的最开头:最简单,却最重要——右手唱一条旋律,左手轻轻伴奏。邮件里老师建议从这首开始(很可能是它,邮件只写了'Melodi')。",
+ about:"C大调,温柔、安静,像一首简单的歌。",
+ structure:["一句旋律,问","一句旋律,答","重复一遍,轻轻结束"],
+ checks:["右手是否连贯如歌(连奏 legato)","左手是否比右手轻","乐句结尾是否轻轻收住"],
+ mistakes:["左手太重","每个音一样重,没有'唱'的感觉"],
+ bpm:96, praise:["好像你在用钢琴唱歌。"], q:"Schumann Melodie Op 68 No 1"},
+{id:"k13", group:"浪漫 Romantic", title:"异国他乡", en:"Of Foreign Lands and Peoples, Op. 15 No. 1 (Kinderszenen)", composer:"schumann", year:"1838", period:"romantic", played:"2023",
+ hook:"《童年情景》的第一首:一个大人开始给孩子讲遥远国度的故事。",
+ bg:"和《梦幻曲》同属舒曼的《童年情景》,是全套的开场。舒曼说这些曲子是'一个大人回忆童年'。",
+ about:"G大调,温暖、好奇、带点神秘,像'从前,在很远很远的地方……'。右手唱旋律,下面是轻柔流动的三连音伴奏。",
+ structure:["A:讲故事般的旋律","B:旋律往低处走,稍带疑问","A:故事开头回来,轻轻结束"],
+ checks:["旋律是否在三连音伴奏之上清楚","伴奏是否均匀、轻柔","是否有'讲故事'的温柔和好奇"],
+ mistakes:["伴奏太响","速度太快,失去讲故事的感觉"],
+ bpm:80, praise:["好像有人在讲一个很远的地方的故事。"], q:"Schumann Kinderszenen Of Foreign Lands and Peoples"},
+{id:"k14", group:"浪漫 Romantic", title:"降E大调夜曲 Op.9 No.2", en:"Nocturne in E-flat major, Op. 9 No. 2", composer:"chopin", year:"1830–1832", period:"romantic", played:"2022 · 2025",
+ hook:"肖邦最著名的夜曲:每一次旋律回来,都多一些花边。",
+ bg:"肖邦二十岁左右写的三首夜曲之一,献给钢琴制造商普莱耶尔的妻子。'夜曲'由爱尔兰作曲家菲尔德首创,肖邦把它写成了钢琴上的意大利歌剧咏叹调。孩子2022年就开始弹,2025年又重新练。",
+ about:"温柔、梦幻、像夜晚的独白。左手是12/8拍的轻柔摇曳,右手唱一条像歌剧女高音一样的旋律,每次回来都加上更多装饰。",
+ structure:["A:主旋律","A':同一旋律回来,加上装饰","B:中段,情绪稍起伏","A'':旋律再回来,装饰更多","尾声:一段快速闪烁的'华彩' (cadenza),然后安静结束"],
+ checks:["旋律是否像唱歌一样连贯,在伴奏之上","左手伴奏是否轻柔均匀,低音稍清楚","装饰音是否轻巧、像花边而不是障碍","弹性速度 (rubato) 自然,不失控","踏板干净"],
+ mistakes:["左手太重","装饰音生硬或打乱节奏","踏板糊"],
+ bpm:60, praise:["好像夜里有人在唱歌。","结尾那串闪闪的音好美。"], q:"Chopin Nocturne Op 9 No 2"},
+{id:"k15", group:"浪漫 Romantic", title:"e小调圆舞曲(遗作)", en:"Waltz in E minor, B. 56 (posthumous)", composer:"chopin", year:"1830(1868年出版)", period:"romantic", played:"2026",
+ hook:"肖邦二十岁写的华丽圆舞曲:快、亮、带着小调的热情。",
+ bg:"肖邦在离开华沙前不久写成,生前没有发表,去世后才出版。和另一首a小调遗作圆舞曲不同,这首是炫技型的,常在音乐会上演奏。孩子在2026年的几场音乐会上演奏过它。",
+ about:"e小调,开头一串上行的音像一阵旋转;主题热烈、带点骄傲;中段转到E大调,变得温柔歌唱;最后回到小调,辉煌地结束。",
+ structure:["引子:快速上行的琶音","A:热烈的小调圆舞曲主题","B:E大调,抒情温柔","A:主题回来","尾声:快速、辉煌的结尾"],
+ checks:["左手'嘭-嚓-嚓'是否轻、第一拍清楚","快速段落是否清楚不乱","中段是否真的变温柔(对比)","结尾是否辉煌有力"],
+ mistakes:["左手太重","快速段落含糊","中段和开头一样的感觉"],
+ bpm:160, praise:["转圈转得好快,结尾好辉煌!","中间那段突然变温柔,好好听。"], q:"Chopin Waltz E minor posthumous B 56"},
+{id:"k16", group:"浪漫 Romantic", title:"小狗圆舞曲('一分钟圆舞曲')", en:"'Minute' Waltz in D-flat major, Op. 64 No. 1", composer:"chopin", year:"1846–1847", period:"romantic", played:"2026",
+ hook:"不是'一分钟弹完',而是'小小的'圆舞曲——据说是小狗追自己尾巴。",
+ bg:"'Minute' 在这里是法语/英语的'小的'(读作 my-NUTE),不是'60秒'。另一个外号'小狗圆舞曲'来自一个传说:乔治·桑的小狗绕着圈追自己的尾巴,肖邦即兴弹出了这首曲子。献给波托茨卡伯爵夫人。孩子在2026年的音乐会上弹过。",
+ about:"轻快、旋转、俏皮:右手一串不停转圈的快音,像小狗追尾巴;中段慢下来,变得优雅歌唱;然后又转回来,一溜烟结束。",
+ structure:["A:右手快速旋转的音型","B:中段,速度放松,旋律悠长","A:旋转回来","结尾:一串快速下行,干净收住"],
+ checks:["快速音符是否轻巧、均匀(不是砸出来的)","左手是否轻","中段有没有慢下来变歌唱","结尾是否干净利落"],
+ mistakes:["弹得太响太重","为了快而不清楚"],
+ bpm:200, praise:["真像小狗在追自己的尾巴,转啊转!"], q:"Chopin Minute Waltz Op 64 No 1"},
+{id:"k17", group:"浪漫 Romantic", title:"降A大调华丽圆舞曲 Op.34 No.1", en:"Waltz in A-flat major 'Valse brillante', Op. 34 No. 1", composer:"chopin", year:"1835(1838年出版)", period:"romantic", played:"2026",
+ hook:"舞会开场的号角!孩子在比赛中演奏并获奖的曲目之一。",
+ bg:"肖邦在1835年写成,1838年以'三首华丽圆舞曲'出版,这是第一首。它是真正'舞会气氛'的圆舞曲:节日、灯光、旋转的裙子。孩子2026年用它参加了钢琴比赛。",
+ about:"开头像号角宣布'舞会开始';接着是一个又一个不同性格的舞曲段落——有的轻盈、有的热烈、有的俏皮;结尾辉煌。",
+ structure:["引子:号角般的和弦","A:主圆舞曲,明亮","B、C:几个不同的舞曲段落轮流出现(俏皮的、热烈的、歌唱的)","A:主题回来","尾声:快速、华丽地收尾"],
+ checks:["引子是否有气势","每个段落性格是否不同","左手圆舞曲节奏是否轻盈有弹性","快速段落清楚","结尾辉煌但不乱"],
+ mistakes:["所有段落听起来一样","左手太重,像进行曲"],
+ bpm:176, praise:["好像真的进了一个华丽的舞会!","你在比赛里弹的就是这首——太棒了。"], q:"Chopin Valse brillante Op 34 No 1"},
+{id:"k18", group:"浪漫 Romantic", title:"幻想即兴曲", en:"Fantaisie-Impromptu in C-sharp minor, Op. 66", composer:"chopin", year:"1834(1855年出版)", period:"romantic", played:"2025 · 2026",
+ hook:"肖邦不想发表的名作:两只手节奏'对不上',却成了他最受欢迎的曲子之一。",
+ bg:"肖邦生前没有发表,去世后由朋友丰塔纳违背他的意愿出版。中段的旋律后来被改编成美国流行歌曲 I'm Always Chasing Rainbows (1918)。最难的地方:右手一拍弹4个音,左手一拍弹3个音——两只手的节奏'交错'。",
+ about:"开头像一阵狂风,快速、不安、激动;中段突然变成温柔的长旋律,像梦;然后狂风回来,最后渐渐平静,左手低音轻轻回忆中段的旋律。",
+ structure:["引子:左手低音一声,右手接着冲出来","A:急速、激动的小调旋风","B:转到降D大调,温柔的长歌 (Moderato cantabile)","A:旋风回来","尾声:慢慢平静,低音里回响中段的旋律"],
+ checks:["快速段落是否清楚、有起伏,而不是一团","两只手的'4对3'节奏是否平稳(听起来流畅,不打架)","中段是否真的温柔歌唱","结尾是否慢慢安静下来"],
+ mistakes:["快速段落糊成一片","中段太快,没有梦的感觉","踏板太多"],
+ bpm:84, praise:["开头像一阵风刮过来,中间突然好温柔!"], q:"Chopin Fantaisie Impromptu Op 66"},
+{id:"k19", group:"浪漫 Romantic", title:"波兰舞曲 Op.40(可能是第1首《军队》)", en:"Polonaise Op. 40 (No. 1 in A major 'Military', or No. 2 in C minor)", composer:"chopin", year:"1838(1840年出版)", period:"romantic", played:"2026",
+ hook:"波兰的骄傲:庄严的三拍子舞曲,像骑兵列队行进。",
+ bg:"波兰舞曲 (polonaise) 是波兰贵族庄严的行进舞。肖邦离开祖国后,把对波兰的思念和骄傲写进了这些舞曲。Op.40 有两首:第1首A大调《军队》辉煌雄壮;第2首c小调阴郁悲伤。邮件只写了'Op.40',问问孩子是哪一首。据说1939年华沙被围时,波兰电台每天播放《军队波兰舞曲》来鼓舞人心。",
+ about:"(以第1首为例)雄壮、骄傲、辉煌:大量的和弦和八度,像骑兵在广场上列队前进。",
+ structure:["A:辉煌的主题,和弦齐奏","B:中段,号角般的呼应","A:主题再现,气势更大"],
+ checks:["波兰舞曲的节奏:'哒—哒哒 哒 哒 哒'的特点是否清楚","和弦是否整齐(所有音同时落下)","是否有庄严的气势,但不砸琴","八度是否清楚"],
+ mistakes:["和弦不整齐","为了响而砸琴,声音难听"],
+ bpm:100, praise:["好有气势,像骑兵在列队!"], q:"Chopin Polonaise Op 40 No 1 Military"},
+{id:"k20", group:"浪漫 Romantic", title:"钟(La Campanella)", en:"La Campanella — Grandes études de Paganini, S. 141 No. 3", composer:"liszt", year:"1851(定稿)", period:"romantic", played:"2025",
+ hook:"孩子自己想弹的'梦想曲':高音区一个小铃铛一直在响。",
+ bg:"李斯特把帕格尼尼《第二小提琴协奏曲》末乐章的'小铃铛'主题改编成钢琴练习曲——弟弟拉过帕格尼尼的《女巫之舞》,这里是同一位'魔鬼小提琴家'。这是钢琴上最有名的炫技曲之一:右手要在键盘上大幅度跳跃,反复敲击高音的'铃声'。",
+ about:"晶莹、闪烁、越来越辉煌:一开始像远处清脆的小铃铛,然后音符越来越密、越来越亮,最后成为一场钟声的狂欢。",
+ structure:["主题:高音区的'铃声' + 下面的旋律","变奏1、2…:铃声越来越密,加上颤音、跳跃","高潮:整个键盘的辉煌音流","结尾:强有力地收住"],
+ checks:["高音的'铃声'是否清脆、轻巧,不刺耳","大跳的音是否准确","越来越快、越来越辉煌的过程是否一步步推进","这首极难:能弹完整、有方向感就很了不起"],
+ mistakes:["铃声敲得太重、刺耳","跳跃失误","一开始就太响,后面没有空间推高潮"],
+ bpm:96, praise:["你一直想弹这首,现在真的在弹了!","那些小铃铛的声音好清脆。"], q:"Liszt La Campanella"},
+{id:"k21", group:"民族乐派 Nationalism", title:"小鸟", en:"Little Bird, Op. 43 No. 4 (Lyric Pieces)", composer:"grieg", year:"1886", period:"nationalism", played:"2022",
+ hook:"挪威春天里的一只小鸟:短短一分钟,满是叽叽喳喳。",
+ bg:"出自格里格《抒情小品》第三册(Op.43),这一册里还有著名的《春之歌》《蝴蝶》。挪威语原名 Småfugl。孩子在2022年圣诞学生音乐会上演奏过。",
+ about:"轻巧、跳跃、俏皮:快速的装饰音和颤音模仿鸟鸣,一会儿停、一会儿飞。",
+ structure:["鸟鸣的动机:快速装饰音 + 短促的跳音","反复、变化,好像小鸟在枝头跳来跳去","轻轻飞走,结束"],
+ checks:["装饰音是否轻快干净,像鸟叫","跳音是否短促轻巧","整体是否'轻',不重"],
+ mistakes:["装饰音含糊","弹得太重"],
+ bpm:96, praise:["真的像一只小鸟在叫!"], q:"Grieg Little Bird Op 43 No 4"},
+{id:"k22", group:"民族乐派 Nationalism", title:"挪威舞曲 Op.35(四手联弹)", en:"Norwegian Dances, Op. 35, piano four hands", composer:"grieg", year:"1880", period:"nationalism", played:"2023–2025",
+ hook:"两个人在一架钢琴上跳挪威民间舞——最原汁原味的版本就是四手联弹。",
+ bg:"格里格根据挪威民歌收集者林德曼 (Ludvig Mathias Lindeman) 记录的民间曲调写成,原本就是钢琴四手联弹,后来才被改编成管弦乐。四首中:第1首d小调,第2首A大调(最有名,俏皮),第3首G大调。孩子和同学合作弹过第1首,以及G大调和A大调两首。",
+ about:"挪威山区的乡村舞会:强劲的节奏、像哈当厄尔小提琴 (Hardanger fiddle) 的旋律、快慢对比。第2首开头轻快俏皮,中段突然变得飞快狂热。",
+ structure:["每首都是 A-B-A:民间舞曲的主题 → 对比的中段(常常更快或更慢)→ 主题回来","四手联弹:'primo'弹高音旋律,'secondo'弹低音和节奏"],
+ checks:["两个人是否完全同步(开头、换段、结尾)","高音和低音是否平衡,旋律能听清","民间舞曲的节奏是否有弹性、有'跳舞'的感觉","快慢对比是否鲜明"],
+ mistakes:["两人不同步","低音声部太响"],
+ bpm:112, praise:["你们俩配合得好整齐!","这就是挪威的民间舞,格里格是挪威人哦。"], q:"Grieg Norwegian Dances Op 35 piano four hands"},
+{id:"k23", group:"浪漫 Romantic", title:"十月:秋之歌", en:"October: Autumn Song — The Seasons, Op. 37a No. 10", composer:"tchaikovsky", year:"1876", period:"romantic", played:"2026",
+ hook:"柴可夫斯基的一年十二个月里,最忧伤的一页:落叶纷飞的秋天。",
+ bg:"1875–76年,一家圣彼得堡音乐杂志每月请柴可夫斯基写一首钢琴曲,配一首关于那个月的诗,共12首,合称《四季》。十月的诗写的是秋天的花园、落叶被风吹散。",
+ about:"d小调,缓慢、忧伤 (Andante doloroso)。两个声音在对话——上面一个旋律,下面一个像大提琴的回应,好像两个人在秋天里怀念什么。",
+ structure:["A:忧伤的主旋律","B:中段,两个声部的对话更明显","A:主旋律回来,渐渐消失"],
+ checks:["旋律是否像唱歌一样连贯、有叹息感","下面那个'大提琴'声部是否也被听见","速度从容,不赶","整体安静,情绪深"],
+ mistakes:["太快,失去忧伤","只听得到上面的旋律"],
+ bpm:60, praise:["好像秋天的落叶,有点难过但好美。"], q:"Tchaikovsky October Autumn Song Seasons"},
+{id:"k24", group:"印象派 Impressionism", title:"阿拉伯风格曲 第1首", en:"Arabesque No. 1 in E major (Deux Arabesques)", composer:"debussy", year:"1888–1891", period:"impressionism", played:"2025",
+ hook:"年轻德彪西的作品:像流水和光一样流动的线条。",
+ bg:"德彪西二十多岁时写的两首阿拉伯风格曲,这是第一首,也是他最常被演奏的作品之一。'阿拉伯风格'指像阿拉伯装饰图案那样流动、缠绕的线条。比《月光》还早。邮件里写的是'Deux Arabesques'(两首),最常弹的是第1首。",
+ about:"轻柔、流动、明亮:右手一串串三连音像水波,左手偶尔有'两个音对三个音'的交错,产生摇曳的效果。中段稍明亮活泼。",
+ structure:["A:流水般的三连音,下行再上升","B:中段,更明亮、更有节奏感","A:流水回来,轻轻散开"],
+ checks:["三连音是否均匀、像流水","音色是否柔和,有'光'的感觉","踏板营造朦胧但不糊","强弱起伏像波浪"],
+ mistakes:["三连音不均匀","太响太硬","踏板糊"],
+ bpm:76, praise:["好像在看水波一层层流过去。"], q:"Debussy Arabesque No 1"},
+{id:"k25", group:"20世纪 20th c.", title:"儿童画册(选曲)", en:"Children's Album / Pictures of Childhood (selected pieces)", composer:"khachaturian", year:"1947 / 1965", period:"c20", played:"2023–2025",
+ hook:"《马刀舞》作者写给孩子的小曲:有亚美尼亚的节奏和现代的和声。",
+ bg:"哈恰图良写了两册给孩子的钢琴曲(1947年、1965年)。每首都有标题,比如'伊万在唱歌''伊万今天不能出去玩'这类孩子生活的场景,还有一首有名的《托卡塔》。孩子学了其中好几首(邮件里提到第2、3、4首和'八首'),具体是哪几首可以问他。",
+ about:"短小、有画面感:有的抒情忧伤,有的节奏强烈、不规则,带东方(亚美尼亚)的味道;和声有时'不太常规',是20世纪的声音。",
+ structure:["每首1–3分钟,通常是 A-B-A 或一个画面从头到尾","注意每首的标题——它就是这首曲子讲的故事"],
+ checks:["每首的性格是否鲜明(问孩子标题是什么)","节奏是否清楚,尤其是不规则的重音","抒情的曲子是否能'唱'出来"],
+ mistakes:["所有曲子听起来一样","重音不清楚"],
+ bpm:112, praise:["这首叫什么名字?我觉得像……(先猜,再听他讲)"], q:"Khachaturian Children's Album Pictures of Childhood"},
+{id:"k26", group:"浪漫 Romantic", title:"西班牙舞曲 Op.12 第1、2首(四手联弹)", en:"Spanish Dances, Op. 12 Nos. 1 & 2, piano four hands", composer:"moszkowski", year:"1876", period:"romantic", played:"2025",
+ hook:"19世纪客厅里最流行的四手联弹:阳光、热情、响板般的节奏。",
+ bg:"莫什科夫斯基的五首《西班牙舞曲》原本就是钢琴四手联弹,出版后风靡欧洲,几乎每个有钢琴的家庭都有这本谱子。孩子在2025年和同学合作演奏了第1、2首(第1首弹低音声部 secondo,第2首弹高音声部 primo)。",
+ about:"西班牙的阳光、舞蹈和吉他:强烈的节奏、突然的重音,像响板和跺脚;旋律热情奔放。",
+ structure:["每首都是活泼的舞曲主题 → 对比的中段 → 主题回来","一个人弹高音旋律 (primo),一个人弹低音和节奏 (secondo)"],
+ checks:["两人是否同步","节奏是否有西班牙舞的弹性和重音","旋律和伴奏是否平衡","有没有热情和阳光的感觉"],
+ mistakes:["不同步","节奏太平,没有舞蹈感"],
+ bpm:120, praise:["我仿佛看到有人在跳弗拉明戈!","你这次弹低音、下次弹高音,两个角色都会了。"], q:"Moszkowski Spanish Dances Op 12 four hands"},
+{id:"k27", group:"浪漫 Romantic", title:"西班牙小夜曲", en:"Spanish Serenade (Sérénade espagnole)", composer:"wachs", year:"19世纪后期", period:"romantic", played:"2026",
+ hook:"一首轻巧的法国沙龙小品,模仿西班牙吉他的小夜曲。",
+ bg:"作者保罗·瓦克斯是法国管风琴家,写过许多适合学生的钢琴小品。这首的确切出版信息不容易查到。'小夜曲' (serenade) 原指晚上在情人窗下弹唱的歌,西班牙风味的小夜曲常模仿吉他的拨弦。",
+ about:"轻快、浪漫、有点俏皮:左手像吉他的拨弦伴奏,右手唱一条带西班牙味道的旋律。",
+ structure:["A:吉他式伴奏 + 旋律","B:对比段落","A:回来"],
+ checks:["左手'吉他'是否轻巧有弹性","旋律是否歌唱","节奏是否带一点舞蹈感"],
+ mistakes:["左手太重","节奏太死板"],
+ bpm:100, praise:["左手好像在弹吉他!"], q:"Paul Wachs Spanish Serenade piano"},
+{id:"k28", group:"技术练习 Technique", title:"车尔尼练习曲 & 阿农指法练习", en:"Czerny: School of Velocity, Op. 299 · Hanon: The Virtuoso Pianist", composer:"czerny", year:"1833 / 1873", period:"classical", played:"2022–2026",
+ hook:"不是'曲子',是钢琴家的'体能训练'——每天练,手指才跑得动。",
+ bg:"车尔尼的《快速练习曲》Op.299 有40首,每首专攻一种技术:快速音阶、琶音、手的转换等。阿农的《钢琴演奏家》是更基础的手指练习,一个音型在键盘上一路上行、下行。孩子从2022年起一直在练这两套。",
+ about:"它们本身不讲故事,目的是让手指均匀、独立、快速、有力。好的练习曲演奏也可以很好听。",
+ structure:["车尔尼:每首一个技术重点,短小,有简单的伴奏和和声","阿农:同一个手指音型重复,在键盘上上下移动"],
+ checks:["每个音是否一样响、一样长(均匀)","速度稳定,不越来越快","手腕放松(看他的手,不应该僵硬或耸肩)","慢练是否认真——慢而准,比快而乱更好"],
+ mistakes:["只追求快,音不均匀","手腕和肩膀紧张"],
+ bpm:120, praise:["这些音像一颗颗珍珠一样均匀。","我知道练习曲很枯燥,你坚持练得真好。"], q:"Czerny School of Velocity Op 299"}
+);
+
 
 </script>
 <script>
 "use strict";
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+PIANO.forEach(p=>{if(PLAYED_EXISTING[p.id])p.played=PLAYED_EXISTING[p.id]});
 const PIECES=[...PIANO.map(p=>({...p,inst:"piano"})),...VIOLIN.map(p=>({...p,inst:"violin"}))];
 const PERIOD_NAME=Object.fromEntries(ERAS.map(p=>[p.id,p.name]));
 const store={get(k){try{return localStorage.getItem(k)||""}catch(e){return ""}},set(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}};
@@ -1056,7 +1303,7 @@ function pieceHTML(p){
   const T=G(new Set([c.name]));
   const li=a=>"<ul>"+a.map(x=>"<li>"+T(x)+"</li>").join("")+"</ul>";
   const yt="https://www.youtube.com/results?search_query="+encodeURIComponent(p.q);
-  return `<details class="piece" id="${p.id}"><summary><span class="t">${p.inst==="piano"?"🎹":"🎻"} ${esc(p.title)}</span><span class="e">${esc(p.en)}</span><span class="h">${esc(p.hook)}</span></summary>
+  return `<details class="piece" id="${p.id}"><summary><span class="t">${p.inst==="piano"?"🎹":"🎻"} ${esc(p.title)}</span><span class="e">${esc(p.en)}</span>${p.played?`<span class="badge">★ 孩子弹过 ${esc(p.played)}</span>`:""}<span class="h">${esc(p.hook)}</span></summary>
   <div class="body">
    <div class="meta" style="align-items:center">${ava(p.composer,"sm")}<span class="chip">作曲 ${esc(c.name)} ${esc(c.en)}</span><span class="chip">${esc(p.year)}</span><button class="chip chiplink" data-goto="history" data-anchor="era-${p.period}">${esc(PERIOD_NAME[p.period]||"")} ›</button><button class="chip chiplink" data-goto="composers" data-anchor="c-${p.composer}">关于${esc(c.name)} ›</button><span class="chip">参考速度 ≈ ${p.bpm} BPM</span></div>
    <h4>背景故事 Background</h4><p>${T(p.bg)}</p>
@@ -1072,7 +1319,7 @@ function pieceHTML(p){
 }
 function renderPieces(){
   const q=$("#q").value.trim().toLowerCase();
-  const list=PIECES.filter(p=>(inst==="all"||p.inst===inst)&&(!byComposer||p.composer===byComposer)&&(!byEra||p.period===byEra)&&(!q||[p.title,p.en,p.hook,(COMPOSERS[p.composer]||{}).name,(COMPOSERS[p.composer]||{}).en].join(" ").toLowerCase().includes(q)));
+  const list=PIECES.filter(p=>(inst==="all"||p.inst===inst||(inst==="played"&&p.played))&&(!byComposer||p.composer===byComposer)&&(!byEra||p.period===byEra)&&(!q||[p.title,p.en,p.hook,(COMPOSERS[p.composer]||{}).name,(COMPOSERS[p.composer]||{}).en].join(" ").toLowerCase().includes(q)));
   const groups={};list.forEach(p=>{const g=(p.inst==="piano"?"🎹 钢琴 · ":"🎻 小提琴 · ")+p.group;(groups[g]=groups[g]||[]).push(p)});
   $("#list").innerHTML=Object.entries(groups).map(([g,ps])=>`<h2 class="grp">${esc(g)} (${ps.length})</h2>`+ps.map(pieceHTML).join("")).join("")||"<p class='note'>没有找到。试试别的关键词。</p>";
   const f=byComposer?COMPOSERS[byComposer].name:byEra?PERIOD_NAME[byEra]:null;
