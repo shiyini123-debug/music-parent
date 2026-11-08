@@ -1,6 +1,6 @@
 // Service worker: app shell = stale-while-revalidate (opens instantly, updates next time);
 // Wikipedia portraits/summaries = cache-first (load once online, then work offline).
-const BUILD = "20261108153144";
+const BUILD = "20261108154232";
 const SHELL = "mp-shell-" + BUILD, IMG = "mp-img-v1";
 const FILES = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png"];
 
