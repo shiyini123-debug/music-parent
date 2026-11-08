@@ -31,6 +31,8 @@ nav button.on{background:var(--bg);color:var(--ink);opacity:1;font-weight:600}
 #upd{display:none;position:fixed;left:0;right:0;bottom:0;background:var(--acc);color:#fff;text-align:center;padding:12px;font-size:15px;cursor:pointer;z-index:9}
 .badge{background:#fff1c2;color:#7a5200;border-radius:20px;padding:1px 9px;font-size:12px;font-weight:600;white-space:nowrap}
 @media (prefers-color-scheme: dark){.badge{background:#4a3a12;color:#ffd97a}}
+.badge.now{background:#e3f2e9;color:#1e5b3a}
+@media (prefers-color-scheme: dark){.badge.now{background:#1f3a2c;color:#9fe0b8}}
 .ava{width:76px;height:76px;border-radius:50%;object-fit:cover;object-position:top;background:var(--chip);flex:none;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--acc);overflow:hidden}
 .ava img{width:100%;height:100%;object-fit:cover;object-position:top}
 .ava.sm{width:44px;height:44px;font-size:18px}
@@ -62,6 +64,16 @@ h2.grp{font-size:15px;color:var(--acc2);margin:22px 0 8px;letter-spacing:.5px}
 .piece>summary .c{color:var(--acc);font-weight:600;font-size:14px}
 .piece>summary .s2{flex-basis:100%;color:var(--mute);font-size:13px}
 .gcat{font-size:15px;color:var(--acc2);margin:18px 0 8px;letter-spacing:.5px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:4px}
+.stat b{display:block;font-size:12px;color:var(--mute);font-weight:500;margin-bottom:2px}
+.ms{position:relative;border-left:3px solid var(--acc);padding:0 0 16px 16px;margin:0}
+.ms::before{content:"";position:absolute;left:-7.5px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--acc2)}
+.ms .when{font-weight:700;color:var(--acc2)} .ms .age{color:var(--mute);font-size:13px;margin-left:8px}
+.steps{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.step{background:var(--chip);color:var(--ink);border:0;border-radius:8px;padding:5px 10px;font:inherit;font-size:13px;text-align:left}
+.step b{display:block;font-size:11px;color:var(--mute);font-weight:500}
+.step.chiplink:hover b{color:#fff}
+.arrow{color:var(--mute)}
 .piece>summary .h{flex-basis:100%;color:var(--mute);font-size:14px}
 .piece[open]>summary{border-bottom:1px solid var(--line)}
 .body{padding:6px 16px 14px}
@@ -100,6 +112,7 @@ th{color:var(--mute);font-weight:500}
   <p>听懂孩子在弹什么 · Music Parent Companion</p>
   <nav id="nav">
     <button data-t="pieces" class="on">孩子的曲目 Pieces</button>
+    <button data-t="journey">学琴之路 Journey</button>
     <span class="navsep">音乐史与鉴赏 ›</span>
     <button data-t="history">历史 History</button>
     <button data-t="composers">作曲家 Composers</button>
@@ -133,6 +146,27 @@ th{color:var(--mute);font-weight:500}
   <h2 class="grp">术语表 Glossary — 老师和乐谱上常见的词</h2>
   <div class="bar"><div class="seg" id="glSeg"></div></div>
   <div class="card"><table id="gloss"></table></div>
+</section>
+
+<section id="journey">
+  <div class="card"><h3 id="jTitle"></h3><p id="jIntro"></p></div>
+  <div id="jNow"></div>
+  <div class="stats" id="jStats"></div>
+  <h2 class="grp">里程碑 Milestones</h2>
+  <ul id="jMilestones" style="list-style:none;padding:4px 0 0 8px;margin:0"></ul>
+  <h2 class="grp">一年一年 Year by year</h2>
+  <div id="jYears"></div>
+  <h2 class="grp">分析一:曲目的六条线 Six repertoire threads</h2>
+  <p class="note">同一条线上的曲子一年比一年难,每条线练的是不同的能力。点任何一格跳到那首曲子。</p>
+  <div id="jThreads"></div>
+  <h2 class="grp">分析二:大致水平参考 Rough level reference</h2>
+  <div class="card" id="jLevel"></div>
+  <h2 class="grp">分析三:老师的话说明了什么 What the teachers' words suggest</h2>
+  <p class="note">邮件里老师的话(转述,不是原文)和它背后的含义。</p>
+  <div id="jObs"></div>
+  <h2 class="grp">接下来 + 家长能做什么 What's next & how to help</h2>
+  <div class="grid" id="jNext"></div>
+  <div id="jKey"></div>
 </section>
 
 <section id="history">
@@ -214,6 +248,7 @@ th{color:var(--mute);font-weight:500}
       <li>内容根据通行的音乐史资料编写。有争议或不确定的地方(比如"巴赫"的小步舞曲其实是佩措尔德写的、《致爱丽丝》的爱丽丝是谁)都已注明。参考速度是常见录音的大致速度,不是标准答案。</li>
       <li>"听一听"会打开 YouTube 搜索,需要联网。其它所有内容离线可用。</li>
       <li>"我的笔记"保存在<b>当前这台设备</b>的浏览器里,手机和电脑各存各的,不会上传。换浏览器或清除浏览数据会丢失。</li>
+      <li>"学琴之路"一页在公开版本里不含任何人名、学校、项目、比赛或地点的名称,只有年份、曲目和分析;对应的真实名称只在家里电脑的本地版本里显示。</li>
       <li>作曲家人像和时代画作来自 Wikipedia / Wikimedia Commons(点图片可打开出处页面),第一次联网打开时加载,之后离线也能看。1840年以前的作曲家没有照片,显示的是油画或版画肖像。</li>
     </ul>
   </div>
@@ -1357,6 +1392,112 @@ const PIECE_GENRE = {
   k29:"concerto", k30:"folkdance", k31:"variations", k32:"mazurka", k33:"ensemble"
 };
 
+// 学琴之路 — PUBLIC, anonymised: no personal names, schools, programmes, competitions or venues.
+// Teacher 甲 = the culture-school teacher (weekly lessons), teacher 乙 = the conservatoire youth-department teacher.
+// Ages were computed from the birthday, which is stored only in the private file (never published).
+const JOURNEY = {
+ intro:"这一页把 2022 年 8 月到 2026 年 11 月之间和两位钢琴老师的往来邮件整理成一条学琴的时间线,再加上分析。只保留年份、曲目和事情本身。邮件只记录了一部分:更早的两年(约 2020–2022)没有记录,十几个附件(节目单、曲目单、评语)也读不到——所以这一页一定有遗漏,知道缺什么就告诉 Claude 补上。",
+ now:{asof:"2026-11", pieces:["p15","k17","k08","k18"], note:"2026 年 11 月正在练的四首(家长提供)。两首是 10 月比赛的曲目,《土耳其进行曲》是 2022 年就学过、现在重弹的,《幻想即兴曲》是赛后开始慢练的新大曲子。"},
+ stats:[["学琴年数","约 6 年(2020 年起)"],["邮件里记录的演出","近 30 场"],["弹过的曲目","37 首古典作品 + 若干轻音乐"],["老师","两位钢琴老师并行:老师甲在市立文化学校(每周主课),老师乙在音乐学院少年部"]],
+ milestones:[
+  {when:"2022-11", age:"7岁4个月", what:"受邀为市议会会议开场,演奏克莱门蒂小奏鸣曲全曲——邮件里记录的第一次'正式'演出。", piece:"p03"},
+  {when:"2023-06", age:"7岁11个月", what:"第一次合奏:和老师四手联弹格里格,并与一位长笛手合作。", piece:"k22"},
+  {when:"2024 春", age:"8岁9个月", what:"莫扎特钢琴三重奏,和小提琴、大提琴一起排练并演出——第一次真正的室内乐。", piece:"k09"},
+  {when:"2025-03", age:"9岁9个月", what:"用录音(莫扎特 K.280 第一乐章 + 巴赫 G大调前奏曲与赋格)申请,被国家音乐学院的周六少年班和地区青少年人才项目录取。", piece:"k06"},
+  {when:"2025-05-03", age:"9岁10个月", what:"第一场完整的独奏会:巴赫前奏曲与赋格、莫扎特 K.280 全曲、哈恰图良六首。", piece:"k02"},
+  {when:"2026-01-28", age:"10岁7个月", what:"音乐特色学校的入学试奏(莫扎特 K.311 第一乐章),2026 年秋入学。", piece:"k07"},
+  {when:"2026-03 → 05", age:"10岁9个月", what:"一个春天学了三首肖邦圆舞曲,其中《小狗圆舞曲》大约一周学会;两场音乐会。", piece:"k16"},
+  {when:"2026-09-19", age:"11岁3个月", what:"参加当代作曲家的群体钢琴作品《大旋转》,在一家美术馆的音乐厅演出。", piece:"k33"},
+  {when:"2026-10", age:"11岁4个月", what:"地区青少年钢琴比赛第一组别获胜:肖邦《华丽圆舞曲》Op.34 No.1 + 德彪西《格拉杜斯博士》。", piece:"k17"}
+ ],
+ years:[
+  {label:"约 2020–2022", age:"5–7岁", title:"起步", text:"在第一所音乐学校打基础。邮件里只留下 2022 年 4 月几场学生音乐会的节目单,具体曲目不详。", pieces:[]},
+  {label:"2022/23 学年", age:"7岁", title:"两位老师,两条线", items:[
+   "8月:进入音乐学院少年部。老师乙第一节课就布置了车尔尼 Op.299 和《土耳其进行曲》,一个月后加上肖邦夜曲 Op.9 No.2——起点不低。",
+   "10–11月:在市立文化学校跟老师甲上课。一个月内练好克莱门蒂小奏鸣曲三个乐章,11月为市议会会议开场演奏。",
+   "12月:圣诞学生音乐会,格里格《小鸟》+ 克莱门蒂。老师甲写道,新年后计划开始贝多芬第一钢琴协奏曲。",
+   "2–3月:舒曼——《异国他乡》《狂野的骑士》《旋律》。",
+   "6月:文化站两晚音乐会,巴赫二部创意曲第1、4首;和老师四手联弹格里格;还和一位长笛手合作了一首挪威歌曲。"],
+   pieces:["k28","k08","k14","p03","k21","k29","k13","k11","k12","k01","k22"]},
+  {label:"2023/24 学年", age:"8岁", title:"从小曲到奏鸣曲,第一次室内乐", items:[
+   "9月:莫扎特 K.545 第一乐章;一套莫扎特变奏曲;轻松的《给爱德琳的诗》;一首哈林舞曲。",
+   "10月:贝多芬的一套变奏曲;哈恰图良《儿童画册》开始。",
+   "11–12月:两首挪威圣诞歌改编曲,12月初文化站音乐会。",
+   "12月–2月:和老师四手联弹《雪橇》,2月在文化中心的演出中演奏。",
+   "12月–春天:莫扎特降B大调钢琴三重奏——和小提琴、大提琴一起排练、演出。8岁的第一次真正的室内乐。",
+   "2–4月:巴赫 G大调前奏曲(先前奏曲,再赋格)。4月底文化中心大厅音乐会:巴赫前奏曲 + 格里格挪威舞曲第1首(四手联弹)。"],
+   pieces:["p04","k31","k30","k25","k09","k02","k22"]},
+  {label:"2024/25 学年", age:"9岁", title:"完整的奏鸣曲,第一场独奏会", items:[
+   "9月:哈恰图良几首在音乐厅演出。",
+   "10月:莫扎特 F大调奏鸣曲 K.280 学完;巴赫 G大调前奏曲与赋格全曲;哈恰图良八首;老师提出肖邦玛祖卡和一首波兰舞曲。",
+   "11月:K.280 第一乐章和第二、三乐章分别在两场音乐会上演奏;12月再次与长笛手合作。",
+   "1月:贝多芬《月光》(包括最后乐章)成为作业;他自己提出想弹李斯特《钟》。1月底教堂音乐会:K.280 第一乐章。",
+   "2–3月:录音申请国家音乐学院的周六少年班和地区青少年人才项目——两个都被录取,2025/26 学年起参加。",
+   "5月3日:第一场完整的独奏会(9岁10个月):巴赫前奏曲与赋格、莫扎特 K.280 全曲、哈恰图良六首,可能还有贝多芬。"],
+   pieces:["k25","k06","k02","k32","k19","p06","k20"]},
+  {label:"2025/26 学年", age:"10岁", title:"浪漫派的门打开了", items:[
+   "8–9月:和同学四手联弹莫什科夫斯基《西班牙舞曲》,9月、11月两场音乐会,10月人才项目的合奏日。",
+   "9月的年度计划:巴赫《意大利协奏曲》、德彪西《两首阿拉伯风格曲》、肖邦《幻想即兴曲》、一首莫扎特奏鸣曲、一首莫扎特协奏曲(稍后)、李斯特《钟》、格里格四手联弹;每节课带阿农。德彪西《格拉杜斯博士》开始。",
+   "11月:《意大利协奏曲》暂缓('太成人'),换成新的莫扎特奏鸣曲 → K.311;肖邦夜曲 Op.9 No.2 重新拾起;市政厅音乐会后老师写'弹得非常美'。11月底在社区聚会上弹了两首流行曲;12月还参加了单簧管的圣诞音乐会。",
+   "1–2月:K.311 第一乐章用于音乐特色学校的入学试奏;大师班上弹《土耳其进行曲》;2月初市政厅音乐会:《土耳其进行曲》+ K.311 第二乐章;春节晚会上弹键盘并演唱。",
+   "2–3月:巴赫 c小调前奏曲与赋格;肖邦 e小调圆舞曲(遗作)、瓦克斯《西班牙小夜曲》、《华丽圆舞曲》;3月中《小狗圆舞曲》大约一周学会。",
+   "4–6月:人才项目音乐会(《小狗圆舞曲》+ e小调圆舞曲)、5月底音乐厅音乐会、6月音乐学院班级音乐会(《格拉杜斯博士》)。暑假拿到海顿 e小调奏鸣曲和柴可夫斯基《十月》的谱子。"],
+   pieces:["k26","k04","k24","k18","k20","k22","p15","k07","k14","k08","k03","k15","k27","k17","k16","k05","k23"]},
+  {label:"2026/27 学年", age:"11岁", title:"新学校,第一个比赛冠军", items:[
+   "8月:进入音乐特色学校,新增'诠释'与'合奏'课和乐理课;钢琴课继续跟老师甲。",
+   "9月:参加当代作曲家的群体钢琴项目《大旋转》,在一家美术馆的音乐厅演出;《幻想即兴曲》赛后慢练;和同学准备一首莫扎特奏鸣曲(合奏)。",
+   "10月:音乐学院家庭音乐会(比赛彩排);参加全校交响音乐会;地区青少年钢琴比赛第一组别获胜:肖邦 Op.34 No.1 + 德彪西《格拉杜斯博士》。10月20日老师乙发来贝多芬 Op.10 No.1 和肖邦波兰舞曲 Op.40 的谱子。",
+   "11月:市政厅音乐会;人才项目合奏日。莫扎特协奏曲仍在计划中。"],
+   pieces:["k33","k18","k17","p15","k10","k19"]}
+ ],
+ threads:[
+  {name:"巴洛克 · 复调 Baroque counterpoint", steps:[["2023","二部创意曲 第1、4首","k01"],["2024","G大调前奏曲(先学前奏曲)","k02"],["2024–25","G大调前奏曲与赋格全曲,用于录音和独奏会","k02"],["2025","《意大利协奏曲》开始,后暂缓","k04"],["2026","c小调前奏曲与赋格","k03"]],
+   skill:"两手各自独立 → 三个声部同时清楚 → 大型巴洛克作品的耐力和成熟度。老师几乎每年安排一首新的巴赫——'每年一首巴赫'是传统的做法。"},
+  {name:"古典 · 奏鸣曲 Classical sonata line", steps:[["2022","克莱门蒂小奏鸣曲 Op.36 No.1 全曲","p03"],["2023","莫扎特 K.545 第一乐章","p04"],["2024–25","莫扎特 K.280 全曲","k06"],["2026","莫扎特 K.311","k07"],["2026","海顿 e小调奏鸣曲","k05"],["2026","贝多芬 Op.10 No.1","k10"]],
+   skill:"从'迷你奏鸣曲'到真正的三乐章奏鸣曲,再到小调的、有戏剧性的海顿和贝多芬——这是理解奏鸣曲式、培养均匀清晰触键的主线。《土耳其进行曲》2022年学、2026年在大师班上重弹,是看成长最好的标尺。"},
+  {name:"浪漫 · 歌唱与炫技 Romantic singing & virtuosity", steps:[["2022–23","格里格《小鸟》、舒曼小品","k21"],["2022 / 2025","肖邦夜曲 Op.9 No.2(7岁布置,10岁真正练成)","k14"],["2025","贝多芬《月光》含第三乐章","p06"],["2026","三首肖邦圆舞曲:e小调、《小狗》、Op.34 No.1","k17"],["2025–26","《幻想即兴曲》、波兰舞曲 Op.40、李斯特《钟》","k18"]],
+   skill:"先学'让钢琴唱歌'(夜曲、小品),再进入需要速度、跳跃和踏板控制的炫技作品。2026年春一个季度学了三首肖邦圆舞曲,说明读谱和记忆的速度已经很快。"},
+  {name:"20世纪与当代 20th century & today", steps:[["2023–25","哈恰图良《儿童画册》","k25"],["2025–26","德彪西《格拉杜斯博士》(比赛曲)","p15"],["2025","德彪西《阿拉伯风格曲》","k24"],["2026","当代群体作品《大旋转》","k33"]],
+   skill:"不规则节奏、现代和声、印象派的色彩与踏板,以及和十几个人一起演奏当代作品——视野不限于18、19世纪。"},
+  {name:"合奏 Playing with others", steps:[["2023","和老师四手联弹;与长笛手合作","k22"],["2024","莫扎特钢琴三重奏(小提琴+大提琴)","k09"],["2025","和同学四手联弹莫什科夫斯基、格里格","k26"],["2026","群体钢琴作品;和同学合奏莫扎特奏鸣曲","k33"]],
+   skill:"从跟老师合奏到跟同龄人合奏,再到多人群体作品——'听别人'的能力逐年加码。新学校从2026年起有专门的合奏课。"},
+  {name:"技术 Technique", steps:[["2022–","车尔尼 Op.299","k28"],["2025–","阿农,每节课必带","k28"]],
+   skill:"手指的'体能训练'一直在背景里进行,不是阶段性的任务。"}
+ ],
+ level:{
+  note:"下面的等级只是曲目难度的大致参考,以英国 ABRSM 考级体系为参照(1–8 级,8 级之上是演奏文凭 diploma:ARSM、DipABRSM、LRSM)。它说明的是'弹的是什么难度的曲子',不是'弹得多好'——同一首曲子弹到什么程度,只有老师知道。",
+  rows:[
+   ["2022 · 7岁","克莱门蒂小奏鸣曲、《土耳其进行曲》、车尔尼 Op.299","约 3–6 级"],
+   ["2023 · 8岁","莫扎特 K.545、巴赫二部创意曲、舒曼小品、哈恰图良","约 5–6 级"],
+   ["2024 · 9岁","莫扎特 K.280 全曲、巴赫 G大调前奏曲与赋格、莫扎特三重奏","约 7–8 级"],
+   ["2025 · 10岁","《月光》含第三乐章、肖邦夜曲 Op.9 No.2、《意大利协奏曲》(开始)","约 8 级 → 文凭级"],
+   ["2026 · 11岁","肖邦 Op.34 No.1、《小狗圆舞曲》、《幻想即兴曲》、贝多芬 Op.10 No.1、海顿、德彪西","约 8 级 → 文凭级(ARSM / DipABRSM 水平的曲目);李斯特《钟》属于音乐会级别,正在慢慢学"]
+  ],
+  external:"外部印证:2025年通过录音被国家音乐学院的周六少年班和地区青少年人才项目录取;2026年1月通过音乐特色学校的入学试奏;2026年10月在地区青少年钢琴比赛的组别中获胜。"
+ },
+ observations:[
+  {q:"第一节课就布置车尔尼 Op.299 和《土耳其进行曲》,一个月后加肖邦夜曲", when:"2022-08/09 · 老师乙", so:"7岁时的起点已经不低——说明前两年在第一所学校打下了扎实的基础。"},
+  {q:"新年后计划开始贝多芬第一钢琴协奏曲", when:"2022-12 · 老师甲", so:"协奏曲从7岁起就在老师的视野里(2023、2025、2026年又三次提到莫扎特协奏曲)。它是下一道门槛,一直在等合适的时机。"},
+  {q:"请他重弹以前弹过的《狂野的骑士》", when:"2023-02 · 老师甲", so:"老师用旧曲子检查演奏是否成熟了。你也可以这样做:请他弹一首两年前的曲子,对比感受。"},
+  {q:"《钟》是他自己提出想弹的;8个月后老师正式布置", when:"2025-01 → 2025-09 · 老师甲", so:"他的愿望会影响曲目选择,老师用几个月铺好台阶再放行。"},
+  {q:"音乐会上'弹得非常美'", when:"2025-11 · 老师甲", so:"老师主动写来的夸奖,值得原话转告孩子。"},
+  {q:"《意大利协奏曲》先放一放——'太成人'", when:"2025-11 · 老师甲", so:"老师衡量的不只是手指能不能弹,还有音乐上的成熟度。被推迟不是退步。"},
+  {q:"《小狗圆舞曲》大约一周学会", when:"2026-03 · 老师甲", so:"读谱和记忆速度很快,技术上这首曲子已不构成障碍。"},
+  {q:"赛后把《幻想即兴曲》拿出来慢练", when:"2026-09 · 老师甲", so:"高峰之后刻意放慢——这是保护性的安排。这段时间家长不必追问'什么时候弹完'。"},
+  {q:"每节课带阿农", when:"2025–26 · 老师甲", so:"技术练习是每天的例行功课,不是阶段任务。"},
+  {q:"每年一首新的巴赫前奏曲与赋格、一首新的古典奏鸣曲、一首浪漫派、一点20世纪", when:"2023–2026 的规律", so:"两位老师的曲目安排像'均衡饮食'——四条线每年都往前走一格。"}
+ ],
+ next:[
+  {t:"协奏曲——下一道门槛", d:"老师从2022年起多次提到莫扎特协奏曲('可能选一首早期的')和贝多芬第一协奏曲。在家可以先放莫扎特第12号 (K.414)、第23号 (K.488) 和贝多芬第一协奏曲,让他熟悉'乐队全体 (tutti)'和'独奏 (solo)'的轮换。真正开始学时,他需要一个在第二架钢琴上弹乐队部分的搭档——早点问老师怎么安排。"},
+  {t:"合奏课——新学校的新内容", d:"2026年秋起有专门的诠释课和合奏课。听他的合奏演出时,多夸'听别人'的瞬间('你弹轻的时候小提琴特别清楚'),而不只是夸他自己弹得好。"},
+  {t:"大曲子要以'季'和'年'计", d:"《幻想即兴曲》《钟》、贝多芬 Op.10 No.1 这样的作品,正常要练一个学期到一年。不问'什么时候弹完',改问'这周最难的是哪一段?'——然后听他讲。"},
+  {t:"技术每天十分钟", d:"阿农和车尔尼每天10分钟,胜过每周一次一小时。工具页的节拍器可以用来练'慢而准'。"},
+  {t:"赛后的节奏", d:"比赛获胜之后,老师选择了慢练和新作品;他自己也在社区活动上弹流行曲、吹单簧管、唱歌。这些'轻松的音乐'是对抗倦怠的保护,别把它们当成'不务正业'。"},
+  {t:"一起听录音", d:"每首曲子选一两个录音(卡片上的'听一听'),在车里、做饭时放。听多了,你就能听出他的版本和名家版本的差别——这正是'好观众'的养成。"},
+  {t:"记录", d:"每次音乐会后,在对应曲目的'我的笔记'里写两句。一年以后,这一页可以加上他自己的话。"}
+ ]
+};
+
 
 </script>
 <script>
@@ -1365,6 +1506,9 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 PIANO.forEach(p=>{if(PLAYED_EXISTING[p.id])p.played=PLAYED_EXISTING[p.id]});
 const PIECES=[...PIANO.map(p=>({...p,inst:"piano"})),...VIOLIN.map(p=>({...p,inst:"violin"}))];
+const KID=(typeof JOURNEY_KEY!=="undefined"&&JOURNEY_KEY.name)||"孩子";   // the name exists only in the local build
+const PLAYED_LABEL=KID==="孩子"?"孩子弹过":KID+" 弹过";
+const NOW=new Set((typeof JOURNEY!=="undefined"&&JOURNEY.now&&JOURNEY.now.pieces)||[]);
 const PERIOD_NAME=Object.fromEntries(ERAS.map(p=>[p.id,p.name]));
 const store={get(k){try{return localStorage.getItem(k)||""}catch(e){return ""}},set(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}};
 
@@ -1402,7 +1546,7 @@ function pieceHTML(p){
   const li=a=>"<ul>"+a.map(x=>"<li>"+T(x)+"</li>").join("")+"</ul>";
   const yt="https://www.youtube.com/results?search_query="+encodeURIComponent(p.q);
   const gs=genresOf(p), sur=p.composer==="folk"?"Folk":c.en.split(" ").pop();
-  return `<details class="piece" id="${p.id}"><summary><span class="t">${p.inst==="piano"?"🎹":"🎻"} ${esc(p.title)}</span><span class="c">${esc(c.name)} ${esc(sur)}</span>${p.played?`<span class="badge">★ 孩子弹过 ${esc(p.played)}</span>`:""}<span class="s2">${gs.map(g=>esc(g.name.split(" ")[0])).join(" · ")}${gs.length?" · ":""}${esc(p.en)}</span><span class="h">${esc(p.hook)}</span></summary>
+  return `<details class="piece" id="${p.id}"><summary><span class="t">${p.inst==="piano"?"🎹":"🎻"} ${esc(p.title)}</span><span class="c">${esc(c.name)} ${esc(sur)}</span>${p.played?`<span class="badge">★ ${PLAYED_LABEL} ${esc(p.played)}</span>`:""}${NOW.has(p.id)?`<span class="badge now">▶ 正在弹 ${esc(JOURNEY.now.asof)}</span>`:""}<span class="s2">${gs.map(g=>esc(g.name.split(" ")[0])).join(" · ")}${gs.length?" · ":""}${esc(p.en)}</span><span class="h">${esc(p.hook)}</span></summary>
   <div class="body">
    <div class="meta" style="align-items:center">${ava(p.composer,"sm")}<span class="chip">作曲 ${esc(c.name)} ${esc(c.en)}</span><span class="chip">${esc(p.year)}</span><button class="chip chiplink" data-goto="history" data-anchor="era-${p.period}">${esc(PERIOD_NAME[p.period]||"")} ›</button><button class="chip chiplink" data-goto="composers" data-anchor="c-${p.composer}">关于${esc(c.name)} ›</button>${p.bpm?`<span class="chip">参考速度 ≈ ${p.bpm} BPM</span>`:""}</div>
    ${gs.length?`<h4>这是什么体裁 What kind of piece</h4>`+gs.map(g=>`<p><b>${esc(g.name)}</b>:${T(g.what)} <button class="chip chiplink" data-goto="history" data-anchor="genre-${g.id}">更多 ›</button></p>`).join(""):""}
@@ -1626,6 +1770,25 @@ $("#dViolin").innerHTML=sv(560,470,`
     if(t.startsWith("奏鸣")){[[10,124,"呈示部 exposition"],[134,87,"展开部 development"],[221,124,"再现部 recapitulation"]].forEach(([bx,bw,l])=>s+=`<path d="M${bx} ${y+36} v4 h${bw-4} v-4" fill="none" stroke="var(--mute)"/><text class="tm" x="${bx+bw/2-2}" y="${y+53}" text-anchor="middle" font-size="10">${l}</text>`);y+=20}
     y+=50});
   $("#dForms").innerHTML=sv(400,y,s);
+})();
+
+// ---------- journey
+function openPiece(id){byComposer=null;byEra=null;byGenre=null;inst="all";$$("#instSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v==="all"));$("#q").value="";renderPieces();showTab("pieces");const d=document.getElementById(id);if(d){d.open=true;d.scrollIntoView({block:"start"})}}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-piece]");if(b&&b.dataset.piece)openPiece(b.dataset.piece)});
+(function journey(){
+  const Tj=()=>G(new Set()),pieceBtn=(id,label)=>{const p=PIECES.find(x=>x.id===id);return p?`<button class="chip chiplink" data-piece="${id}">${esc(label||p.title)} ›</button>`:""};
+  $("#jTitle").textContent=KID==="孩子"?"孩子的学琴之路":KID+" 的学琴之路";
+  $('#instSeg [data-v="played"]').textContent="★ "+PLAYED_LABEL;
+  $("#jIntro").innerHTML=Tj()(JOURNEY.intro);
+  if(JOURNEY.now)$("#jNow").innerHTML=`<div class="card" style="border-left:4px solid var(--ok)"><h3>▶ 现在在弹 Now playing <span class="note">${esc(JOURNEY.now.asof)}</span></h3><div class="meta">${JOURNEY.now.pieces.map(id=>pieceBtn(id)).join("")}</div><p class="note">${Tj()(JOURNEY.now.note)}</p></div>`;
+  $("#jStats").innerHTML=JOURNEY.stats.map(([k,v])=>`<div class="card stat"><b>${esc(k)}</b>${esc(v)}</div>`).join("");
+  $("#jMilestones").innerHTML=JOURNEY.milestones.map(m=>`<li class="ms"><span class="when">${esc(m.when)}</span><span class="age">${esc(m.age)}</span><div>${Tj()(m.what)} ${m.piece?pieceBtn(m.piece,"看曲目"):""}</div></li>`).join("");
+  $("#jYears").innerHTML=JOURNEY.years.map(y=>`<div class="card"><h3>${esc(y.label)} <span class="note">${esc(y.age)}</span> · ${esc(y.title)}</h3>${y.text?`<p>${Tj()(y.text)}</p>`:""}${y.items?`<ul>${y.items.map(i=>"<li>"+Tj()(i)+"</li>").join("")}</ul>`:""}${y.pieces&&y.pieces.length?`<div class="meta">${[...new Set(y.pieces)].map(id=>pieceBtn(id)).join("")}</div>`:""}</div>`).join("");
+  $("#jThreads").innerHTML=JOURNEY.threads.map(t=>`<div class="card"><h3>${esc(t.name)}</h3><div class="steps">${t.steps.map((s,i)=>`${i?'<span class="arrow">→</span>':""}<button class="step${s[2]?" chiplink":""}" data-piece="${s[2]||""}"><b>${esc(s[0])}</b>${esc(s[1])}</button>`).join("")}</div><p class="note" style="margin-top:8px">${Tj()(t.skill)}</p></div>`).join("");
+  $("#jLevel").innerHTML=`<p class="note">${esc(JOURNEY.level.note)}</p><table><tr><th>时间</th><th>代表曲目</th><th>大致等级(参考)</th></tr>${JOURNEY.level.rows.map(r=>`<tr><td style="white-space:nowrap">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</table><p>${Tj()(JOURNEY.level.external)}</p>`;
+  $("#jObs").innerHTML=JOURNEY.observations.map(o=>`<div class="card"><p>"${esc(o.q)}" <span class="note">— ${esc(o.when)}</span></p><p>→ ${Tj()(o.so)}</p></div>`).join("");
+  $("#jNext").innerHTML=JOURNEY.next.map(n=>`<div class="card"><h3>${esc(n.t)}</h3><p>${Tj()(n.d)}</p></div>`).join("");
+  if(typeof JOURNEY_KEY!=="undefined")$("#jKey").innerHTML=`<h2 class="grp">名称对照 Name key — 只在这台电脑的本地版本显示,公开的 app 里没有</h2><div class="card"><table>${JOURNEY_KEY.key.map(k=>`<tr><td style="white-space:nowrap">${esc(k[0])}</td><td>${esc(k[1])}</td></tr>`).join("")}<tr><td>生日</td><td>${esc(JOURNEY_KEY.birthday)}</td></tr></table><p class="note">来源:${esc(JOURNEY_KEY.source)}</p></div>`;
 })();
 
 renderPieces();
