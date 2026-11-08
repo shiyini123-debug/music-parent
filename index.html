@@ -1028,9 +1028,11 @@ Object.assign(COMPOSERS, {
   wachs:{name:"瓦克斯", en:"Paul Wachs", years:"1851–1915", period:"romantic",
     bio:"法国管风琴家和作曲家,在巴黎教堂任职,写了大量轻巧好听的钢琴沙龙小品,适合学生演奏。今天名气不大,资料也较少。"},
   czerny:{name:"车尔尼", en:"Carl Czerny", years:"1791–1857", period:"classical",
-    bio:"维也纳钢琴教育家,贝多芬的学生、李斯特的老师——处在钢琴史最关键的一条传承线上。他写了上千首练习曲,几乎每个学钢琴的孩子都练过。阿农 (Charles-Louis Hanon, 1819–1900) 是法国的钢琴教师,他的《钢琴演奏家》手指练习也是全世界通用的技术教材。"}
+    bio:"维也纳钢琴教育家,贝多芬的学生、李斯特的老师——处在钢琴史最关键的一条传承线上。他写了上千首练习曲,几乎每个学钢琴的孩子都练过。阿农 (Charles-Louis Hanon, 1819–1900) 是法国的钢琴教师,他的《钢琴演奏家》手指练习也是全世界通用的技术教材。"},
+  asheim:{name:"阿斯海姆", en:"Nils Henrik Asheim", years:"1960–", period:"contemporary",
+    bio:"挪威作曲家、管风琴家,出生于奥斯陆,长期在斯塔万格工作。他的作品常把古典传统和当代、即兴、跨界的元素放在一起,也常为学生和非职业演奏者的大型群体创作——很多孩子一起演奏一部作品。"}
 });
-Object.assign(WIKI, {khachaturian:"Aram_Khachaturian", moszkowski:"Moritz_Moszkowski", wachs:"", czerny:"Carl_Czerny"});
+Object.assign(WIKI, {khachaturian:"Aram_Khachaturian", moszkowski:"Moritz_Moszkowski", wachs:"", czerny:"Carl_Czerny", asheim:"Nils_Henrik_Asheim"});
 
 // badges for cards that were already in the app
 const PLAYED_EXISTING = {p03:"2022", p04:"2023", p06:"2025(含第三乐章)", p15:"2025–2026"};
@@ -1062,7 +1064,7 @@ PIANO.push(
  bpm:120, praise:["前奏曲像一台停不下来的机器,好有力量!","最后那一下变成大调,好像天亮了。"], q:"Bach Prelude and Fugue C minor BWV 847"},
 {id:"k04", group:"巴洛克 Baroque", title:"意大利协奏曲", en:"Italian Concerto in F major, BWV 971", composer:"bach", year:"1735", period:"baroque", played:"2025",
  hook:"一个人、一架琴,模仿一整个乐队和独奏家的对话。",
- bg:"1735年出版于巴赫的《键盘练习曲集》第二部。当时意大利协奏曲(维瓦尔第式)非常流行:乐队全体 (tutti) 和独奏 (solo) 轮流演奏。巴赫把这种效果搬到一件键盘乐器上——原本用两层键盘的羽管键琴,一层响一层轻,在钢琴上就要靠手指做出'乐队'和'独奏'的对比。",
+ bg:"1735年出版于巴赫的《键盘练习曲集》第二部。当时意大利协奏曲(维瓦尔第式)非常流行:乐队全体 (tutti) 和独奏 (solo) 轮流演奏。巴赫把这种效果搬到一件键盘乐器上——原本用两层键盘的羽管键琴,一层响一层轻,在钢琴上就要靠手指做出'乐队'和'独奏'的对比。孩子2025年秋开始学,老师觉得这首'太成人',先放一放,换成莫扎特——以后会再回来。",
  about:"第一乐章阳光、自信,像乐队开场;第二乐章是一首长长的、装饰很多的咏叹调,左手是低沉稳定的伴奏;第三乐章急板,飞快、欢乐。",
  structure:["第1乐章:'乐队'大声齐奏的主题 ↔ 轻声的'独奏'段落轮流出现","第2乐章 Andante:右手像歌唱家一样唱出华丽的旋律","第3乐章 Presto:快速、欢快,'乐队'和'独奏'继续对答"],
  checks:["能不能听出'大声的全体'和'轻声的独奏'两种音色","第二乐章的旋律是否像唱歌、装饰音是否自然","第三乐章是否轻快干净,不乱","三个乐章性格是否不同(快—慢—快)"],
@@ -1166,7 +1168,7 @@ PIANO.push(
  bpm:200, praise:["真像小狗在追自己的尾巴,转啊转!"], q:"Chopin Minute Waltz Op 64 No 1"},
 {id:"k17", group:"浪漫 Romantic", title:"降A大调华丽圆舞曲 Op.34 No.1", en:"Waltz in A-flat major 'Valse brillante', Op. 34 No. 1", composer:"chopin", year:"1835(1838年出版)", period:"romantic", played:"2026",
  hook:"舞会开场的号角!孩子在比赛中演奏并获奖的曲目之一。",
- bg:"肖邦在1835年写成,1838年以'三首华丽圆舞曲'出版,这是第一首。它是真正'舞会气氛'的圆舞曲:节日、灯光、旋转的裙子。孩子2026年用它参加了钢琴比赛。",
+ bg:"肖邦在1835年写成,1838年以'三首华丽圆舞曲'出版,这是第一首。它是真正'舞会气氛'的圆舞曲:节日、灯光、旋转的裙子。孩子2026年用它参加了钢琴比赛。乐谱上常常只印 Grande valse brillante,而 Op.18(降E大调)也叫这个名字,所以报名时一度写成了 Op.18,后来由老师更正为 Op.34 No.1。",
  about:"开头像号角宣布'舞会开始';接着是一个又一个不同性格的舞曲段落——有的轻盈、有的热烈、有的俏皮;结尾辉煌。",
  structure:["引子:号角般的和弦","A:主圆舞曲,明亮","B、C:几个不同的舞曲段落轮流出现(俏皮的、热烈的、歌唱的)","A:主题回来","尾声:快速、华丽地收尾"],
  checks:["引子是否有气势","每个段落性格是否不同","左手圆舞曲节奏是否轻盈有弹性","快速段落清楚","结尾辉煌但不乱"],
@@ -1182,7 +1184,7 @@ PIANO.push(
  bpm:84, praise:["开头像一阵风刮过来,中间突然好温柔!"], q:"Chopin Fantaisie Impromptu Op 66"},
 {id:"k19", group:"浪漫 Romantic", title:"波兰舞曲 Op.40(可能是第1首《军队》)", en:"Polonaise Op. 40 (No. 1 in A major 'Military', or No. 2 in C minor)", composer:"chopin", year:"1838(1840年出版)", period:"romantic", played:"2026",
  hook:"波兰的骄傲:庄严的三拍子舞曲,像骑兵列队行进。",
- bg:"波兰舞曲 (polonaise) 是波兰贵族庄严的行进舞。肖邦离开祖国后,把对波兰的思念和骄傲写进了这些舞曲。Op.40 有两首:第1首A大调《军队》辉煌雄壮;第2首c小调阴郁悲伤。邮件只写了'Op.40',问问孩子是哪一首。据说1939年华沙被围时,波兰电台每天播放《军队波兰舞曲》来鼓舞人心。",
+ bg:"波兰舞曲 (polonaise) 是波兰贵族庄严的行进舞。肖邦离开祖国后,把对波兰的思念和骄傲写进了这些舞曲。Op.40 有两首:第1首A大调《军队》辉煌雄壮;第2首c小调阴郁悲伤。邮件只写了'Op.40',问问孩子是哪一首;早在2024年老师就提到过要弹一首波兰舞曲。据说1939年华沙被围时,波兰电台每天播放《军队波兰舞曲》来鼓舞人心。",
  about:"(以第1首为例)雄壮、骄傲、辉煌:大量的和弦和八度,像骑兵在广场上列队前进。",
  structure:["A:辉煌的主题,和弦齐奏","B:中段,号角般的呼应","A:主题再现,气势更大"],
  checks:["波兰舞曲的节奏:'哒—哒哒 哒 哒 哒'的特点是否清楚","和弦是否整齐(所有音同时落下)","是否有庄严的气势,但不砸琴","八度是否清楚"],
@@ -1230,7 +1232,7 @@ PIANO.push(
  bpm:76, praise:["好像在看水波一层层流过去。"], q:"Debussy Arabesque No 1"},
 {id:"k25", group:"20世纪 20th c.", title:"儿童画册(选曲)", en:"Children's Album / Pictures of Childhood (selected pieces)", composer:"khachaturian", year:"1947 / 1965", period:"c20", played:"2023–2025",
  hook:"《马刀舞》作者写给孩子的小曲:有亚美尼亚的节奏和现代的和声。",
- bg:"哈恰图良写了两册给孩子的钢琴曲(1947年、1965年)。每首都有标题,比如'伊万在唱歌''伊万今天不能出去玩'这类孩子生活的场景,还有一首有名的《托卡塔》。孩子学了其中好几首(邮件里提到第2、3、4首和'八首'),具体是哪几首可以问他。",
+ bg:"哈恰图良写了两册给孩子的钢琴曲(1947年、1965年)。每首都有标题,比如'伊万在唱歌''伊万今天不能出去玩'这类孩子生活的场景,还有一首有名的《托卡塔》。孩子学了第一册(1947年)里的好几首——邮件里提到第2、3、4、5、9、10首——2024年秋在音乐会上弹过其中几首,2025年春的独奏会上也有六首。",
  about:"短小、有画面感:有的抒情忧伤,有的节奏强烈、不规则,带东方(亚美尼亚)的味道;和声有时'不太常规',是20世纪的声音。",
  structure:["每首1–3分钟,通常是 A-B-A 或一个画面从头到尾","注意每首的标题——它就是这首曲子讲的故事"],
  checks:["每首的性格是否鲜明(问孩子标题是什么)","节奏是否清楚,尤其是不规则的重音","抒情的曲子是否能'唱'出来"],
@@ -1259,7 +1261,47 @@ PIANO.push(
  structure:["车尔尼:每首一个技术重点,短小,有简单的伴奏和和声","阿农:同一个手指音型重复,在键盘上上下移动"],
  checks:["每个音是否一样响、一样长(均匀)","速度稳定,不越来越快","手腕放松(看他的手,不应该僵硬或耸肩)","慢练是否认真——慢而准,比快而乱更好"],
  mistakes:["只追求快,音不均匀","手腕和肩膀紧张"],
- bpm:120, praise:["这些音像一颗颗珍珠一样均匀。","我知道练习曲很枯燥,你坚持练得真好。"], q:"Czerny School of Velocity Op 299"}
+ bpm:120, praise:["这些音像一颗颗珍珠一样均匀。","我知道练习曲很枯燥,你坚持练得真好。"], q:"Czerny School of Velocity Op 299"},
+{id:"k29", group:"古典 Classical", title:"第一钢琴协奏曲 Op.15", en:"Piano Concerto No. 1 in C major, Op. 15", composer:"beethoven", year:"1795(1801年出版)", period:"classical", played:"2023 计划",
+ hook:"贝多芬的'第一'协奏曲其实是他写的第二部——出版顺序颠倒了编号。",
+ bg:"贝多芬二十多岁刚在维也纳站稳脚跟时写成,1795年首演由他自己担任钢琴独奏。虽然编号第一,实际写作晚于降B大调的'第二'协奏曲,只是先出版。献给他的学生凯格列维奇伯爵小姐。邮件里:2022年底老师写道新年后开始学这首协奏曲,之后没有再提到——究竟学了多少,问问孩子。",
+ about:"C大调,明亮、庆典般的气氛。第一乐章像军乐队的进行;第二乐章转到降A大调,深情宽广;第三乐章回旋曲,俏皮,带着乡村舞蹈的幽默。",
+ structure:["第1乐章:乐队先奏出长长的引子,钢琴才进入","钢琴与乐队轮流发展主题","华彩段 (cadenza):钢琴独自炫技(贝多芬自己写了三个版本)","第2乐章 Largo:宽广的慢歌","第3乐章 Rondo:俏皮的主题一次次回来"],
+ checks:["钢琴第一次进入时是否清楚、有自信","和伴奏(乐队或第二架钢琴)是否对齐","慢乐章是否歌唱","回旋曲主题每次回来是否同样有精神"],
+ mistakes:["和伴奏对不齐","快速段落赶"],
+ bpm:126, praise:["协奏曲是钢琴和整个乐队在对话——你是主角!"], q:"Beethoven Piano Concerto No 1 Op 15"},
+{id:"k30", group:"民族乐派 Nationalism", title:"哈林舞曲(可能是格里格的)", en:"Halling — probably Grieg, Lyric Pieces Op. 38 No. 4 or Op. 47 No. 4", composer:"grieg", year:"1883 / 1888(如果是格里格)", period:"nationalism", played:"2023",
+ hook:"挪威男人的独舞:蹦跳、踢腿,目标是把挂在高处的帽子踢下来。",
+ bg:"Halling 是挪威(尤其哈灵达尔 Hallingdal 地区)的传统男子独舞,2/4拍,高潮是舞者高高跳起把帽子踢下来 (hallingkast)。格里格在《抒情小品》里写了好几首《哈林舞曲》(Op.38 No.4、Op.47 No.4、Op.71 No.5)。邮件里只写了'Halling',没有写作曲家——最可能是格里格的其中一首,请孩子确认。",
+ about:"粗犷、有弹性、有力。低音常常是持续的'嗡嗡'声,模仿哈当厄尔小提琴 (Hardanger fiddle) 的共鸣弦;节奏像跺脚和跳跃。",
+ structure:["跳跃的舞曲主题,反复","中段变化或更用力","结尾常用一个重音'踢'出去"],
+ checks:["节奏是否有舞蹈的弹性和明确的重音","低音的持续音是否像风笛或小提琴的共鸣","有没有'跳'的感觉"],
+ mistakes:["节奏太平,没有舞蹈感","低音太重盖过旋律"],
+ bpm:112, praise:["我好像看到挪威人在跳舞踢帽子!"], q:"Grieg Halling Lyric Pieces"},
+{id:"k31", group:"古典 Classical", title:"一套变奏曲(很可能是 WoO 64 或 WoO 70)", en:"A set of variations — probably Six Easy Variations on a Swiss Song, WoO 64, or Six Variations on 'Nel cor più non mi sento', WoO 70", composer:"beethoven", year:"约1790 / 1795", period:"classical", played:"2023",
+ hook:"'主题换衣服':一个简单的曲调一遍遍变花样,有大调也有小调。",
+ bg:"邮件只写了'贝多芬的一套变奏曲,有大调也有小调'。贝多芬年轻时写了很多这样的小型变奏曲,学生最常弹的两套:《瑞士歌曲变奏曲》WoO 64(F大调,约1790年)和《我心已不再感到》变奏曲 WoO 70(G大调,1795年,主题来自帕伊谢洛的一部歌剧)。两套都有一个变奏转为小调。WoO 是'无作品号'的意思。具体是哪一套,问问孩子。",
+ about:"主题像一首朴素的小歌;每个变奏改变一点:音符变快、左手变花、转到小调变得忧伤、再回到明亮,最后更华丽地结束。",
+ structure:["主题:简单、好记","变奏1、2:音符变密,装饰增多","小调变奏:颜色变暗、变忧伤","回到大调:更华丽,结束"],
+ checks:["每个变奏里能不能听出原来的主题","小调变奏的情绪有没有变化","各变奏之间速度是否一致,不忽快忽慢"],
+ mistakes:["变奏之间速度乱","小调变奏没有情绪变化"],
+ bpm:84, praise:["我每一段都能听出那个主题,只是穿了不同的衣服!"], q:"Beethoven Six Variations WoO 70 Nel cor piu non mi sento"},
+{id:"k32", group:"浪漫 Romantic", title:"玛祖卡舞曲 Op.6(可能是前三首)", en:"Mazurkas, Op. 6 (probably Nos. 1–3)", composer:"chopin", year:"1830–1832", period:"romantic", played:"2024",
+ hook:"肖邦最'波兰'的音乐:三拍子,但重音落在'不该'落的地方。",
+ bg:"玛祖卡 (mazurka) 是波兰马佐夫舍地区的民间舞,三拍子,重音常在第二或第三拍——和圆舞曲'嘭-嚓-嚓'第一拍重完全不同。肖邦一生写了五十多首玛祖卡,Op.6 是他最早出版的一组(四首:升f小调、升c小调、E大调、降e小调),写于离开波兰前后。邮件里写的是'最早的三首玛祖卡',很可能就是 Op.6 的前三首。",
+ about:"带着乡愁的舞蹈:时而忧郁、时而倔强、时而调皮。低音常有像风笛一样的'空五度',旋律里有即兴般的装饰音。",
+ structure:["短小的段落反复出现,通常 A-B-A","中段常换一种情绪或调性","结尾有时'没说完'就停住"],
+ checks:["三拍子里的重音是否落在第二或第三拍——这是玛祖卡的灵魂","是否有弹性速度 (rubato),像民间舞者的即兴","民间的粗犷和肖邦的优雅是否都有一点"],
+ mistakes:["弹成了普通的圆舞曲(第一拍重)","太机械,没有弹性"],
+ bpm:120, praise:["这个重音怪怪的但很好听——这就是波兰的舞步吧?"], q:"Chopin Mazurkas Op 6"},
+{id:"k33", group:"当代 Contemporary", title:"《大旋转》The Great Spin — Piano Actions", en:"The Great Spin, from 'Piano Actions' — a group piece for many pianists built on Chopin's waltzes", composer:"asheim", year:"2026", period:"contemporary", played:"2026",
+ hook:"一群孩子、好几架钢琴,一起把肖邦的圆舞曲拆开重组——孩子参加过的一次当代音乐演出。",
+ bg:"根据邮件,这是挪威当代作曲家阿斯海姆为钢琴学生群体创作的项目 Piano Actions 中的作品,把肖邦的圆舞曲'重新作曲' (recomposed)。2026年夏秋排练,9月在一家美术馆的音乐厅演出。邮件里没有写孩子在作品里演奏哪个部分——问问他。",
+ about:"当代音乐常把熟悉的旧音乐当作材料:你会听到肖邦圆舞曲的碎片在许多架钢琴之间旋转、重叠、错位,像一个巨大的旋转木马。",
+ structure:["作品的具体结构邮件没有描述。听的时候抓住三件事:","1. 熟悉的肖邦片段什么时候出现","2. 多架钢琴怎样轮流、叠加","3. 什么时候所有人一起、什么时候只剩一个人"],
+ checks:["进入的时机是否准(群体作品最怕有人早了或晚了)","能不能感到大家在互相听","全体一起时的力量感","听不出自己孩子的声音很正常——这就是集体作品的意思"],
+ mistakes:["进入时机不准","只顾自己的部分,不听别人"],
+ bpm:0, praise:["这么多架钢琴一起,你们是怎么对齐的?","肖邦的圆舞曲我居然在里面听出来了!"], q:"Nils Henrik Asheim Piano Actions The Great Spin"}
 );
 
 
@@ -1307,7 +1349,7 @@ function pieceHTML(p){
   const yt="https://www.youtube.com/results?search_query="+encodeURIComponent(p.q);
   return `<details class="piece" id="${p.id}"><summary><span class="t">${p.inst==="piano"?"🎹":"🎻"} ${esc(p.title)}</span><span class="e">${esc(p.en)}</span>${p.played?`<span class="badge">★ 孩子弹过 ${esc(p.played)}</span>`:""}<span class="h">${esc(p.hook)}</span></summary>
   <div class="body">
-   <div class="meta" style="align-items:center">${ava(p.composer,"sm")}<span class="chip">作曲 ${esc(c.name)} ${esc(c.en)}</span><span class="chip">${esc(p.year)}</span><button class="chip chiplink" data-goto="history" data-anchor="era-${p.period}">${esc(PERIOD_NAME[p.period]||"")} ›</button><button class="chip chiplink" data-goto="composers" data-anchor="c-${p.composer}">关于${esc(c.name)} ›</button><span class="chip">参考速度 ≈ ${p.bpm} BPM</span></div>
+   <div class="meta" style="align-items:center">${ava(p.composer,"sm")}<span class="chip">作曲 ${esc(c.name)} ${esc(c.en)}</span><span class="chip">${esc(p.year)}</span><button class="chip chiplink" data-goto="history" data-anchor="era-${p.period}">${esc(PERIOD_NAME[p.period]||"")} ›</button><button class="chip chiplink" data-goto="composers" data-anchor="c-${p.composer}">关于${esc(c.name)} ›</button>${p.bpm?`<span class="chip">参考速度 ≈ ${p.bpm} BPM</span>`:""}</div>
    <h4>背景故事 Background</h4><p>${T(p.bg)}</p>
    <h4>讲的是什么 · 情绪 What it's about</h4><p>${T(p.about)}</p>
    ${p.skill?`<h4>这首在练什么 Skill</h4><p>${T(p.skill)}</p>`:""}
@@ -1315,7 +1357,7 @@ function pieceHTML(p){
    <h4>怎么听出弹得好 What good sounds like</h4>${li(p.checks)}
    <h4>常见问题 Common slips</h4>${li(p.mistakes)}
    <h4>听完可以这样夸 What to say</h4>${li(p.praise)}
-   <div class="bar" style="margin-top:12px"><a class="btn" href="${yt}" target="_blank" rel="noopener">▶ 听一听 Listen (YouTube)</a><button class="btn" data-bpm="${p.bpm}" data-title="${esc(p.title)}">⏱ 用这首的速度测速</button></div>
+   <div class="bar" style="margin-top:12px"><a class="btn" href="${yt}" target="_blank" rel="noopener">▶ 听一听 Listen (YouTube)</a>${p.bpm?`<button class="btn" data-bpm="${p.bpm}" data-title="${esc(p.title)}">⏱ 用这首的速度测速</button>`:""}</div>
    <h4>我的笔记 My notes</h4><textarea data-note="${p.id}" placeholder="例如:11月8日 中间那段比上周稳;结尾还是有点急。">${esc(store.get("mp-note-"+p.id))}</textarea><span class="saved" data-saved="${p.id}"></span>
   </div></details>`;
 }
