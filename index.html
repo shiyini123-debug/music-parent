@@ -1,0 +1,1287 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>古典音乐家长手册</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#7a3e9d">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="音乐手册">
+<style>
+:root{--bg:#f8f5ef;--card:#fffdf9;--ink:#24211d;--mute:#6f675d;--line:#e6dfd3;--acc:#7a3e9d;--acc2:#b5651d;--ok:#2e7d4f;--bad:#c0392b;--chip:#efe7f5}
+@media (prefers-color-scheme: dark){:root{--bg:#1b1a19;--card:#252321;--ink:#ece6dc;--mute:#a59d92;--line:#3a3632;--acc:#c49ae0;--acc2:#e3a35f;--ok:#6fcf97;--bad:#ff7b6b;--chip:#33293b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Segoe UI","Microsoft YaHei","PingFang SC",sans-serif}
+header{background:var(--acc);color:#fff;padding:14px 16px 0}
+header h1{margin:0;font-size:21px;font-weight:600}
+header p{margin:2px 0 10px;opacity:.85;font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto}
+nav button{background:transparent;border:0;color:#fff;opacity:.75;padding:8px 14px;font-size:15px;cursor:pointer;border-radius:8px 8px 0 0;white-space:nowrap}
+nav button.on{background:var(--bg);color:var(--ink);opacity:1;font-weight:600}
+.navsep{color:#fff;opacity:.55;font-size:12px;align-self:center;padding:0 2px 0 8px;white-space:nowrap}
+.era{border-left:4px solid var(--acc);}
+.era .yrs{color:var(--acc2);font-weight:600}
+.chiplink{cursor:pointer;border:0;font:inherit}
+.chiplink:hover{background:var(--acc);color:#fff}
+.comp-has{font-size:12px;color:var(--ok)}
+.en{color:var(--mute);font-size:.86em;margin:0 1px}
+.ava{width:76px;height:76px;border-radius:50%;object-fit:cover;object-position:top;background:var(--chip);flex:none;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--acc);overflow:hidden}
+.ava img{width:100%;height:100%;object-fit:cover;object-position:top}
+.ava.sm{width:44px;height:44px;font-size:18px}
+.chead{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.chead h3{margin:0}
+.art{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border-radius:8px;padding:8px;margin:8px 0}
+.art .pic{width:150px;flex:none;border-radius:6px;overflow:hidden;background:var(--chip);min-height:90px}
+.art .pic img{width:100%;display:block}
+.art p{margin:0;font-size:14px;color:var(--mute)}
+@media (max-width:560px){.art{flex-direction:column}.art .pic{width:100%}}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.scrollx svg{display:block}
+svg text{font-family:"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif}
+.credit{font-size:12px;color:var(--mute)}
+.tk{fill:var(--ink)} .tm{fill:var(--mute)} .tl{stroke:var(--line)} .tbg{fill:var(--card)} .tbg2{fill:var(--bg)}
+svg [data-goto]{cursor:pointer}
+main{max-width:980px;margin:0 auto;padding:16px}
+section{display:none}section.on{display:block}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.bar input[type=search]{flex:1;min-width:180px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font-size:15px}
+.seg button,.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:14px}
+.seg button.on,.btn.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn:disabled{opacity:.5;cursor:default}
+h2.grp{font-size:15px;color:var(--acc2);margin:22px 0 8px;letter-spacing:.5px}
+.piece{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:8px}
+.piece>summary{list-style:none;cursor:pointer;padding:10px 14px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.piece>summary::-webkit-details-marker{display:none}
+.piece>summary .t{font-weight:600;font-size:16px}
+.piece>summary .e{color:var(--mute);font-size:13px}
+.piece>summary .h{flex-basis:100%;color:var(--mute);font-size:14px}
+.piece[open]>summary{border-bottom:1px solid var(--line)}
+.body{padding:6px 16px 14px}
+.body h4{margin:14px 0 4px;font-size:14px;color:var(--acc)}
+.body p{margin:4px 0}
+.body ul,.body ol{margin:4px 0;padding-left:22px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{background:var(--chip);border-radius:20px;padding:2px 10px;font-size:13px}
+.icon{font-size:12px}
+textarea{width:100%;min-height:70px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:14px}
+.saved{font-size:12px;color:var(--ok)}
+a{color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.card h3{margin:0 0 6px;font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{color:var(--mute);font-weight:500}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+.tool h3{margin:0 0 4px}
+.big{font-size:56px;font-weight:600;line-height:1.1;text-align:center;font-variant-numeric:tabular-nums}
+.sub{text-align:center;color:var(--mute)}
+.meter{position:relative;height:34px;background:linear-gradient(90deg,var(--bad) 0,#e6b04a 30%,var(--ok) 45%,var(--ok) 55%,#e6b04a 70%,var(--bad) 100%);border-radius:8px;margin:12px 0;opacity:.85}
+.needle{position:absolute;top:-6px;width:4px;height:46px;background:var(--ink);left:50%;border-radius:2px;transition:left .08s}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--mute)}
+.verdict{text-align:center;font-size:18px;font-weight:600;min-height:28px}
+.note{font-size:13px;color:var(--mute)}
+.warn{background:#fff4d6;color:#5a4500;border-radius:8px;padding:8px 12px;font-size:14px}
+@media (prefers-color-scheme: dark){.warn{background:#3d3420;color:#f0dca0}}
+.tap{width:100%;padding:28px;font-size:22px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎻🎹 古典音乐家长手册</h1>
+  <p>听懂孩子在弹什么 · Music Parent Companion</p>
+  <nav id="nav">
+    <button data-t="pieces" class="on">孩子的曲目 Pieces</button>
+    <span class="navsep">音乐史与鉴赏 ›</span>
+    <button data-t="history">历史 History</button>
+    <button data-t="composers">作曲家 Composers</button>
+    <button data-t="basics">鉴赏入门 Listening</button>
+    <span class="navsep">›</span>
+    <button data-t="tools">工具 Tools</button>
+    <button data-t="about">说明 About</button>
+  </nav>
+</header>
+<main>
+
+<section id="pieces" class="on">
+  <div class="bar">
+    <div class="seg" id="instSeg">
+      <button data-v="all" class="on">全部</button><button data-v="piano">🎹 钢琴</button><button data-v="violin">🎻 小提琴</button>
+    </div>
+    <input type="search" id="q" placeholder="搜索:曲名、作曲家、英文名… 例如 Mozart、月光、Minuet">
+  </div>
+  <div id="filterNote" class="note"></div>
+  <div id="list"></div>
+</section>
+
+<section id="basics">
+  <div class="card"><h3>先读这里:不认谱也能听懂</h3><div id="guide"></div></div>
+  <p class="note">想知道每个时代听起来有什么不同?看 <a href="#" data-goto="history">历史 History</a>。</p>
+  <h2 class="grp">看图认识 Pictures</h2>
+  <div class="card"><h3>小提琴的各个部分 Parts of the violin</h3><div class="scrollx" style="border:0" id="dViolin"></div></div>
+  <div class="card"><h3>钢琴键盘与音名 The keyboard & note names</h3><p class="note">不会认谱也没关系:先认键盘。<b>黑键两个一组、三个一组;两个黑键左边的白键就是 C (do)</b>。橙色圆点是小提琴四根空弦的音——它们在钢琴上的位置。</p><div class="scrollx" style="border:0" id="dKeys"></div></div>
+  <div class="card"><h3>交响乐团座位图 Orchestra seating</h3><p class="note">去听音乐会时对照着看:弦乐在最前面,越往后声音越响(铜管、打击乐)。</p><div class="scrollx" style="border:0" id="dOrch"></div></div>
+  <div class="card"><h3>曲式的形状 Musical forms as shapes</h3><p class="note">同一个颜色 = 同一段音乐回来了。孩子弹的大部分曲子都是下面这几种形状之一,对照每首曲子卡片上的"结构地图"听。</p><div class="scrollx" style="border:0" id="dForms"></div></div>
+  <h2 class="grp">术语表 Glossary — 老师和乐谱上常见的词</h2>
+  <div class="bar"><div class="seg" id="glSeg"></div></div>
+  <div class="card"><table id="gloss"></table></div>
+</section>
+
+<section id="history">
+  <div class="card"><h3>一条线看懂西方古典音乐</h3><p id="overview"></p></div>
+  <h2 class="grp">时间线 Timeline — 谁和谁是同时代的?</h2>
+  <p class="note">每条横线是一位作曲家的一生,颜色代表时代;★ = 孩子的曲目里有他的作品。最上面是时代、大事件和中国朝代对照。手机上可以左右滑动。1550年以前的部分做了压缩。</p>
+  <div class="scrollx" id="timeline"></div>
+  <div class="card" style="margin-top:12px"><h3>用中国历史来记</h3><ul id="hooks"></ul></div>
+  <h2 class="grp">时代 Eras — 从中世纪到今天</h2>
+  <div id="eras"></div>
+  <h2 class="grp">体裁与曲式 Genres & forms — 节目单上的这些词是什么意思?</h2>
+  <div id="genres" class="grid"></div>
+</section>
+
+<section id="composers">
+  <p class="note">按时代和出生年份排序。<span class="comp-has">● 孩子的曲目里有他的作品</span>,点"看曲目"跳过去。</p>
+  <div id="comps"></div>
+</section>
+
+<section id="tools">
+  <div class="warn">麦克风只在你的电脑上实时分析声音,不录音、不上传。第一次使用时浏览器会问是否允许麦克风,点"允许"。</div>
+  <div class="tool" id="tunerBox">
+    <h3>① 调音器 Tuner — 音准准不准?</h3>
+    <p class="note">用途:孩子拉一个长音,看它准不准;也可以在练琴前看四根空弦是否调准。小提琴目标:<b>G3 · D4 · A4 · E5</b>。偏差在 ±10 音分 (cents) 内算很准,±25 内算可以。</p>
+    <div class="bar">
+      <button class="btn pri" id="tunerStart">开始听 Start</button>
+      <span class="note">点一下听标准音:</span>
+      <button class="btn ref" data-f="196">G3</button><button class="btn ref" data-f="293.66">D4</button><button class="btn ref" data-f="440">A4</button><button class="btn ref" data-f="659.26">E5</button>
+    </div>
+    <div class="big" id="tNote">–</div>
+    <div class="sub" id="tFreq">等待声音…</div>
+    <div class="meter"><div class="needle" id="tNeedle"></div></div>
+    <div class="ticks"><span>偏低 flat −50</span><span>0</span><span>+50 sharp 偏高</span></div>
+    <div class="verdict" id="tVerdict"></div>
+  </div>
+
+  <div class="tool">
+    <h3>② 速度 Tempo — 快了还是慢了?</h3>
+    <p class="note">孩子弹的时候,你跟着拍子点下面的大按钮(或按空格键)。点 6–8 下就能算出每分钟几拍 (BPM),和这首曲子的参考速度比较。参考速度来自常见录音,只是参考:学生弹慢一些完全正常,更重要的是<b>前后一致</b>。</p>
+    <div class="bar"><label>参考速度 Target BPM <input type="number" id="target" min="30" max="240" value="100" style="width:80px"></label><span id="targetFor" class="note"></span></div>
+    <button class="btn pri tap" id="tapBtn">点我 Tap</button>
+    <div class="big" id="bpmOut">–</div>
+    <div class="verdict" id="bpmVerdict"></div>
+    <div class="bar" style="margin-top:12px"><button class="btn" id="tapReset">清零 Reset</button></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+    <h3 style="font-size:16px">节拍器 Metronome</h3>
+    <div class="bar"><input type="range" id="metBpm" min="40" max="208" value="100" style="flex:1"><b id="metVal">100</b> BPM <button class="btn pri" id="metBtn">开始</button></div>
+  </div>
+
+  <div class="tool">
+    <h3>③ 跟唱练音准 Sing-along — 练你自己的耳朵</h3>
+    <p class="note">点"出题"会响一个音,听完后跟着唱"啊——",保持住。指针在绿色区域就是唱准了。唱高或低一个八度都算对(男女声音域不同)。每天 5 分钟,耳朵会变灵,也就更容易听出孩子哪里不准。</p>
+    <div class="bar">
+      <div class="seg" id="rangeSeg"><button data-v="low" class="on">低音区 A3–A4</button><button data-v="mid">中音区 C4–C5</button></div>
+      <button class="btn pri" id="singNew">出题 New note</button>
+      <button class="btn" id="singReplay" disabled>再听一次</button>
+    </div>
+    <div class="big" id="sTarget">–</div>
+    <div class="sub" id="sYou">你唱的:–</div>
+    <div class="meter"><div class="needle" id="sNeedle"></div></div>
+    <div class="ticks"><span>唱低了 −100</span><span>0</span><span>+100 唱高了</span></div>
+    <div class="verdict" id="sVerdict"></div>
+    <div class="sub" id="sScore"></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="card"><h3>这个工具能做什么,不能做什么</h3>
+    <ul>
+      <li><b>能</b>:讲清楚每首曲子的背景、作曲家、情绪、结构,以及"弹得好"听起来是什么样;用麦克风判断<b>音准</b>(调音器)和<b>速度是否稳定</b>(打拍测速)。</li>
+      <li><b>不能</b>:自动对照乐谱找出钢琴上的错音。这需要专业的乐谱跟踪软件。替代方法:先听几遍名家录音("听一听"链接),再听孩子弹——你的耳朵会发现"不对劲"的地方,然后问孩子"这里老师怎么说的?"</li>
+      <li>麦克风调音器适合<b>单音</b>(小提琴、人声)。钢琴同时按多个音时读数会跳动,这是正常的。</li>
+    </ul>
+  </div>
+  <div class="card"><h3>关于内容</h3>
+    <ul>
+      <li>曲目目前是常见教材:铃木小提琴第1–2册,以及学琴约6年的孩子常弹的钢琴曲。孩子实际在弹的曲子不在里面?告诉 Claude 曲名,就能加卡片。</li>
+      <li>内容根据通行的音乐史资料编写。有争议或不确定的地方(比如"巴赫"的小步舞曲其实是佩措尔德写的、《致爱丽丝》的爱丽丝是谁)都已注明。参考速度是常见录音的大致速度,不是标准答案。</li>
+      <li>"听一听"会打开 YouTube 搜索,需要联网。其它所有内容离线可用。</li>
+      <li>"我的笔记"保存在<b>当前这台设备</b>的浏览器里,手机和电脑各存各的,不会上传。换浏览器或清除浏览数据会丢失。</li>
+      <li>作曲家人像和时代画作来自 Wikipedia / Wikimedia Commons(点图片可打开出处页面),第一次联网打开时加载,之后离线也能看。1840年以前的作曲家没有照片,显示的是油画或版画肖像。</li>
+    </ul>
+  </div>
+  <div class="card"><h3>安装到手机和电脑 Install as an app</h3>
+    <ul>
+      <li><b>iPhone</b>:用 Safari 打开网址 → 点底部"分享"按钮 → "添加到主屏幕" (Add to Home Screen)。</li>
+      <li><b>Android</b>:用 Chrome 打开 → 右上角菜单 ⋮ → "安装应用" (Install app) 或"添加到主屏幕"。</li>
+      <li><b>电脑 (Edge / Chrome)</b>:地址栏右侧会出现"安装"图标,点它即可。</li>
+      <li>安装后像普通 app 一样从图标打开;打开过一次后,没有网络也能用(除了 YouTube 链接)。</li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<script>
+// Composers, periods, glossary, listening guide. Plain data, edited by hand.
+const COMPOSERS = {
+  bach: {name:"巴赫", en:"Johann Sebastian Bach", years:"1685–1750", period:"baroque",
+    bio:"德国作曲家、管风琴家,一辈子在教堂和宫廷当乐师,养了一大家子(20个孩子)。他的音乐像精密的齿轮:几条旋律同时走,各自独立又互相咬合,这叫复调 (counterpoint)。生前名气不如今天大,1829年门德尔松重新演出《马太受难曲》后才被世人重新认识。今天几乎所有学琴的孩子都绕不开他。"},
+  petzold: {name:"佩措尔德", en:"Christian Petzold", years:"1677–1733", period:"baroque",
+    bio:"德累斯顿的宫廷管风琴师,和巴赫同时代。那首人人都弹过的《G大调小步舞曲》长期被当作巴赫的作品,直到20世纪70年代学者才考证出很可能是他写的。它被抄进了巴赫给妻子的音乐笔记本里,所以挂上了巴赫的名字。"},
+  handel: {name:"亨德尔", en:"George Frideric Handel", years:"1685–1759", period:"baroque",
+    bio:"和巴赫同年出生的德国人,却在伦敦成名,后来入了英国籍。他写歌剧和清唱剧 (oratorio),最有名的是《弥赛亚》(Messiah)。巴赫的音乐偏内省、复杂;亨德尔的音乐更明亮、更像给大众听的,宏大好记。"},
+  lully: {name:"吕利", en:"Jean-Baptiste Lully", years:"1632–1687", period:"baroque",
+    bio:"出生在意大利,在法国国王路易十四的宫廷里做到音乐总管。他给宫廷舞会和芭蕾写了大量舞曲。死因很离奇:指挥时用沉重的指挥杖戳到自己脚上,伤口感染而死。"},
+  gossec: {name:"戈塞克", en:"François-Joseph Gossec", years:"1734–1829", period:"classical",
+    bio:"比利时出生、在巴黎工作的作曲家,活了95岁,经历了整个法国大革命。今天大家记住他几乎只因为一首《加沃特舞曲》(Gavotte),它是铃木小提琴第一册的毕业曲。"},
+  boccherini: {name:"博凯里尼", en:"Luigi Boccherini", years:"1743–1805", period:"classical",
+    bio:"意大利大提琴家兼作曲家,后半生在西班牙宫廷工作。写了一百多首弦乐五重奏,其中一首的小步舞曲成了'优雅'的代名词,常在电影里代表上流社会场景。"},
+  mozart: {name:"莫扎特", en:"Wolfgang Amadeus Mozart", years:"1756–1791", period:"classical",
+    bio:"奥地利神童,5岁作曲,6岁被父亲带着巡演欧洲。35岁去世,留下600多部作品。他的音乐听起来轻松自然、像在说话唱歌,但弹好极难——因为一点点不均匀都藏不住。"},
+  clementi: {name:"克莱门蒂", en:"Muzio Clementi", years:"1752–1832", period:"classical",
+    bio:"意大利出生、在英国发展的钢琴家、作曲家、钢琴制造商和出版商。曾和莫扎特在维也纳宫廷'斗琴'。他写的小奏鸣曲 (Sonatina) 是专门给学生练的,几乎是全世界钢琴学生的必经之路,被称为'钢琴之父'之一。"},
+  beethoven: {name:"贝多芬", en:"Ludwig van Beethoven", years:"1770–1827", period:"classical",
+    bio:"德国出生、在维也纳成名。他把古典时期的秩序推向浪漫时期的激情,是两个时代之间的桥。二十几岁开始失聪,晚年完全听不见,仍写出了第九交响曲。他的音乐常有强烈的对比:突然的强、突然的弱,像一个人在和命运争吵。"},
+  weber: {name:"韦伯", en:"Carl Maria von Weber", years:"1786–1826", period:"romantic",
+    bio:"德国浪漫主义歌剧的开创者。代表作歌剧《魔弹射手》(Der Freischütz)讲森林、猎人和魔鬼的故事,里面的《猎人合唱》后来被改编进铃木小提琴第二册。"},
+  paganini: {name:"帕格尼尼", en:"Niccolò Paganini", years:"1782–1840", period:"romantic",
+    bio:"意大利小提琴家,史上最传奇的炫技大师。他瘦高、脸色苍白、技术惊人,当时有人传说他把灵魂卖给了魔鬼。他的24首随想曲至今是小提琴技术的巅峰。"},
+  schumann: {name:"舒曼", en:"Robert Schumann", years:"1810–1856", period:"romantic",
+    bio:"德国浪漫派作曲家,原本想当钢琴家,手指受伤后专心作曲。妻子克拉拉是当时最著名的女钢琴家。他特别会写'孩子的世界':《童年情景》是大人回忆童年,《少年曲集》是写给自己女儿们弹的。晚年精神疾病缠身。"},
+  chopin: {name:"肖邦", en:"Frédéric Chopin", years:"1810–1849", period:"romantic",
+    bio:"波兰出生、在巴黎生活的'钢琴诗人',几乎只为钢琴写作。他的音乐像在唱歌,充满思乡和忧郁,常用自由伸缩的速度 (rubato)。39岁死于肺病,心脏按遗愿被送回华沙。"},
+  thomas: {name:"托马", en:"Ambroise Thomas", years:"1811–1896", period:"romantic",
+    bio:"法国歌剧作曲家,长期担任巴黎音乐学院院长。歌剧《迷娘》(Mignon)当年极受欢迎,演了上千场,里面的加沃特舞曲被铃木改编成小提琴曲。"},
+  burgmuller: {name:"布格缪勒", en:"Friedrich Burgmüller", years:"1806–1874", period:"romantic",
+    bio:"德国出生、在巴黎教钢琴的作曲家。他的《25首简易进阶练习曲》Op.100 每首都有标题和小故事,让练习曲变得像小品一样好听,是儿童钢琴教材里的经典。"},
+  brahms: {name:"勃拉姆斯", en:"Johannes Brahms", years:"1833–1897", period:"romantic",
+    bio:"德国作曲家,舒曼夫妇的好友。音乐深沉、温暖、结构严谨。最广为人知的是《摇篮曲》和《匈牙利舞曲》。铃木第二册的《圆舞曲》来自他的钢琴圆舞曲集 Op.39。"},
+  tchaikovsky: {name:"柴可夫斯基", en:"Pyotr Ilyich Tchaikovsky", years:"1840–1893", period:"romantic",
+    bio:"俄罗斯作曲家,写了《天鹅湖》《胡桃夹子》。旋律极其动人、情感浓烈。他模仿舒曼也写了一本《儿童曲集》Op.39,24首小曲描写一个孩子的一天和各地风情。"},
+  grieg: {name:"格里格", en:"Edvard Grieg", years:"1843–1907", period:"nationalism",
+    bio:"挪威国宝级作曲家,把挪威民间音乐带进古典音乐。《培尔·金特》里的《晨景》《山魔王的宫殿》家喻户晓。他用了三十多年写了66首《抒情小品》,第一首就是《小咏叹调》。你在挪威,孩子弹格里格会格外有意义。"},
+  debussy: {name:"德彪西", en:"Claude Debussy", years:"1862–1918", period:"impressionism",
+    bio:"法国作曲家,印象派 (Impressionism) 音乐的代表。他不追求清晰的旋律和结构,而是像莫奈画画一样追求色彩、光线、氛围。《月光》是他最有名的作品。《儿童园地》是写给他女儿'小丘丘'(Chouchou)的。"},
+  kabalevsky: {name:"卡巴列夫斯基", en:"Dmitry Kabalevsky", years:"1904–1987", period:"c20",
+    bio:"苏联作曲家和音乐教育家,一生致力于儿童音乐教育,写了很多给孩子弹的小曲,短小、有节奏感、有现代味道。"},
+  suzuki: {name:"铃木镇一", en:"Shinichi Suzuki", years:"1898–1998", period:"c20",
+    bio:"日本小提琴家、教育家,创立了'铃木教学法' (Suzuki Method)。核心理念是'母语教学法':孩子像学说话一样,先大量听、再模仿、家长全程参与,最后才认谱。所以铃木体系特别强调家长每天陪练陪听——这正是你在做的事。"},
+  schulz: {name:"舒尔茨", en:"Johann Abraham Peter Schulz", years:"1747–1800", period:"classical",
+    bio:"德国作曲家,曾在丹麦宫廷工作,写了很多简单好唱的歌,《来吧,孩子们》(Ihr Kinderlein, kommet)原是一首圣诞歌。"},
+  bayly: {name:"贝利", en:"Thomas Haynes Bayly", years:"1797–1839", period:"romantic",
+    bio:"英国诗人和歌曲作者。《很久以前》(Long, Long Ago)是他写的怀旧歌曲,19世纪在英美非常流行。"},
+  folk: {name:"民歌", en:"Folk song", years:"", period:"folk",
+    bio:"没有确定作者、口口相传下来的歌。铃木第一册前半部分大多是德国、美国、法国等地的童谣民歌,因为旋律简单好记,适合孩子先把注意力放在姿势和音色上。"}
+};
+
+const GLOSSARY = [
+  // tempo
+  ["速度 Tempo","Largo","广板:非常慢、宽广庄重","≈ 40–60"],
+  ["速度 Tempo","Adagio","柔板:慢,从容","≈ 55–75"],
+  ["速度 Tempo","Andante","行板:'走路的速度',不快不慢","≈ 75–100"],
+  ["速度 Tempo","Andantino","小行板:比 Andante 稍快一点(历史上用法有分歧)","≈ 80–105"],
+  ["速度 Tempo","Moderato","中板:中等速度","≈ 100–115"],
+  ["速度 Tempo","Allegretto","小快板:稍快,轻松","≈ 100–125"],
+  ["速度 Tempo","Allegro","快板:快而愉快","≈ 120–160"],
+  ["速度 Tempo","Presto","急板:非常快","≈ 165+"],
+  ["速度 Tempo","BPM","每分钟拍数 (beats per minute),量速度的单位。60 = 一秒一拍。",""],
+  ["速度 Tempo","rit. / ritardando","渐慢,常在结尾",""],
+  ["速度 Tempo","accel. / accelerando","渐快",""],
+  ["速度 Tempo","a tempo","回到原速",""],
+  ["速度 Tempo","rubato","'偷来的时间':为了表情,速度有弹性地伸缩。肖邦、舒曼常用。",""],
+  ["速度 Tempo","fermata 𝄐","延长记号:这个音停久一点",""],
+  // dynamics
+  ["力度 Dynamics","pp / pianissimo","很弱",""],
+  ["力度 Dynamics","p / piano","弱(钢琴 piano 的名字就来自'能弱能强' pianoforte)",""],
+  ["力度 Dynamics","mp / mf","中弱 / 中强",""],
+  ["力度 Dynamics","f / forte","强",""],
+  ["力度 Dynamics","ff / fortissimo","很强",""],
+  ["力度 Dynamics","crescendo (cresc.) <","渐强",""],
+  ["力度 Dynamics","diminuendo (dim.) >","渐弱",""],
+  ["力度 Dynamics","sforzando (sf)","突然加重的一个音",""],
+  // articulation
+  ["奏法 Articulation","legato","连奏:音和音之间连成一线,像唱歌",""],
+  ["奏法 Articulation","staccato","断奏/跳音:短促、有弹性,音和音之间有空隙",""],
+  ["奏法 Articulation","accent >","重音",""],
+  ["奏法 Articulation","phrase 乐句","音乐的'一句话',有开始、高点和收尾,好的演奏会有'呼吸'",""],
+  ["奏法 Articulation","ornament / trill","装饰音 / 颤音:主音和上方音快速交替",""],
+  // piano
+  ["钢琴 Piano","pedal 踏板","右踏板让琴弦持续振动,声音连起来、更丰满;用多了会'糊'",""],
+  ["钢琴 Piano","Alberti bass","阿尔贝蒂低音:左手'低-高-中-高'循环的伴奏,莫扎特、克莱门蒂常用",""],
+  ["钢琴 Piano","voicing","让同时按下的几个音里,旋律那一个最突出",""],
+  ["钢琴 Piano","scale / arpeggio","音阶 / 琶音:一级级走上去,或按和弦分解跑上去",""],
+  // violin
+  ["小提琴 Violin","bow 弓","右手拿弓。弓速、弓压、接触点决定音色",""],
+  ["小提琴 Violin","intonation 音准","左手按弦位置准不准。小提琴没有琴品,差一毫米就会偏音",""],
+  ["小提琴 Violin","G D A E","四根空弦从低到高的音名。调音器上会看到这四个目标",""],
+  ["小提琴 Violin","vibrato","揉弦:左手轻微摆动,让声音更温暖有生命。通常学两三年后才开始学",""],
+  ["小提琴 Violin","détaché / staccato","分弓(一弓一个音,连贯)/ 顿弓(弓停在弦上,短促)",""],
+  ["小提琴 Violin","pizzicato (pizz.)","拨弦:用手指拨,不用弓",""],
+  ["小提琴 Violin","shifting / position","换把:左手沿琴颈上下移动到别的位置",""],
+  // form
+  ["结构 Form","Minuet 小步舞曲","3拍子的宫廷舞,优雅、步子小",""],
+  ["结构 Form","Gavotte 加沃特","法国舞曲,2拍子,每句从半小节开始,轻快活泼",""],
+  ["结构 Form","Bourrée 布列舞曲","法国民间舞曲,2拍子,快而有弹性",""],
+  ["结构 Form","Waltz 圆舞曲","3拍子的旋转舞,'嘭-嚓-嚓',第一拍重",""],
+  ["结构 Form","Sonata / Sonatina","奏鸣曲 / 小奏鸣曲:通常3个乐章(快-慢-快)",""],
+  ["结构 Form","sonata form 奏鸣曲式","呈示部(两个主题)→ 展开部(主题被变形)→ 再现部(主题回来)",""],
+  ["结构 Form","Prelude 前奏曲","原本是'正曲之前的热身',肖邦把它变成独立的短小诗篇",""],
+  ["结构 Form","A-B-A","三段式:开头的音乐中间换一个对比段,最后再回来",""],
+  ["结构 Form","major / minor","大调(通常明亮)/ 小调(通常忧伤、暗)——最容易听出来的情绪线索",""],
+  ["结构 Form","Op. / BWV / K. / WoO","作品编号:Op.(作品号)、BWV(巴赫)、K.(莫扎特)、WoO(贝多芬'无作品号')",""]
+];
+
+const LISTEN_GUIDE = [
+  {t:"不认谱也能听的 5 件事",
+   items:["<b>速度稳不稳</b>:用脚轻轻打拍子。如果某个地方你的脚'追不上'或'等不及',那里就是赶了或拖了。最常见:难的地方变慢,简单的地方变快。",
+          "<b>有没有强弱</b>:整首曲子是一个音量,就像念课文没有语气。好的演奏有'大声-小声'、'渐渐变大'的起伏。",
+          "<b>有没有呼吸</b>:乐句结尾是否轻轻收住,像说完一句话;还是一个音接一个音没有停顿。",
+          "<b>音色好不好</b>:钢琴——是唱歌般圆润,还是砸出来的硬声;小提琴——是饱满的,还是沙沙的、吱吱的(弓压或弓速不对)。",
+          "<b>收尾干不干净</b>:最后一个音是否稳稳放下,手是否在音结束后才离开。"]},
+  {t:"怎么判断'弹错了'",
+   items:["<b>停顿和重来</b>:最明显的信号。偶尔一次正常;每次都在同一处卡,说明那里还没练熟。",
+          "<b>和录音对比</b>:先听 2–3 遍名家录音,记住旋律。孩子弹时,如果哪里'听起来怪怪的、不顺耳',多半是错音或节奏错了。不需要认谱,你的耳朵其实很敏感。",
+          "<b>小提琴音准</b>:慢的长音最容易听出来。如果听着'酸'或'扭',就是偏了——用工具页的调音器验证。",
+          "<b>不确定就问</b>:'这个地方老师说应该怎么弹?'比直接说'你弹错了'好,孩子会成为讲解者。"]},
+  {t:"做一个好观众",
+   items:["<b>夸具体,不夸笼统</b>:'弹得真好'不如'中间那段变小声的地方很美,像在讲悄悄话'。具体的夸奖证明你在认真听。",
+          "<b>先夸后问</b>:先说一个你喜欢的地方,再问一个问题('这首曲子讲的是什么?')。让孩子讲给你听,是最好的复习。",
+          "<b>不要当场纠错</b>:练琴时纠错是老师的事。演出后只说好的;想说的问题,第二天练琴时再轻轻提。",
+          "<b>音乐会礼仪</b>:曲子之间才鼓掌(一首多乐章的作品,乐章之间不鼓掌);等演奏者的手离开琴键或弓离开琴弦后再鼓掌;演出中不拍照、不出声。",
+          "<b>听录音陪伴</b>:在车上、做饭时放孩子在练的曲子。铃木教学法特别强调每天听——这对你和孩子都有效。"]}
+];
+
+// History tab: eras, genres/forms, and major composers beyond the kids' repertoire.
+const OVERVIEW = "西方古典音乐大约有一千年的历史。一条最简单的线索:<b>从教堂走向宫廷,从宫廷走向音乐厅,再走向所有人。</b>中世纪音乐几乎都为教堂而写;巴洛克和古典时期,作曲家是宫廷和贵族雇佣的'仆人';贝多芬之后,作曲家变成独立的艺术家,为买票的公众写作,表达个人情感;20世纪以后,规则被打破,风格百花齐放,电影音乐也成了古典音乐的延续。<br>听音乐时问三个问题:<b>它是为谁写的?在什么地方演奏?想让人感受到什么?</b>答案往往就能告诉你它属于哪个时代。";
+
+const ERAS = [
+ {id:"medieval", name:"中世纪 Medieval", years:"约500–1400",
+  context:"罗马帝国灭亡后,教会是欧洲最重要的文化机构。音乐主要在修道院和教堂里唱,用来祈祷。修士发明了最早的乐谱符号——我们今天的五线谱就是从这里慢慢演变来的。",
+  traits:["以人声为主,很多是无伴奏的单旋律圣咏 (Gregorian chant)","节奏自由,像吟诵","后期出现几个声部同时唱(复调的起源)","宫廷里也有吟游诗人 (troubadour) 唱爱情歌曲"],
+  where:"教堂、修道院;少量宫廷",
+  who:["hildegard"],
+  listen:[["格里高利圣咏","Gregorian chant"],["希尔德加德《天上的和谐》","Hildegard von Bingen O vis aeternitatis"]],
+  tip:"听起来像寺庙里的诵经——空灵、平静。不需要'听懂',感受那种空间感就好。"},
+ {id:"renaissance", name:"文艺复兴 Renaissance", years:"约1400–1600",
+  context:"与达·芬奇、米开朗基罗同时代。印刷术让乐谱可以大量印刷和传播。人们重新重视'人'和人的情感。",
+  traits:["多个声部交织的合唱,每个声部同样重要,和谐、平衡、纯净","世俗歌曲(牧歌 madrigal)兴起,歌词描写爱情和自然","乐器开始独立演奏:鲁特琴、古竖笛、维奥尔琴(小提琴的前辈)"],
+  where:"教堂、宫廷、贵族家中",
+  who:["palestrina"],
+  listen:[["帕莱斯特里纳《马切鲁斯教皇弥撒》","Palestrina Missa Papae Marcelli"],["阿莱格里《求主垂怜》","Allegri Miserere"]],
+  tip:"小提琴在这个时代末期(16世纪)在意大利诞生——弟弟手里的乐器已经有快500年历史了。"},
+ {id:"baroque", name:"巴洛克 Baroque", years:"约1600–1750",
+  context:"欧洲君主专制的鼎盛期,路易十四修建凡尔赛宫。'巴洛克'原意是'形状不规则的珍珠',形容华丽繁复的艺术。歌剧在这时诞生。斯特拉迪瓦里在意大利克雷莫纳制作了史上最好的小提琴。",
+  traits:["节奏像机器一样稳定、持续向前(驱动感)","复调:几条旋律同时进行、互相模仿(赋格 fugue 是顶峰)","通奏低音 (basso continuo):低音线和和弦一直托着","强弱是'阶梯式'切换,不是慢慢渐变","装饰音很多","键盘乐器是羽管键琴和管风琴,还没有钢琴"],
+  where:"教堂、宫廷、歌剧院",
+  who:["monteverdi","lully","vivaldi","bach","handel","petzold"],
+  listen:[["维瓦尔第《四季·春》","Vivaldi Four Seasons Spring"],["巴赫《G弦上的咏叹调》","Bach Air on the G String"],["亨德尔《哈利路亚》合唱","Handel Hallelujah chorus"]],
+  tip:"两个孩子都会弹/拉巴洛克作品:巴赫的小步舞曲、亨德尔的布列舞曲。听的时候注意'稳'和'清楚'。"},
+ {id:"classical", name:"古典 Classical", years:"约1750–1820",
+  context:"启蒙运动时代,崇尚理性、秩序、平衡。中产阶级兴起,公开售票的音乐会开始出现。钢琴(当时叫 fortepiano)被发明并迅速取代羽管键琴——它的名字就是'能弱能强'。维也纳成为音乐之都。",
+  traits:["一条清楚的主旋律 + 下面的伴奏(不再是几条线平等交织)","乐句对称:问—答、4小节+4小节","清晰、优雅、平衡,像古希腊建筑","奏鸣曲式成为核心结构","交响曲、弦乐四重奏、钢琴奏鸣曲、协奏曲定型","渐强渐弱开始被大量使用"],
+  where:"宫廷、贵族沙龙、新兴的公共音乐厅",
+  who:["haydn","gossec","boccherini","mozart","clementi","schulz","beethoven"],
+  listen:[["海顿《惊愕交响曲》第二乐章","Haydn Surprise Symphony second movement"],["莫扎特《弦乐小夜曲》","Mozart Eine kleine Nachtmusik"],["贝多芬《第五交响曲》第一乐章","Beethoven Symphony 5 first movement"]],
+  tip:"'古典音乐'这个词有两个意思:广义指整个西方艺术音乐,狭义就指这个时期。哥哥弹的克莱门蒂、莫扎特都在这里。"},
+ {id:"romantic", name:"浪漫 Romantic", years:"约1820–1900",
+  context:"工业革命、法国大革命之后,人们追求个人自由与情感。作曲家不再是仆人,而是'天才艺术家'。钢琴变得更大更响,进入每个中产家庭的客厅。出现了巡演明星(李斯特、帕格尼尼),观众为他们疯狂。",
+  traits:["长而歌唱的旋律,表达强烈的个人情感","力度和速度变化大,rubato(弹性速度)","和声更丰富、更多'色彩'","曲子常有标题,讲故事、画风景、写心情(标题音乐 program music)","乐队越来越大","钢琴小品大量出现:夜曲、圆舞曲、无词歌"],
+  where:"公共音乐厅、歌剧院、家庭客厅",
+  who:["weber","paganini","schubert","mendelssohn","chopin","schumann","liszt","verdi","wagner","brahms","tchaikovsky","thomas","burgmuller","bayly"],
+  listen:[["舒伯特《魔王》","Schubert Erlkonig"],["肖邦《夜曲》Op.9 No.2","Chopin Nocturne Op 9 No 2"],["柴可夫斯基《天鹅湖》场景","Tchaikovsky Swan Lake scene"]],
+  tip:"这是最多'名曲'的时代,也是最容易被打动的时代。孩子弹的舒曼、肖邦、布格缪勒都在这里——听的时候问'它在讲什么心情?'"},
+ {id:"nationalism", name:"民族乐派与晚期浪漫 Nationalism & Late Romantic", years:"约1850–1920",
+  context:"欧洲各民族追求独立和身份认同。俄罗斯、捷克、挪威、芬兰等国的作曲家把本国民歌、舞蹈、传说写进古典音乐。同时,德奥的晚期浪漫派把乐队和情感推向极致。",
+  traits:["采用民歌旋律、民间舞蹈节奏和本国传说","描绘本国风景(峡湾、森林、河流)","晚期浪漫:巨大的乐队、超长的交响曲、极致的情感"],
+  where:"音乐厅、歌剧院;常与民族独立运动相连",
+  who:["dvorak","grieg","sibelius","mahler","rachmaninoff"],
+  listen:[["格里格《培尔·金特》:晨景","Grieg Morning Mood Peer Gynt"],["德沃夏克《自新大陆》第二乐章","Dvorak New World Symphony Largo"],["西贝柳斯《芬兰颂》","Sibelius Finlandia"]],
+  tip:"你们在挪威:格里格就是挪威的民族骄傲。卑尔根有他的故居 Troldhaugen,夏天有音乐会——很适合带孩子去。"},
+ {id:"impressionism", name:"印象派 Impressionism", years:"约1890–1920",
+  context:"与莫奈、雷诺阿的印象派绘画同时期,主要在法国。作曲家反对德国浪漫派的沉重和戏剧化,追求色彩、光线、氛围。1889年巴黎世博会上的印尼甘美兰音乐深深影响了德彪西。",
+  traits:["模糊、朦胧、像水彩画","不追求清楚的主旋律和强烈的冲突,而是'氛围'和'色彩'","用全音音阶、五声音阶(和中国音乐一样的五声!)","踏板营造声音的'雾'","标题常是自然景物:月光、水、云、海"],
+  where:"巴黎的沙龙和音乐厅",
+  who:["debussy","satie","ravel"],
+  listen:[["德彪西《月光》","Debussy Clair de lune"],["萨蒂《裸体歌舞曲》第1首","Satie Gymnopedie No 1"],["拉威尔《波莱罗》","Ravel Bolero"]],
+  tip:"德彪西和拉威尔常用五声音阶,所以有些段落听起来会有'东方'的味道,你可能会觉得很亲切。"},
+ {id:"c20", name:"20世纪 20th century", years:"约1900–1975",
+  context:"两次世界大战、革命、科技突变。作曲家打破几百年的规则:有的抛弃大小调,有的用爵士,有的回到巴洛克的简洁(新古典主义)。苏联的作曲家在政治压力下创作。录音和电台让音乐传播到每个人。",
+  traits:["不协和音、尖锐的和声(听起来可能'不好听',是故意的)","不规则、强烈的节奏(斯特拉文斯基《春之祭》首演引发骚乱)","爵士、民间音乐与古典融合","新古典主义:回到清晰的形式,但带现代口味","音乐教育大发展:卡巴列夫斯基、铃木、柯达伊"],
+  where:"音乐厅、电台、唱片、电影",
+  who:["stravinsky","prokofiev","gershwin","shostakovich","kabalevsky","suzuki"],
+  listen:[["普罗科菲耶夫《彼得与狼》","Prokofiev Peter and the Wolf"],["格什温《蓝色狂想曲》","Gershwin Rhapsody in Blue"],["斯特拉文斯基《春之祭》开头","Stravinsky Rite of Spring"]],
+  tip:"《彼得与狼》是专门给孩子写的:每个角色由一种乐器扮演,全家一起听是认识乐队最好的入门。"},
+ {id:"contemporary", name:"当代 Contemporary", years:"约1975至今",
+  context:"风格高度多元。极简主义 (minimalism) 用简单重复的音型制造催眠般的效果;神圣极简主义追求宁静与精神性;电影和游戏音乐成为最多人听到的'交响乐'。东西方作曲家互相融合。",
+  traits:["极简主义:短小音型不断重复、缓慢变化","宁静、冥想式的作品","电子、电影、世界音乐的融合","东西方结合(谭盾、久石让)"],
+  where:"音乐厅、电影、游戏、流媒体",
+  who:["part","glass","williams","hisaishi","tandun"],
+  listen:[["佩尔特《镜中镜》","Arvo Part Spiegel im Spiegel"],["久石让《Summer》(《菊次郎的夏天》)","Joe Hisaishi Summer"],["约翰·威廉斯《哈利·波特》主题","John Williams Hedwig's Theme"]],
+  tip:"孩子熟悉的电影配乐就是今天的古典音乐。从他们喜欢的电影音乐聊起,再往回连到柴可夫斯基、瓦格纳,是很好的入口。"},
+ {id:"folk", name:"民歌 Folk", years:"", context:"", traits:[], where:"", who:["folk"], listen:[], tip:"", hidden:true}
+];
+
+const GENRES = [
+ {name:"交响曲 Symphony", what:"为整个管弦乐队写的大型作品,通常4个乐章(快—慢—舞曲—快),像一部长篇小说。", hear:"几十个乐器一起演奏;一首通常30–80分钟。", eg:"贝多芬《第五交响曲》(命运)、德沃夏克《自新大陆》"},
+ {name:"协奏曲 Concerto", what:"一件独奏乐器(钢琴、小提琴…)与乐队'对话'和'竞赛',通常3个乐章(快—慢—快)。", hear:"一个人站在乐队前面独奏;乐章快结束时常有独奏者一人炫技的'华彩段' (cadenza)。", eg:"维瓦尔第《四季》、柴可夫斯基《第一钢琴协奏曲》、门德尔松《小提琴协奏曲》——以后两个孩子都可能学到协奏曲"},
+ {name:"奏鸣曲 Sonata", what:"为一件或两件乐器写的多乐章作品(常为3个)。钢琴奏鸣曲是钢琴文献的核心;小提琴奏鸣曲通常是小提琴+钢琴。", hear:"一到两个人;快—慢—快。", eg:"莫扎特 K.545、贝多芬《月光》《悲怆》;小奏鸣曲 (sonatina) 是给学生的迷你版"},
+ {name:"室内乐 Chamber music", what:"几个人的小型合奏,每人一个声部,原本在家中'房间'里演奏,所以叫室内乐。最经典的是弦乐四重奏(2把小提琴+中提琴+大提琴)。", hear:"2–9个人,没有指挥,互相用眼神配合。", eg:"海顿、莫扎特、贝多芬的弦乐四重奏;舒伯特《鳟鱼五重奏》。兄弟俩小提琴+钢琴合奏就是室内乐!"},
+ {name:"歌剧 Opera", what:"用音乐讲故事的戏剧,演员唱出所有台词,有乐队、布景、服装。", hear:"咏叹调 (aria) 是角色抒发情感的独唱;宣叙调 (recitative) 是像说话一样推进剧情的段落。", eg:"莫扎特《魔笛》(很适合孩子)、威尔第《茶花女》、普契尼《图兰朵》(以中国为背景,用了《茉莉花》旋律)"},
+ {name:"清唱剧与弥撒 Oratorio & Mass", what:"宗教题材的大型声乐作品,有合唱、独唱和乐队,但不表演、没有布景。", hear:"大合唱为主。", eg:"亨德尔《弥赛亚》、巴赫《马太受难曲》、莫扎特《安魂曲》"},
+ {name:"组曲与舞曲 Suite & dances", what:"把几首不同的舞曲串在一起。巴洛克组曲常见:阿勒曼德、库朗特、萨拉班德、小步舞曲、加沃特、吉格。", hear:"每首短小,节奏和性格各异。", eg:"巴赫《大提琴无伴奏组曲》、柴可夫斯基《胡桃夹子组曲》"},
+ {name:"赋格 Fugue", what:"一个短小主题在几个声部里轮流出现、互相追逐模仿,是复调音乐的顶峰。", hear:"像几个人轮唱《两只老虎》,但规则复杂得多。", eg:"巴赫《平均律》中每首前奏曲后面都跟一首赋格"},
+ {name:"主题与变奏 Theme & variations", what:"先呈现一个简单主题,然后一遍遍变化:换节奏、换调、加装饰、换情绪。", hear:"每一段都能隐约听出原来的旋律。", eg:"莫扎特《小星星变奏曲》K.265——弟弟拉的第一首曲子的'大哥版'"},
+ {name:"练习曲 Étude", what:"专门训练某项技术的曲子。肖邦、李斯特把它提升成音乐会上的艺术品。", hear:"同一种技术(音型)贯穿全曲。", eg:"车尔尼、布格缪勒(教学用);肖邦《革命练习曲》(音乐会用)"},
+ {name:"性格小品 Character piece", what:"浪漫时期的短小钢琴曲,每首描写一个画面或心情,常有标题。", hear:"几分钟,一种情绪。", eg:"舒曼《童年情景》、门德尔松《无词歌》、格里格《抒情小品》、肖邦的夜曲、前奏曲"},
+ {name:"夜曲 Nocturne", what:"'夜晚的歌':左手流动伴奏,右手唱梦幻般的旋律。爱尔兰作曲家菲尔德首创,肖邦写到极致。", hear:"安静、抒情、像夜色。", eg:"肖邦《降E大调夜曲》Op.9 No.2"},
+ {name:"艺术歌曲 Art song (Lied)", what:"把一首诗谱成独唱+钢琴的歌,钢琴不只是伴奏,而是描绘诗中画面。", hear:"一位歌手 + 一位钢琴家。", eg:"舒伯特《魔王》《鳟鱼》、舒曼《两个掷弹兵》(弟弟拉过它的小提琴版)"},
+ {name:"交响诗 Symphonic poem", what:"单乐章的管弦乐作品,讲一个故事或描绘一个场景(标题音乐)。", hear:"像没有画面的电影配乐。", eg:"斯美塔那《伏尔塔瓦河》、圣桑《骷髅之舞》"},
+ {name:"序曲 Overture", what:"歌剧开场前的器乐曲,预告剧中的主要旋律和气氛;后来也有独立的'音乐会序曲'。", hear:"5–10分钟,很有精神。", eg:"罗西尼《威廉·退尔》序曲、莫扎特《费加罗的婚礼》序曲"}
+];
+
+Object.assign(COMPOSERS, {
+  hildegard:{name:"希尔德加德", en:"Hildegard von Bingen", years:"1098–1179", period:"medieval", extra:true,
+    bio:"德国修道院院长,作曲家、作家、草药学家、神秘主义者。是历史上留下名字的最早的作曲家之一,也是中世纪罕见的女性艺术家。她的圣咏旋律起伏很大,空灵飘逸。"},
+  palestrina:{name:"帕莱斯特里纳", en:"Giovanni Pierluigi da Palestrina", years:"约1525–1594", period:"renaissance", extra:true,
+    bio:"意大利作曲家,在罗马教堂工作。他的合唱作品纯净、平衡、每个声部都清晰,被后世奉为宗教复调音乐的典范,几百年来作曲学生都要学'帕莱斯特里纳风格'。"},
+  monteverdi:{name:"蒙特威尔第", en:"Claudio Monteverdi", years:"1567–1643", period:"baroque", extra:true,
+    bio:"意大利作曲家,站在文艺复兴和巴洛克之间。1607年的《奥菲欧》被认为是第一部伟大的歌剧——歌剧这门艺术由此真正成型。"},
+  vivaldi:{name:"维瓦尔第", en:"Antonio Vivaldi", years:"1678–1741", period:"baroque", extra:true,
+    bio:"威尼斯的'红发神父',小提琴家。在一所孤女院教音乐,为女孩们的乐队写了几百首协奏曲。《四季》用音乐描绘鸟鸣、雷雨、冬天发抖,是最早的'标题音乐'之一。小提琴学生迟早会拉他的A小调协奏曲(铃木第4册)。"},
+  haydn:{name:"海顿", en:"Joseph Haydn", years:"1732–1809", period:"classical", extra:true,
+    bio:"奥地利作曲家,'交响曲之父'和'弦乐四重奏之父',写了104首交响曲。在匈牙利埃斯特哈齐亲王家当了近30年乐长。性格幽默,《惊愕交响曲》在安静的段落突然一声巨响,据说是为了叫醒打瞌睡的听众。莫扎特的朋友,贝多芬的老师。"},
+  schubert:{name:"舒伯特", en:"Franz Schubert", years:"1797–1828", period:"romantic", extra:true,
+    bio:"维也纳作曲家,只活了31岁,却写了600多首艺术歌曲,被称为'歌曲之王'。生前贫困,朋友们常在家里聚会听他的新作(称为'舒伯特之夜')。代表作《魔王》《鳟鱼》《未完成交响曲》。"},
+  mendelssohn:{name:"门德尔松", en:"Felix Mendelssohn", years:"1809–1847", period:"romantic", extra:true,
+    bio:"德国神童,出身富裕家庭,17岁写出《仲夏夜之梦》序曲(婚礼进行曲也出自这部作品)。他重新演出巴赫的《马太受难曲》,让巴赫被世人重新发现。他的《E小调小提琴协奏曲》是小提琴最重要的协奏曲之一。"},
+  liszt:{name:"李斯特", en:"Franz Liszt", years:"1811–1886", period:"romantic", extra:true,
+    bio:"匈牙利钢琴家,史上第一位'超级巨星',听众为他疯狂,被称作'李斯特狂热'(Lisztomania)。他发明了独奏音乐会 (recital) 这种形式,创造了'交响诗'。代表作《匈牙利狂想曲》《钟》《爱之梦》。"},
+  verdi:{name:"威尔第", en:"Giuseppe Verdi", years:"1813–1901", period:"romantic", extra:true,
+    bio:"意大利歌剧大师,代表作《茶花女》《弄臣》《阿依达》。他的合唱《飞吧,思想,乘着金色的翅膀》成了意大利统一运动的象征。"},
+  wagner:{name:"瓦格纳", en:"Richard Wagner", years:"1813–1883", period:"romantic", extra:true,
+    bio:"德国歌剧作曲家,极具争议也极具影响。他的《尼伯龙根的指环》要四个晚上才演完。他发明'主导动机' (leitmotif):每个人物、物件都有自己的旋律——今天的电影配乐(如《星球大战》)就直接继承了这种手法。"},
+  dvorak:{name:"德沃夏克", en:"Antonín Dvořák", years:"1841–1904", period:"nationalism", extra:true,
+    bio:"捷克作曲家,屠夫的儿子,把波希米亚民间音乐带进交响曲。1892年受邀到纽约任教,写出《第九交响曲'自新大陆'》,第二乐章的旋律后来被填词成《念故乡》。他的《幽默曲》也是小提琴常拉的名曲。"},
+  sibelius:{name:"西贝柳斯", en:"Jean Sibelius", years:"1865–1957", period:"nationalism", extra:true,
+    bio:"芬兰国宝级作曲家。《芬兰颂》在芬兰争取独立时成了民族精神的象征,曾被沙俄当局禁演。他的小提琴协奏曲冷峻壮阔,像北欧的森林和冰雪。"},
+  mahler:{name:"马勒", en:"Gustav Mahler", years:"1860–1911", period:"nationalism", extra:true,
+    bio:"奥地利作曲家、指挥家。他说'交响曲必须像世界一样,包罗万象'。作品规模巨大,第八交响曲需要上千人演出。音乐中常有生与死、自然与命运的追问。"},
+  rachmaninoff:{name:"拉赫玛尼诺夫", en:"Sergei Rachmaninoff", years:"1873–1943", period:"nationalism", extra:true,
+    bio:"俄罗斯钢琴家、作曲家,手大到能跨十二度。俄国革命后流亡美国。《第二钢琴协奏曲》旋律宽广浓烈,是最受欢迎的协奏曲之一。他被称为最后一位伟大的浪漫主义者。"},
+  satie:{name:"萨蒂", en:"Erik Satie", years:"1866–1925", period:"impressionism", extra:true,
+    bio:"法国古怪的作曲家,给作品起奇怪的名字(如《梨形的三首小品》)。《裸体歌舞曲》(Gymnopédies) 简单、缓慢、安静,被看作极简主义和氛围音乐的先驱,今天常出现在咖啡馆和电影里。"},
+  ravel:{name:"拉威尔", en:"Maurice Ravel", years:"1875–1937", period:"impressionism", extra:true,
+    bio:"法国作曲家,被称为'瑞士钟表匠',因为他的作品精致得像精密仪器。管弦乐配器大师,《波莱罗》用同一段旋律重复十几分钟,只靠乐器和音量的变化越来越壮观。"},
+  stravinsky:{name:"斯特拉文斯基", en:"Igor Stravinsky", years:"1882–1971", period:"c20", extra:true,
+    bio:"俄罗斯作曲家,20世纪最有影响力的作曲家之一。1913年芭蕾《春之祭》在巴黎首演,野蛮的节奏和不协和音引起观众骚乱。他一生风格多变,像毕加索一样不断换'时期'。"},
+  prokofiev:{name:"普罗科菲耶夫", en:"Sergei Prokofiev", years:"1891–1953", period:"c20", extra:true,
+    bio:"俄罗斯作曲家、钢琴家。音乐常有讽刺、幽默和尖锐的节奏,也有极美的旋律。代表作《彼得与狼》(给孩子认识乐器的童话)、芭蕾《罗密欧与朱丽叶》。"},
+  gershwin:{name:"格什温", en:"George Gershwin", years:"1898–1937", period:"c20", extra:true,
+    bio:"美国作曲家,从流行歌曲作者起家,把爵士乐带进音乐厅。《蓝色狂想曲》开头那段单簧管滑音一听难忘。还写了歌剧《波吉与贝丝》,其中《夏日时光》(Summertime) 成了爵士标准曲。"},
+  shostakovich:{name:"肖斯塔科维奇", en:"Dmitri Shostakovich", years:"1906–1975", period:"c20", extra:true,
+    bio:"苏联作曲家,一生在斯大林政权的高压下创作,作品里常藏着讽刺和痛苦。《第七交响曲'列宁格勒'》在德军围城中完成并演出。他的《第二圆舞曲》(出自《综艺管弦乐组曲》,常被误称为'爵士组曲')广为流传。"},
+  part:{name:"佩尔特", en:"Arvo Pärt", years:"1935–", period:"contemporary", extra:true,
+    bio:"爱沙尼亚作曲家,发明了'钟鸣作曲法' (tintinnabuli),音乐极其简单、缓慢、宁静,像钟声余韵。《镜中镜》是小提琴(或大提琴)和钢琴的二重奏,简单到初学者都能演奏,却深深打动人。"},
+  glass:{name:"格拉斯", en:"Philip Glass", years:"1937–", period:"contemporary", extra:true,
+    bio:"美国作曲家,极简主义的代表人物之一。用简单音型不断重复、缓慢变化。写了很多电影配乐,如《时时刻刻》《楚门的世界》部分配乐。"},
+  williams:{name:"约翰·威廉斯", en:"John Williams", years:"1932–", period:"contemporary", extra:true,
+    bio:"美国电影配乐大师:《星球大战》《侏罗纪公园》《E.T.》《哈利·波特》《辛德勒的名单》。他继承了瓦格纳的'主导动机'和浪漫派的大乐队写法,很多孩子正是通过他的音乐第一次听到交响乐。"},
+  hisaishi:{name:"久石让", en:"Joe Hisaishi", years:"1950–", period:"contemporary", extra:true,
+    bio:"日本作曲家,宫崎骏动画的御用配乐:《龙猫》《千与千寻》《天空之城》《哈尔的移动城堡》。早期受极简主义影响,旋律优美好记,很多钢琴学生都爱弹他的曲子。"},
+  tandun:{name:"谭盾", en:"Tan Dun", years:"1957–", period:"contemporary", extra:true,
+    bio:"中国湖南出生、在纽约发展的作曲家。电影《卧虎藏龙》配乐获奥斯卡奖。他把中国民间音乐、自然声音(水、纸、石头)和西方交响乐结合,是东西方音乐对话的代表人物。"}
+});
+
+// Pictures and timeline data. Portraits/artworks are loaded at runtime from Wikipedia's
+// page-summary API (lead image of the English article), then cached by the service worker.
+const WIKI = {
+  bach:"Johann_Sebastian_Bach", petzold:"", handel:"George_Frideric_Handel", lully:"Jean-Baptiste_Lully",
+  gossec:"François-Joseph_Gossec", boccherini:"Luigi_Boccherini", mozart:"Wolfgang_Amadeus_Mozart", clementi:"Muzio_Clementi",
+  beethoven:"Ludwig_van_Beethoven", weber:"Carl_Maria_von_Weber", paganini:"Niccolò_Paganini", schumann:"Robert_Schumann",
+  chopin:"Frédéric_Chopin", thomas:"Ambroise_Thomas", burgmuller:"Friedrich_Burgmüller", brahms:"Johannes_Brahms",
+  tchaikovsky:"Pyotr_Ilyich_Tchaikovsky", grieg:"Edvard_Grieg", debussy:"Claude_Debussy", kabalevsky:"Dmitry_Kabalevsky",
+  suzuki:"Shinichi_Suzuki_(violinist)", schulz:"Johann_Abraham_Peter_Schulz", bayly:"Thomas_Haynes_Bayly", folk:"",
+  hildegard:"Hildegard_of_Bingen", palestrina:"Giovanni_Pierluigi_da_Palestrina", monteverdi:"Claudio_Monteverdi",
+  vivaldi:"Antonio_Vivaldi", haydn:"Joseph_Haydn", schubert:"Franz_Schubert", mendelssohn:"Felix_Mendelssohn",
+  liszt:"Franz_Liszt", verdi:"Giuseppe_Verdi", wagner:"Richard_Wagner", dvorak:"Antonín_Dvořák", sibelius:"Jean_Sibelius",
+  mahler:"Gustav_Mahler", rachmaninoff:"Sergei_Rachmaninoff", satie:"Erik_Satie", ravel:"Maurice_Ravel",
+  stravinsky:"Igor_Stravinsky", prokofiev:"Sergei_Prokofiev", gershwin:"George_Gershwin", shostakovich:"Dmitri_Shostakovich",
+  part:"Arvo_Pärt", glass:"Philip_Glass", williams:"John_Williams", hisaishi:"Joe_Hisaishi", tandun:"Tan_Dun"
+};
+
+// One picture per era: something you can SEE that has the same spirit as the music.
+const ERA_ART = {
+  medieval:["Notre-Dame_de_Paris","巴黎圣母院 (Notre-Dame de Paris):哥特式教堂。中世纪圣咏就在这样高大的石头空间里回响——所以它听起来空灵、有回声。"],
+  renaissance:["Mona_Lisa","达·芬奇《蒙娜丽莎》(Mona Lisa):人文主义,画的是一个真实的'人'。文艺复兴音乐也一样:和谐、平衡、温和。"],
+  baroque:["Palace_of_Versailles","凡尔赛宫 (Palace of Versailles):金碧辉煌、装饰繁复。巴洛克音乐就像这座宫殿——华丽、对称、装饰音很多。"],
+  classical:["Schönbrunn_Palace","维也纳美泉宫 (Schönbrunn Palace):1762年,6岁的莫扎特在这里为玛丽亚·特蕾莎女皇演奏。古典音乐像这座宫殿的外立面:端正、均衡、清楚。"],
+  romantic:["Wanderer_above_the_Sea_of_Fog","弗里德里希《雾海上的旅人》(Wanderer above the Sea of Fog, 1818):一个人独自面对壮阔的自然——浪漫主义的核心就是'个人的感受'。"],
+  nationalism:["Bridal_Procession_on_the_Hardangerfjord","《哈当厄尔峡湾的婚礼行列》(Bridal Procession on the Hardangerfjord, 1848):挪威画家把本国风景和民俗画进艺术,正如格里格把挪威民歌写进音乐。"],
+  impressionism:["Impression,_Sunrise","莫奈《日出·印象》(Impression, Sunrise, 1872):'印象派'这个名字就来自这幅画。模糊的光和水——德彪西的音乐就是这种感觉。"],
+  c20:["Composition_VII","康定斯基《构成第七号》(Composition VII, 1913):和《春之祭》同一年。没有具体形象,只有色彩和冲突。康定斯基说他画画像在作曲。"],
+  contemporary:["Sydney_Opera_House","悉尼歌剧院 (Sydney Opera House, 1973):当代建筑,打破传统形式。今天的古典音乐也在不断寻找新的形状。"]
+};
+
+// Timeline markers. y = year.
+const EVENTS = [
+  [1025,"谱表诞生","staff notation (Guido d'Arezzo)"],
+  [1450,"古登堡印刷术","printing press"],
+  [1600,"第一部歌剧","first opera"],
+  [1700,"钢琴发明","piano invented (Cristofori)"],
+  [1789,"法国大革命","French Revolution"],
+  [1829,"巴赫被重新发现","Bach revival"],
+  [1877,"留声机","phonograph"],
+  [1913,"《春之祭》首演","Rite of Spring"],
+  [1927,"有声电影","sound film"],
+  [1977,"《星球大战》配乐","Star Wars score"]
+];
+const WARS = [[1914,1918,"一战 WWI"],[1939,1945,"二战 WWII"]];
+
+// Chinese dynasties for orientation.
+const DYNASTIES = [[960,1279,"宋"],[1271,1368,"元"],[1368,1644,"明"],[1644,1912,"清"],[1912,1949,"民国"],[1949,2030,"新中国"]];
+const CHINA_HOOKS = [
+  "巴赫、亨德尔出生的1685年 = 康熙二十四年。",
+  "莫扎特去世的1791年 = 乾隆五十六年,同一年《红楼梦》程甲本刊行。",
+  "贝多芬去世的1827年 = 道光七年。",
+  "肖邦去世的1849年,鸦片战争 (Opium War) 刚结束不久。",
+  "德彪西写《儿童园地》的1908年 = 光绪三十四年,清朝还有4年就结束了。"
+];
+
+const ERA_COLORS = {medieval:"#8d6e63",renaissance:"#6d8b3a",baroque:"#b5651d",classical:"#2e6da4",romantic:"#a33b5e",
+  nationalism:"#2e8b7a",impressionism:"#7a5cc0",c20:"#5f6b7a",contemporary:"#c07a1a",folk:"#999999"};
+
+// Chinese term -> English original. The app shows "(English)" after the FIRST mention in each card.
+// Composer names are added automatically from COMPOSERS. Longer keys win over shorter ones.
+const TERMS = {
+ // countries, regions, history
+ "德国":"Germany","奥地利":"Austria","德奥":"German-Austrian","意大利文":"Italian","意大利":"Italy","法文":"French","法国大革命":"French Revolution","法国":"France",
+ "英国":"Britain","英文":"English","俄罗斯":"Russia","俄国革命":"Russian Revolution","沙俄":"Tsarist Russia","苏联":"Soviet Union","波兰":"Poland","匈牙利":"Hungary",
+ "捷克":"Czech","波希米亚":"Bohemia","挪威":"Norway","芬兰":"Finland","爱沙尼亚":"Estonia","比利时":"Belgium","西班牙":"Spain","美国":"USA","英美":"Britain & America",
+ "日本":"Japan","中国":"China","爱尔兰":"Ireland","印尼":"Indonesia","欧洲":"Europe","北欧":"Nordic","罗马帝国":"Roman Empire","古希腊":"Ancient Greece",
+ "维也纳":"Vienna","巴黎":"Paris","伦敦":"London","威尼斯":"Venice","罗马":"Rome","德累斯顿":"Dresden","华沙":"Warsaw","纽约":"New York","卑尔根":"Bergen",
+ "马略卡岛":"Majorca","琉森湖":"Lake Lucerne","克雷莫纳":"Cremona","凡尔赛宫":"Palace of Versailles","湖南":"Hunan","温布尔登":"Wimbledon","列宁格勒":"Leningrad",
+ "巴黎世博会":"Paris Exposition","启蒙运动":"Enlightenment","工业革命":"Industrial Revolution","君主专制":"absolute monarchy","两次世界大战":"two World Wars",
+ "意大利统一运动":"Risorgimento","民族独立运动":"national independence movements","修道院":"monastery","教会":"the Church","宫廷":"court",
+ // styles & movements
+ "中世纪":"Medieval","文艺复兴":"Renaissance","巴洛克":"Baroque","古典时期":"Classical period","浪漫主义":"Romanticism","浪漫派":"Romantic school","晚期浪漫":"late Romantic",
+ "民族乐派":"Nationalism","印象派":"Impressionism","极简主义":"minimalism","神圣极简主义":"holy minimalism","新古典主义":"Neoclassicism","标题音乐":"program music",
+ "复调":"polyphony","爵士乐":"jazz","爵士":"jazz","圣咏":"chant","吟游诗人":"troubadour","牧歌":"madrigal","甘美兰":"gamelan","五声音阶":"pentatonic scale",
+ "全音音阶":"whole-tone scale","不协和音":"dissonance","钟鸣作曲法":"tintinnabuli","氛围音乐":"ambient music","民歌":"folk song","童谣":"nursery rhyme","赞美诗":"hymn",
+ "电影配乐":"film score","铃木教学法":"Suzuki Method","铃木":"Suzuki","母语教学法":"mother-tongue approach",
+ // music elements
+ "旋律":"melody","和声":"harmony","和弦":"chord","节奏":"rhythm","速度":"tempo","力度":"dynamics","音色":"timbre / tone","音准":"intonation","大调":"major key","小调":"minor key",
+ "乐章":"movement","乐句":"phrase","主题":"theme","变奏曲":"variations","变奏":"variation","动机":"motif","低音":"bass","高潮":"climax","持续音":"drone",
+ "装饰音":"ornament","颤音":"trill","附点节奏":"dotted rhythm","三拍子":"triple meter","二拍子":"duple meter","6/8拍子":"6/8 time","三连音":"triplet",
+ "八度":"octave","音阶":"scale","琶音":"arpeggio","分解和弦":"broken chord","音程":"interval","不协和":"dissonant","渐强":"crescendo","渐弱":"diminuendo",
+ "渐慢":"ritardando","断奏":"staccato","跳音":"staccato","连奏":"legato","连弓":"slur","分弓":"détaché","顿弓":"martelé","停顿弓":"stopped bow","跳弓":"spiccato",
+ "跨弦":"string crossing","换弦":"string crossing","换把":"shifting","揉弦":"vibrato","拨弦":"pizzicato","空弦":"open string","弓压":"bow pressure","弓速":"bow speed",
+ "弓根":"frog (of the bow)","琴马":"bridge","指板":"fingerboard","琴颈":"neck","琴弦":"strings","弱音":"mute","触键":"touch","弹性速度":"rubato",
+ "呈示部":"exposition","展开部":"development","再现部":"recapitulation","尾声":"coda","引子":"introduction","两段式":"binary form","三段式":"ternary form","奏鸣曲式":"sonata form",
+ "伴奏":"accompaniment","独奏":"solo","二重奏":"duet","四手联弹":"piano four hands","弦乐四重奏":"string quartet","弦乐五重奏":"string quintet","四重奏":"quartet","五重奏":"quintet",
+ "管弦乐队":"orchestra","乐队":"orchestra","配器":"orchestration","指挥":"conductor","合唱":"chorus","独唱":"solo singing","歌手":"singer","乐长":"Kapellmeister",
+ "音乐会":"concert","独奏会":"recital","返场曲":"encore","沙龙":"salon","节拍器":"metronome","乐谱":"sheet music / score","五线谱":"staff notation","作品编号":"opus number",
+ // genres
+ "交响曲":"symphony","交响诗":"symphonic poem","协奏曲":"concerto","奏鸣曲":"sonata","小奏鸣曲":"sonatina","室内乐":"chamber music","歌剧":"opera","芭蕾舞剧":"ballet",
+ "芭蕾":"ballet","清唱剧":"oratorio","弥撒":"Mass","受难曲":"Passion","咏叹调":"aria","宣叙调":"recitative","序曲":"overture","间奏":"interlude","组曲":"suite",
+ "赋格":"fugue","练习曲":"étude","前奏曲":"prelude","夜曲":"nocturne","圆舞曲":"waltz","华尔兹":"waltz","小步舞曲":"minuet","加沃特":"gavotte","布列舞曲":"bourrée",
+ "风笛舞曲":"musette","舞曲":"dance","进行曲":"march","摇篮曲":"lullaby","狂想曲":"rhapsody","随想曲":"caprice","艺术歌曲":"art song (Lied)","性格小品":"character piece",
+ "小品":"short piece","圣诞歌":"Christmas carol","无穷动":"perpetuum mobile",
+ // instruments
+ "钢琴":"piano","小提琴":"violin","中提琴":"viola","大提琴":"cello","低音提琴":"double bass","羽管键琴":"harpsichord","管风琴":"organ","鲁特琴":"lute","古竖笛":"recorder",
+ "维奥尔琴":"viol","风笛":"bagpipe","圆号":"French horn","单簧管":"clarinet","长笛":"flute","双簧管":"oboe","小号":"trumpet","定音鼓":"timpani","键盘乐器":"keyboard instruments",
+ "弦乐":"strings","号角":"hunting horn",
+ // people (non-composer)
+ "斯特拉迪瓦里":"Stradivari","路易十四":"Louis XIV","拿破仑":"Napoleon","海涅":"Heinrich Heine","歌德":"Goethe","达·芬奇":"Leonardo da Vinci","米开朗基罗":"Michelangelo",
+ "莫奈":"Claude Monet","雷诺阿":"Renoir","毕加索":"Picasso","宫崎骏":"Hayao Miyazaki","斯大林":"Stalin","克拉拉":"Clara Schumann","安娜·玛格达莱娜":"Anna Magdalena Bach",
+ "霍洛维茨":"Vladimir Horowitz","古诺":"Charles Gounod","菲尔德":"John Field","车尔尼":"Carl Czerny","卢梭":"Jean-Jacques Rousseau","雷尔施塔布":"Ludwig Rellstab",
+ "朱丽叶塔·圭恰迪尼":"Giulietta Guicciardi","特蕾莎·马尔法蒂":"Therese Malfatti","伊丽莎白·勒克尔":"Elisabeth Röckel","普契尼":"Giacomo Puccini","罗西尼":"Gioachino Rossini",
+ "斯美塔那":"Bedřich Smetana","圣桑":"Camille Saint-Saëns","柯达伊":"Zoltán Kodály",
+ "小丘丘":"Chouchou","埃斯特哈齐":"Esterházy","阿尔贝蒂低音":"Alberti bass","通奏低音":"basso continuo","主导动机":"leitmotif","美泉宫":"Schönbrunn Palace",
+ // works
+ "《四季·春》":"The Four Seasons: Spring","《四季》":"The Four Seasons","《弥赛亚》":"Messiah","《马太受难曲》":"St Matthew Passion","《魔笛》":"The Magic Flute",
+ "《天鹅湖》":"Swan Lake","《胡桃夹子组曲》":"The Nutcracker Suite","《胡桃夹子》":"The Nutcracker","《培尔·金特》":"Peer Gynt","《平均律钢琴曲集》":"The Well-Tempered Clavier",
+ "《平均律》":"The Well-Tempered Clavier","《童年情景》":"Kinderszenen (Scenes from Childhood)","《少年曲集》":"Album für die Jugend (Album for the Young)",
+ "《儿童曲集》":"Children's Album","《儿童园地》":"Children's Corner","《抒情小品》":"Lyric Pieces","《魔弹射手》":"Der Freischütz","《迷娘》":"Mignon",
+ "《春之祭》":"The Rite of Spring","《彼得与狼》":"Peter and the Wolf","《蓝色狂想曲》":"Rhapsody in Blue","《波莱罗》":"Boléro","《芬兰颂》":"Finlandia",
+ "《自新大陆》":"From the New World","《第九交响曲'自新大陆'》":"Symphony No. 9 'From the New World'","《圣母颂》":"Ave Maria","《茶花女》":"La traviata","《阿依达》":"Aida",
+ "《弄臣》":"Rigoletto","《图兰朵》":"Turandot","《茉莉花》":"Jasmine Flower","《尼伯龙根的指环》":"Der Ring des Nibelungen","《仲夏夜之梦》":"A Midsummer Night's Dream",
+ "《魔王》":"Erlkönig (The Erl-King)","《鳟鱼五重奏》":"Trout Quintet","《鳟鱼》":"Die Forelle (The Trout)","《未完成交响曲》":"Unfinished Symphony",
+ "《匈牙利狂想曲》":"Hungarian Rhapsodies","《爱之梦》":"Liebesträume","《钟》":"La Campanella","《匈牙利舞曲》":"Hungarian Dances","《摇篮曲》":"Wiegenlied (Lullaby)",
+ "《天上的和谐》":"Symphonia harmoniae caelestium revelationum","《奥菲欧》":"L'Orfeo","《惊愕交响曲》":"'Surprise' Symphony","《弦乐小夜曲》":"Eine kleine Nachtmusik",
+ "《念故乡》":"Goin' Home","《卧虎藏龙》":"Crouching Tiger, Hidden Dragon","《星球大战》":"Star Wars","《哈利·波特》":"Harry Potter","《侏罗纪公园》":"Jurassic Park",
+ "《辛德勒的名单》":"Schindler's List","《龙猫》":"My Neighbor Totoro","《千与千寻》":"Spirited Away","《天空之城》":"Castle in the Sky","《哈尔的移动城堡》":"Howl's Moving Castle",
+ "《菊次郎的夏天》":"Kikujiro","《镜中镜》":"Spiegel im Spiegel","《裸体歌舞曲》":"Gymnopédies","《伏尔塔瓦河》":"Vltava (The Moldau)","《骷髅之舞》":"Danse macabre",
+ "《威廉·退尔》":"William Tell","《费加罗的婚礼》":"The Marriage of Figaro","《马赛曲》":"La Marseillaise","《革命练习曲》":"'Revolutionary' Étude","《无词歌》":"Songs Without Words",
+ "《大提琴无伴奏组曲》":"Cello Suites","《小星星变奏曲》":"Variations on 'Ah vous dirai-je, maman'","《安魂曲》":"Requiem","《波吉与贝丝》":"Porgy and Bess","《夏日时光》":"Summertime",
+ "《时时刻刻》":"The Hours","《楚门的世界》":"The Truman Show","《犹大·马加比》":"Judas Maccabaeus","《两个掷弹兵》":"The Two Grenadiers","《E.T.》":"E.T.",
+ "《月光奏鸣曲》":"Moonlight Sonata","《致爱丽丝》":"Für Elise","《梦幻曲》":"Träumerei","《小咏叹调》":"Arietta","《回忆》":"Remembrances","《晨景》":"Morning Mood",
+ "《山魔王的宫殿》":"In the Hall of the Mountain King","《悲怆》":"Pathétique","《第五交响曲》":"Symphony No. 5","《第二钢琴协奏曲》":"Piano Concerto No. 2",
+ "《第一钢琴协奏曲》":"Piano Concerto No. 1","《小提琴协奏曲》":"Violin Concerto","《幽默曲》":"Humoresque","《第二圆舞曲》":"Waltz No. 2",
+ "《综艺管弦乐组曲》":"Suite for Variety Orchestra","《第七交响曲'列宁格勒'》":"Symphony No. 7 'Leningrad'","《罗密欧与朱丽叶》":"Romeo and Juliet",
+ "《梨形的三首小品》":"Trois morceaux en forme de poire","《飞吧,思想,乘着金色的翅膀》":"Va, pensiero","《求主垂怜》":"Miserere","《马切鲁斯教皇弥撒》":"Missa Papae Marcelli",
+ "《G弦上的咏叹调》":"Air on the G String","《哈利路亚》":"Hallelujah","《来吧,孩子们》":"Ihr Kinderlein, kommet","《很久以前》":"Long, Long Ago"
+};
+
+// Violin: Suzuki Violin School Book 1 and Book 2 (common edition order).
+// bpm = approximate quarter-note tempo of a typical reference recording; a guide, not a rule.
+const VIOLIN = [
+{id:"v01", group:"铃木第1册 Suzuki Book 1", title:"小星星变奏曲", en:"Twinkle, Twinkle, Little Star Variations", composer:"suzuki", year:"旋律为18世纪法国童谣;变奏由铃木编写", period:"folk",
+ hook:"每个铃木学生的第一首曲子:同一个旋律,用四五种不同的节奏拉。",
+ bg:"旋律来自法国童谣《啊,妈妈我要告诉你》(Ah! vous dirai-je, maman),莫扎特也为它写过钢琴变奏曲。铃木把它拆成几种节奏型(变奏 A、B、C、D…),孩子先在空弦上练节奏,再拉完整旋律。",
+ about:"这首曲子不是为了'讲故事',而是为了打地基:握弓、站姿、弓走直线、换弦。变奏 = 同一个旋律换衣服。",
+ skill:"右手:短而清楚的弓;节奏感;弓在两根弦之间平稳换弦。",
+ structure:["变奏A:'跑跑 停停'(Mississippi Stop-Stop)节奏","变奏B、C、D:不同的跳跃节奏","主题:最后用长音平静地拉出原旋律"],
+ checks:["每个节奏型是否清楚、每次都一样","弓是否走直线(从侧面看,弓与琴马平行)","主题的长音是否平稳饱满,没有中途变细或抖","站姿稳、小提琴没有往下垂"],
+ mistakes:["弓压太重 → 吱吱声","弓滑向指板 → 声音发虚","节奏变奏拉成了一样的节奏"],
+ bpm:100, praise:["每个变奏的节奏都不一样,我都听出来了!","最后慢慢拉的那段好平稳,像在唱歌。"], q:"Suzuki Twinkle Twinkle Little Star Variations violin"},
+{id:"v02", group:"铃木第1册 Suzuki Book 1", title:"划船", en:"Lightly Row", composer:"folk", year:"德国民歌", period:"folk",
+ hook:"第一首'真正的歌',轻快地划小船。",
+ bg:"德国童谣《Hänschen klein》(小汉斯)的旋律,讲一个小男孩离家去看世界,妈妈在家想他。英文版改成了划船的歌词。",
+ about:"轻松、愉快、像微风里摇小船。",
+ skill:"左手手指放下与抬起;一弓拉两个音(连弓的雏形);换弦。",
+ structure:["A:下行的旋律('划呀划')","B:中间往上走的一段","A:开头旋律回来"],
+ checks:["音和音之间是否连贯,不是一个一个'敲'出来","长音(句尾)是否拉满时值,没有提前收","左手手指是否按准:同一个音每次都一样高"],
+ mistakes:["句尾长音拉不满就急着下一句","左手第三指偏低"],
+ bpm:100, praise:["我听得出这是在划船,很轻松!","句子结尾的长音拉得好稳。"], q:"Suzuki Lightly Row violin"},
+{id:"v03", group:"铃木第1册 Suzuki Book 1", title:"风之歌", en:"Song of the Wind", composer:"folk", year:"德国民歌", period:"folk",
+ hook:"一阵调皮的风:有快有停。",
+ bg:"德国民歌,铃木用它练习'停顿弓'——拉完一个音,弓在弦上停一下再拉。",
+ about:"风吹过来、停一下、又吹过来,活泼俏皮。",
+ skill:"弓的停与动;第三指在两根弦上的配合。",
+ structure:["A:重复的跳跃小动机","B:往下走的一串音","A:回来"],
+ checks:["停顿处是否真的停,干净利落","重复的动机每次是否一样大声","节奏是否一直稳定,没有越来越快"],
+ mistakes:["越拉越快","停顿弓没有停,糊成一片"],
+ bpm:110, praise:["那些停顿好干脆,像风一阵一阵的!"], q:"Suzuki Song of the Wind violin"},
+{id:"v04", group:"铃木第1册 Suzuki Book 1", title:"去告诉罗迪阿姨", en:"Go Tell Aunt Rhody", composer:"folk", year:"美国民歌;旋律可能源自卢梭的一部歌剧", period:"folk",
+ hook:"一首听起来很欢快、歌词其实很伤心的美国民歌。",
+ bg:"歌词说'去告诉罗迪阿姨,她的老灰鹅死了'。有学者认为旋律来自哲学家卢梭 (Jean-Jacques Rousseau) 1752年的一部歌剧中的段落,后来在美国变成民歌(这一来源有争议)。",
+ about:"旋律简单温和,带一点幽默的'哀伤'。",
+ skill:"连续的四分音符和长音;稳定的弓速。",
+ structure:["A:同音重复后往下走","B:中段","A:回来"],
+ checks:["长音是否拉满,弓速是否均匀(声音不会'先大后小')","节奏稳定","音准稳定"],
+ mistakes:["长音前半弓用光,后面没弓了"],
+ bpm:100, praise:["长音好饱满,一直到最后都没变小。"], q:"Suzuki Go Tell Aunt Rhody violin"},
+{id:"v05", group:"铃木第1册 Suzuki Book 1", title:"来吧,孩子们", en:"O Come, Little Children", composer:"schulz", year:"约1794", period:"classical",
+ hook:"德国圣诞歌,邀请孩子们来看马槽里的婴儿。",
+ bg:"原名 Ihr Kinderlein, kommet,舒尔茨作曲,至今在德语区圣诞节常唱。",
+ about:"温柔、安静、带着期待,像节日前夜。",
+ skill:"弓在弦上平稳地分配;多次重复音的节奏。",
+ structure:["每句重复同一个音再往下行","两句一问一答"],
+ checks:["重复的同一个音是否每个一样大、一样长","整体是否柔和(不是凶巴巴的)","句子之间有没有小小的呼吸"],
+ mistakes:["拉得太用力,失去'温柔'"],
+ bpm:96, praise:["听起来好温柔,像在唱圣诞歌。"], q:"Suzuki O Come Little Children violin"},
+{id:"v06", group:"铃木第1册 Suzuki Book 1", title:"五月之歌", en:"May Song", composer:"folk", year:"德国民歌", period:"folk",
+ hook:"春天来了的舞蹈,三拍子之前的蹦蹦跳跳。",
+ bg:"德国庆祝五月春天的民歌。铃木用它练习附点节奏(长-短)。",
+ about:"明快、跳跃,像在草地上蹦。",
+ skill:"附点节奏(长—短);连弓与分弓的组合。",
+ structure:["A:跳跃的上行旋律","B:中间稍安静","A:回来"],
+ checks:["长-短的附点节奏是否清楚,不是平均的","音乐是否有'跳'的感觉","高音处音准"],
+ mistakes:["附点节奏拉成平均节奏"],
+ bpm:100, praise:["那个'蹦-哒'的节奏好有精神,像在跳舞!"], q:"Suzuki May Song violin"},
+{id:"v07", group:"铃木第1册 Suzuki Book 1", title:"很久以前", en:"Long, Long Ago", composer:"bayly", year:"1833", period:"romantic",
+ hook:"一首怀念往日的歌,第一首要'唱'出感情的曲子。",
+ bg:"英国诗人贝利作词作曲,歌词怀念从前的恋人和时光。19世纪英美大流行。第二册还会出现它的变奏版。",
+ about:"怀旧、温暖、有点淡淡的思念。",
+ skill:"连弓(一弓多个音);乐句的连贯;柔和的音色。",
+ structure:["A:'告诉我那些往日的故事'","A':重复,结尾稍不同","B:往上的高点","A:回来"],
+ checks:["是否像唱歌一样连贯","句子高点(往上走的地方)是否稍微大声一点","音色是否温和"],
+ mistakes:["没有起伏,平铺直叙","连弓时弓分配不好,后面的音被挤"],
+ bpm:92, praise:["这首有'思念'的感觉,你拉得像在唱歌。"], q:"Suzuki Long Long Ago violin"},
+{id:"v08", group:"铃木第1册 Suzuki Book 1", title:"快板", en:"Allegro", composer:"suzuki", year:"铃木编写", period:"c20",
+ hook:"第一首速度标题曲:快、断、有活力。",
+ bg:"铃木为教学写的小曲。'Allegro'是意大利文'快板、愉快地'。",
+ about:"活泼的跑跳,中间有一段安静的对比。",
+ skill:"停顿弓 (stopped bow);快慢段落的对比;渐慢收尾。",
+ structure:["A:活泼短促","B:中间慢下来、安静、连贯","A:回来,结尾渐慢 (rit.)"],
+ checks:["A段是否短促干脆","B段是否真的变安静变连贯(对比明显吗?)","结尾是否有明显的渐慢"],
+ mistakes:["A、B两段听起来一样","停顿音拖长了"],
+ bpm:112, praise:["中间那段一下变安静了,对比好明显!"], q:"Suzuki Allegro violin Book 1"},
+{id:"v09", group:"铃木第1册 Suzuki Book 1", title:"无穷动", en:"Perpetual Motion", composer:"suzuki", year:"铃木编写", period:"c20",
+ hook:"一刻不停的快速音符,像上了发条。",
+ bg:"'无穷动' (Perpetuum mobile) 是一种音乐类型:从头到尾不间断的快速音符。帕格尼尼等人写过炫技版,铃木这首是入门版。",
+ about:"像小火车一直跑,考验专注和节奏的稳定。",
+ skill:"连续的快速短弓;左手手指快速准确;后半段有双音拉法练习。",
+ structure:["A:一串不停的八分音符","B:往高处走","A:回来"],
+ checks:["每个音是否一样长、一样清楚(像珠子一样)","全曲速度是否保持不变","换弦时是否没有杂音"],
+ mistakes:["越拉越快","难的地方慢下来,简单的地方冲"],
+ bpm:110, praise:["一口气拉完没停,速度好稳!"], q:"Suzuki Perpetual Motion violin"},
+{id:"v10", group:"铃木第1册 Suzuki Book 1", title:"小快板", en:"Allegretto", composer:"suzuki", year:"铃木编写", period:"c20",
+ hook:"像在花园里蹦跶的小快板,停顿和连奏交替。",
+ bg:"铃木为教学写的小曲。'Allegretto' = 比 Allegro 慢一点的小快板。",
+ about:"轻快、俏皮,中段更柔和。",
+ skill:"停顿弓与连弓的切换;力度变化。",
+ structure:["A:俏皮跳跃","B:柔和、连贯","A:回来"],
+ checks:["跳的地方轻巧不重","连的地方真的连起来","强弱对比"],
+ mistakes:["所有音一样重"],
+ bpm:110, praise:["蹦蹦跳跳的部分好轻巧!"], q:"Suzuki Allegretto violin Book 1"},
+{id:"v11", group:"铃木第1册 Suzuki Book 1", title:"小行板", en:"Andantino", composer:"suzuki", year:"铃木编写", period:"c20",
+ hook:"第一首真正'慢而美'的曲子,讲究音色。",
+ bg:"铃木为教学写的抒情小曲。'Andantino' = 小行板,从容的速度。",
+ about:"温柔、歌唱,中间有一点点忧伤。",
+ skill:"四指的使用;柔和的连弓;乐句的起伏。",
+ structure:["A:温柔的歌","B:中段稍带变化","A:回来"],
+ checks:["音色是否柔美(不刺耳)","每句是否有起伏","节奏是否从容,不赶"],
+ mistakes:["因为慢反而拍子不稳","四指按不准,音偏低"],
+ bpm:88, praise:["这首好温柔,声音很好听。"], q:"Suzuki Andantino violin Book 1"},
+{id:"v12", group:"铃木第1册 Suzuki Book 1", title:"练习曲", en:"Étude", composer:"suzuki", year:"铃木编写", period:"c20",
+ hook:"在四根弦之间来回穿梭的技术练习曲。",
+ bg:"'Étude' 是法文'练习曲'。专门练换弦和手指配合。",
+ about:"像在爬楼梯又下楼梯,有规律、有动力。",
+ skill:"换弦;第二指的高低位置;重复型的手指模式。",
+ structure:["重复的音型在不同的弦上移动","最后回到开头"],
+ checks:["换弦时是否干净,不碰到别的弦","节奏是否稳定","每个音是否清楚"],
+ mistakes:["换弦时带出杂音","二指位置不准"],
+ bpm:110, praise:["换弦好干净,一个杂音都没有。"], q:"Suzuki Etude violin Book 1"},
+{id:"v13", group:"铃木第1册 Suzuki Book 1", title:"小步舞曲 第1号", en:"Minuet No. 1", composer:"bach", year:"约1725《安娜·玛格达莱娜·巴赫音乐笔记》", period:"baroque",
+ hook:"第一次拉巴洛克宫廷舞曲:三拍子,优雅地走小步。",
+ bg:"铃木第1册的三首小步舞曲都出自巴赫给妻子安娜·玛格达莱娜的家庭音乐笔记本(1725)。这本笔记本里收的不全是巴赫写的——其中两首最著名的小步舞曲现在被认为是佩措尔德的作品。具体哪一首对应哪个编号,不同版本标注不同,可问孩子的老师或看乐谱上的编号。",
+ about:"贵族在宫廷里成对跳的舞:端庄、优雅、小步子。三拍子,第一拍略重:'嘭-嚓-嚓'。",
+ skill:"三拍子的律动;弓的分配;装饰性的小连音。",
+ structure:["A段(重复一次)","B段(重复一次)——两段式舞曲 (binary form)"],
+ checks:["能不能听出'1-2-3'三拍的舞步感","A、B两段都按谱重复了吗","声音是否优雅轻盈,而不是用力挤"],
+ mistakes:["三拍子拉成了没有重心的平拍","跳过重复"],
+ bpm:112, praise:["我听得出是三拍子的舞,好像看到宫廷舞会了。"], q:"Suzuki Minuet 1 Bach violin"},
+{id:"v14", group:"铃木第1册 Suzuki Book 1", title:"小步舞曲 第2号", en:"Minuet No. 2", composer:"bach", year:"约1725《安娜·玛格达莱娜·巴赫音乐笔记》", period:"baroque",
+ hook:"另一首宫廷小步舞曲,多了跳跃的音程和更多表情。",
+ bg:"同样来自巴赫家庭音乐笔记本。巴洛克时期每首舞曲都有固定的节奏和气质,小步舞曲是最受欢迎的一种。",
+ about:"优雅中带一点活泼,有'问'有'答'。",
+ skill:"顿弓与连弓的混合;跨弦的跳跃;强弱对比。",
+ structure:["A段(重复)","B段(重复)"],
+ checks:["三拍子的舞步感","跳跃的大音程是否准","有没有强弱(第二遍是否有变化)"],
+ mistakes:["跨弦时音准偏","没有强弱变化"],
+ bpm:112, praise:["跳的那些音好准!"], q:"Suzuki Minuet 2 Bach violin"},
+{id:"v15", group:"铃木第1册 Suzuki Book 1", title:"小步舞曲 第3号", en:"Minuet No. 3", composer:"bach", year:"约1725《安娜·玛格达莱娜·巴赫音乐笔记》", period:"baroque",
+ hook:"第1册里最长最有分量的小步舞曲。",
+ bg:"同样来自巴赫家庭音乐笔记本。这三首小步舞曲常被一起演奏,是孩子从'童谣'走向'真正古典音乐'的转折点。",
+ about:"更宽广、更有气派,有较长的乐句。",
+ skill:"较长乐句的连贯;更多的左手手指组合;收尾的稳定。",
+ structure:["A段(重复)","B段(重复)"],
+ checks:["长乐句是否一口气连贯","整体速度是否始终稳定","结尾是否稳稳地收住"],
+ mistakes:["中间记谱不熟,停顿","结尾冲过去"],
+ bpm:112, praise:["这首好长,你一口气拉下来很稳。"], q:"Suzuki Minuet 3 Bach violin"},
+{id:"v16", group:"铃木第1册 Suzuki Book 1", title:"快乐的农夫", en:"The Happy Farmer", composer:"schumann", year:"1848", period:"romantic",
+ hook:"农夫干完活哼着歌回家——钢琴版你的大儿子可能也弹过!",
+ bg:"原是舒曼《少年曲集》(Album für die Jugend) Op.68 第10首,原标题'快乐的农夫干完活回家'。舒曼为女儿们写了这本曲集。钢琴原版里旋律在左手(低音),右手伴奏。",
+ about:"健康、朴实、心满意足,有力的大步走。",
+ skill:"弓根处有力的短音;附点节奏;较强的力度。",
+ structure:["A:'嘭-哒'有力的主旋律","B:稍变化","A:回来"],
+ checks:["旋律是否有力、饱满(这首可以'大声'一点)","附点节奏(长-短)是否清楚","整体是否有'快乐'的精神"],
+ mistakes:["附点拉成平均节奏","声音太小太犹豫"],
+ bpm:120, praise:["真的像一个快乐的农民在大步走回家!","你知道吗,这首也有钢琴版——问问哥哥弹过没?"], q:"Suzuki Happy Farmer Schumann violin"},
+{id:"v17", group:"铃木第1册 Suzuki Book 1", title:"加沃特舞曲", en:"Gavotte", composer:"gossec", year:"约1786", period:"classical",
+ hook:"铃木第1册的'毕业曲':俏皮的法国舞曲,有跳弓、有对比。",
+ bg:"戈塞克为一部舞台作品写的加沃特舞曲,后来以小提琴曲闻名。拉完这首,第1册就结业了,很多铃木学校会有毕业录音或毕业演出。",
+ about:"俏皮、灵巧、优雅,像踮着脚尖跳舞;中段换成小调,有一点神秘。",
+ skill:"轻巧的顿弓和跳跃;强弱对比;大调和小调的情绪切换。",
+ structure:["A:俏皮的主题(大调)","B:中段转到小调,情绪变暗","A:主题回来,明亮收尾"],
+ checks:["短音是否轻巧利落(踮脚尖)","中段情绪是否有变化","强弱是否明显","结尾干净"],
+ mistakes:["顿弓太重,失去俏皮","中段和开头一样的感觉"],
+ bpm:120, praise:["你拉完了第1册的毕业曲!","中间变'神秘'的那段好有感觉。"], q:"Gossec Gavotte Suzuki violin"},
+// ---- Book 2
+{id:"v18", group:"铃木第2册 Suzuki Book 2", title:"《犹大·马加比》中的合唱", en:"Chorus from 'Judas Maccabaeus'", composer:"handel", year:"1747", period:"baroque",
+ hook:"凯旋英雄的进行曲合唱,庄严、骄傲。",
+ bg:"出自亨德尔清唱剧《犹大·马加比》,原歌词'看,征服的英雄来了' (See, the conqu'ring hero comes)。旋律后来被改成许多赞美诗和颁奖音乐,包括温布尔登等场合常听到。",
+ about:"英雄凯旋,人们夹道欢迎:骄傲、庄严、光明。",
+ skill:"饱满的长音;附点节奏的庄严感;力度层次。",
+ structure:["A:主旋律(轻声)","A重复(大声,像全体合唱)","B:中段","A:回来"],
+ checks:["有没有庄严的感觉(不急不慌)","重复时有没有强弱的变化","附点节奏清楚"],
+ mistakes:["拉得太快,失去庄严","力度没有层次"],
+ bpm:96, praise:["好有气势,像英雄凯旋!"], q:"Suzuki Handel Chorus Judas Maccabaeus violin"},
+{id:"v19", group:"铃木第2册 Suzuki Book 2", title:"风笛舞曲", en:"Musette", composer:"bach", year:"约1725《安娜·玛格达莱娜·巴赫音乐笔记》", period:"baroque",
+ hook:"模仿乡村风笛的舞曲:低音一直'嗡嗡'地持续。",
+ bg:"Musette 是法国的一种小风笛,也指模仿它的舞曲。特点是低音持续不变(像风笛的嗡嗡声),上面旋律跳来跳去。也收在巴赫家庭笔记本里。",
+ about:"乡村节日,风笛手在吹,人们跳着轻快的舞。",
+ skill:"八度跳跃;轻快的弓;持续音的模仿。",
+ structure:["A段(重复)","B段(重复)","可能回到A"],
+ checks:["跳的八度音是否准(高低两个音是同一个音名)","是否轻快有弹性","有乡村舞蹈的欢乐感"],
+ mistakes:["八度跳跃音准偏","太重太死板"],
+ bpm:110, praise:["那些大跳好准,像风笛在吹!"], q:"Suzuki Musette Bach violin"},
+{id:"v20", group:"铃木第2册 Suzuki Book 2", title:"猎人合唱", en:"Hunters' Chorus", composer:"weber", year:"1821", period:"romantic",
+ hook:"德国森林里的猎人在高歌,号角声此起彼伏。",
+ bg:"出自韦伯歌剧《魔弹射手》第三幕,猎人们唱着狩猎的快乐。原曲有圆号(打猎号角)伴奏。",
+ about:"爽朗、热闹、户外的阳光和森林,像号角在吹。",
+ skill:"6/8拍子的摇摆感;强弱对比;快速的弓。",
+ structure:["A:号角般的主题","重复(常有强弱对比:先强后弱像回声)","结尾有力"],
+ checks:["有没有号角'回声'的感觉(大声一遍,小声一遍)","律动是否像骑马一样摇摆","结尾是否有力"],
+ mistakes:["回声段没变小","节奏摇摆感不足"],
+ bpm:100, praise:["回声的地方好好听,我真的听到了森林里的回音!"], q:"Suzuki Hunters Chorus Weber violin"},
+{id:"v21", group:"铃木第2册 Suzuki Book 2", title:"很久以前(变奏)", en:"Long, Long Ago (variation)", composer:"bayly", year:"1833 / 铃木变奏", period:"romantic",
+ hook:"老朋友回来了——这次带着装饰的花边。",
+ bg:"第1册拉过的《很久以前》,这次先拉原旋律,再拉一个音符更多、更花的变奏。",
+ about:"同一份怀念,换成更丰富的表达。",
+ skill:"变奏中的快速音符;保持原旋律的歌唱感。",
+ structure:["主题","变奏:旋律被加上更多音符"],
+ checks:["变奏里能不能还听出原旋律","快音符是否均匀","主题部分是否歌唱"],
+ mistakes:["变奏的快音符不均匀"],
+ bpm:92, praise:["花样变多了,但我还能听出原来那首歌。"], q:"Suzuki Long Long Ago variation Book 2 violin"},
+{id:"v22", group:"铃木第2册 Suzuki Book 2", title:"圆舞曲", en:"Waltz", composer:"brahms", year:"1865", period:"romantic",
+ hook:"勃拉姆斯著名的降A大调圆舞曲,温柔地摇。",
+ bg:"原是勃拉姆斯钢琴四手联弹《16首圆舞曲》Op.39 中最有名的第15首,后改编给各种乐器。",
+ about:"温柔、甜美、像轻轻旋转的舞步,带一点怀念。",
+ skill:"三拍子的温柔律动;柔和的音色;连弓。",
+ structure:["A:温柔的主旋律","B:中段","A:回来"],
+ checks:["是否有'嘭-嚓-嚓'的舞蹈律动但又不笨重","音色是否柔美","乐句是否有起伏"],
+ mistakes:["拉得太用力","三拍子太机械"],
+ bpm:96, praise:["好温柔,我都想跟着转圈了。"], q:"Suzuki Brahms Waltz violin"},
+{id:"v23", group:"铃木第2册 Suzuki Book 2", title:"布列舞曲", en:"Bourrée", composer:"handel", year:"18世纪初", period:"baroque",
+ hook:"活泼的法国民间舞曲,强弱像回声一样对比。",
+ bg:"亨德尔的一首布列舞曲(出自其器乐作品)。布列舞曲是快速的二拍子舞,每句从最后一拍开始。",
+ about:"轻快、有弹性、乡村舞蹈的劲头。",
+ skill:"强弱对比 (forte / piano);短促的分弓;句子从弱拍开始。",
+ structure:["A段(重复)","B段(重复)——巴洛克两段式"],
+ checks:["强弱对比是否明显(像回声)","节奏是否有弹性","重复时是否有变化"],
+ mistakes:["整首一个音量","太急"],
+ bpm:112, praise:["大声小声的对比好清楚!"], q:"Suzuki Bourree Handel violin"},
+{id:"v24", group:"铃木第2册 Suzuki Book 2", title:"两个掷弹兵", en:"The Two Grenadiers", composer:"schumann", year:"1840", period:"romantic",
+ hook:"两个受伤的拿破仑士兵走回法国的悲壮故事。",
+ bg:"原是舒曼的艺术歌曲,歌词是海涅的诗:两个在俄国被俘的法国士兵听说皇帝拿破仑被捕,一个说要死在法国,让战友把他葬在故乡,等皇帝回来时再起身保卫。结尾引用了法国国歌《马赛曲》。",
+ about:"沉重、悲壮、忠诚——这是孩子较早拉到的有'戏剧性'的曲子。",
+ skill:"小调的情绪;戏剧性的力度和速度变化;结尾转大调的高潮。",
+ structure:["A:沉重的进行(小调)","B:讲述的段落","结尾:转为明亮激昂,引用《马赛曲》"],
+ checks:["开头是否有沉重悲伤的感觉","结尾转亮的高潮是否有气势","力度和速度是否有戏剧变化"],
+ mistakes:["拉得太轻松,没有悲壮感","高潮没有推起来"],
+ bpm:96, praise:["结尾那段像在唱国歌一样激昂!","你给我讲讲这两个士兵的故事吧?"], q:"Suzuki Two Grenadiers Schumann violin"},
+{id:"v25", group:"铃木第2册 Suzuki Book 2", title:"《女巫之舞》主题", en:"Theme from 'Witches' Dance'", composer:"paganini", year:"1813", period:"romantic",
+ hook:"'魔鬼小提琴家'帕格尼尼的女巫之舞,带点诡异的俏皮。",
+ bg:"帕格尼尼的《女巫之舞》变奏曲 Op.8,原主题来自一部芭蕾舞剧中的旋律。原作有极难的炫技变奏,铃木只用了主题。",
+ about:"女巫在月光下跳舞:神秘、俏皮、带一点恶作剧。",
+ skill:"轻巧的跳跃;装饰音;精确的节奏。",
+ structure:["A:俏皮主题","B:变化","A:回来"],
+ checks:["是否轻巧,有'踮脚'的神秘感","装饰小音是否清楚","节奏精确"],
+ mistakes:["太重","装饰音含糊"],
+ bpm:104, praise:["有点神秘又有点调皮,真像女巫在跳舞!"], q:"Suzuki Witches Dance Paganini violin"},
+{id:"v26", group:"铃木第2册 Suzuki Book 2", title:"《迷娘》中的加沃特", en:"Gavotte from 'Mignon'", composer:"thomas", year:"1866", period:"romantic",
+ hook:"法国歌剧里优雅又俏皮的加沃特,有很多表情变化。",
+ bg:"出自托马的歌剧《迷娘》,改编自歌德的小说。迷娘是一个被吉普赛人拐走的意大利女孩。这段加沃特原是歌剧中的器乐间奏。",
+ about:"优雅、俏皮、女孩般的灵巧,中段更抒情。",
+ skill:"顿弓与连弓切换;多种表情;更长的结构记忆。",
+ structure:["A:俏皮的加沃特主题","B:抒情的中段","A:回来"],
+ checks:["开头是否俏皮轻巧","中段是否变得抒情柔和","整体有没有'表情',而不是只拉对音"],
+ mistakes:["顿弓太重","中段与开头没对比"],
+ bpm:104, praise:["俏皮的地方和温柔的地方都很有味道。"], q:"Suzuki Gavotte from Mignon violin"},
+{id:"v27", group:"铃木第2册 Suzuki Book 2", title:"加沃特舞曲", en:"Gavotte", composer:"lully", year:"17世纪后期(归属有争议)", period:"baroque",
+ hook:"路易十四宫廷风格的加沃特,端庄的法国味。",
+ bg:"铃木本里标注为吕利作曲,但这首的确切来源学界有疑问。不管作者是谁,它代表了法国宫廷舞曲的风格:优雅、有节制。",
+ about:"宫廷里的庄重舞步,有小调的忧郁和大调的明亮交替。",
+ skill:"巴洛克风格的弓;装饰音;小调与大调的对比。",
+ structure:["A:小调的主题","B:转向大调更明亮","A:回到小调"],
+ checks:["小调部分的'忧郁'和大调部分的'明亮'能不能听出差别","装饰音是否清楚","节奏是否端庄稳定"],
+ mistakes:["装饰音模糊","节奏不稳"],
+ bpm:100, praise:["暗和亮的变化我听出来了!"], q:"Suzuki Gavotte Lully violin"},
+{id:"v28", group:"铃木第2册 Suzuki Book 2", title:"G大调小步舞曲", en:"Minuet in G", composer:"beethoven", year:"1795", period:"classical",
+ hook:"贝多芬写的舞曲:优雅,中段有颤音的花样。",
+ bg:"出自贝多芬为乐队写的《六首小步舞曲》WoO 10 第2首,后来改编成钢琴和小提琴版,非常流行。",
+ about:"轻盈、优雅、有一点幽默的宫廷舞。中段 (Trio) 换一种性格,更流动。",
+ skill:"颤音 (trill);三拍子的优雅;中段的不同性格。",
+ structure:["小步舞曲 A 段","中段 Trio(更流动)","回到小步舞曲"],
+ checks:["颤音是否清楚均匀","三拍子的优雅","中段和主段性格是否不同"],
+ mistakes:["颤音乱或太慢","整首没有性格变化"],
+ bpm:112, praise:["那些颤音好清楚!","中间那段感觉不一样了,是故意的对吧?"], q:"Suzuki Beethoven Minuet in G violin"},
+{id:"v29", group:"铃木第2册 Suzuki Book 2", title:"小步舞曲", en:"Minuet", composer:"boccherini", year:"约1771", period:"classical",
+ hook:"全世界最'优雅'的小步舞曲,电影里的上流社会配乐。",
+ bg:"出自博凯里尼的弦乐五重奏 Op.11 No.5 (G.275) 第三乐章。原曲用弦乐弱音和拨弦伴奏,听起来细腻精致。经常出现在电影和广告里。",
+ about:"精致、优雅、轻盈,像穿着华服的贵族在客厅里跳舞。",
+ skill:"非常轻巧的弓;装饰音;细腻的强弱。这是第2册的结业曲,难度最高。",
+ structure:["A:精致的主题","B:中段","A:回来"],
+ checks:["是否轻巧精致(这首最怕'笨重')","装饰音、跳音是否干净","有没有细腻的强弱变化"],
+ mistakes:["拉得太重","节奏不稳,装饰音拖慢"],
+ bpm:104, praise:["你拉完第2册了!","好精致,像电影里的贵族舞会。"], q:"Suzuki Boccherini Minuet violin"}
+];
+
+// Piano: intermediate classics typical after ~4-7 years of study (roughly ABRSM grade 3-7).
+const PIANO = [
+{id:"p01", group:"巴洛克 Baroque", title:"G大调小步舞曲", en:"Minuet in G major, BWV Anh. 114", composer:"petzold", year:"约1725", period:"baroque",
+ hook:"世界上被弹得最多的钢琴曲之一,'巴赫'名下的名曲其实可能不是巴赫写的。",
+ bg:"收在巴赫给第二任妻子安娜·玛格达莱娜的音乐笔记本(1725)里,两百多年都被当作巴赫的作品。20世纪70年代,学者发现它很可能出自德累斯顿管风琴师佩措尔德之手。1965年流行歌曲《A Lover's Concerto》就用了这个旋律。",
+ about:"家庭客厅里的优雅舞曲。右手唱旋律,左手是第二条独立的旋律线——这就是巴洛克的'复调'。",
+ structure:["A段:右手明快的旋律 + 左手低音线(重复一遍)","B段:旋律往别处走一圈,有一点阴影(重复一遍)","结束在稳定的主音上"],
+ checks:["三拍子的舞步感:'1-2-3'第一拍稍重","左手是否也清楚,不是只听到右手","断奏(跳音)和连奏是否分得清","重复时是否有一点强弱变化"],
+ mistakes:["左手太重盖过旋律","用了太多踏板,巴洛克音乐会变'糊'","速度太快,失去舞蹈的优雅"],
+ bpm:112, praise:["我听到左手也在'唱'一条旋律!","你知道这首曲子其实可能不是巴赫写的吗?"], q:"Minuet in G major BWV Anh 114 piano"},
+{id:"p02", group:"巴洛克 Baroque", title:"C大调前奏曲", en:"Prelude in C major, BWV 846 (Well-Tempered Clavier I)", composer:"bach", year:"1722", period:"baroque",
+ hook:"没有'旋律'的名曲:只有和弦一个个分解开,却美得像流水。",
+ bg:"《平均律钢琴曲集》第一册的第一首。巴赫用24个调各写一首前奏曲和赋格,证明一种新的调音方法可以让所有调都好听——这本书被称为钢琴音乐的'旧约圣经'。1853年古诺在这首前奏曲上加了旋律,成了著名的《圣母颂》(Ave Maria)。",
+ about:"平静、流动、沉思。每小节就是一个和弦被同样的模式分解开,和声慢慢变化,像光线在墙上移动。",
+ structure:["开头:平静的C大调","中段:和声越走越远,张力增加","接近结尾:一段很长的低音持续,紧张感积累","结尾:回家,停在C大调和弦上"],
+ checks:["每个音是否均匀,像流水而不是一跳一跳","每小节和弦变化时,能否感觉到'颜色'在变","是否有整体的起伏:中后段稍紧张,结尾放松","速度是否稳定,不因为手累而变"],
+ mistakes:["弹得机械,没有起伏","速度不稳","最后几小节冲过去"],
+ bpm:72, praise:["听起来像流水一样平静。","你知道有人在这首曲子上面加了一个歌叫《圣母颂》吗?放给你听听。"], q:"Bach Prelude in C major BWV 846"},
+{id:"p03", group:"古典 Classical", title:"小奏鸣曲 Op.36 第1首", en:"Sonatina in C major, Op. 36 No. 1", composer:"clementi", year:"1797", period:"classical",
+ hook:"几乎每个钢琴学生都弹过的'第一首奏鸣曲',小小的三幕剧。",
+ bg:"克莱门蒂专门为学生写的6首小奏鸣曲之一。它是'奏鸣曲'的迷你版,让孩子先熟悉古典时期最重要的结构。",
+ about:"三个乐章像三幕小剧:第一乐章明朗活泼(快);第二乐章温柔歌唱(慢);第三乐章轻快收尾(快)。",
+ structure:["第1乐章 Allegro:开头是上行的分解和弦,像号角;第二主题更轻巧;简短的展开后主题回来","第2乐章 Andante:慢,像唱一首安静的歌","第3乐章 Vivace:活泼的跳动,快乐地结束"],
+ checks:["第一乐章开头是否干脆明亮","左手伴奏是否比右手旋律轻","三个乐章的性格是否不同(快—慢—快)","快速音阶是否均匀清楚"],
+ mistakes:["左手太响","音阶跑得不均匀(像'嘣嘣嘣嘣')","三个乐章都是一种情绪"],
+ bpm:132, praise:["三个乐章性格完全不一样,第二个好温柔!","开头那几个音像吹号一样亮。"], q:"Clementi Sonatina Op 36 No 1"},
+{id:"p04", group:"古典 Classical", title:"C大调奏鸣曲 K.545 第一乐章", en:"Piano Sonata No. 16 in C major, K. 545 — I. Allegro", composer:"mozart", year:"1788", period:"classical",
+ hook:"莫扎特自称'给初学者的小奏鸣曲',却是职业钢琴家都怕的'容易曲'。",
+ bg:"莫扎特在1788年记录为'给初学者的小钢琴奏鸣曲',后人称为 'Sonata facile'(简易奏鸣曲)。同一年他写出了最后三部交响曲。难在'透明':每个音都暴露在外,任何不均匀都听得出来。",
+ about:"阳光、干净、优雅,像一次轻快的散步。右手唱,左手用'阿尔贝蒂低音'(低-高-中-高)轻轻托着。",
+ structure:["呈示部:第一主题(那个著名的开头旋律)→ 一长串上下的音阶 → 第二主题(换到G大调,更俏皮)","展开部:短,转到小调,有一点阴影","再现部:主题回来——注意莫扎特让它从F大调开始,有点'意外'","结尾:干净利落"],
+ checks:["开头旋律是否像唱歌,而不是敲出来","长串音阶是否像珍珠一样颗颗均匀","左手阿尔贝蒂低音是否轻,不抢旋律","有没有'对话感':问—答的乐句","踏板用得很少,声音清晰"],
+ mistakes:["音阶不均匀或越跑越快","左手太重","太多踏板","弹得太重、像贝多芬,失去莫扎特的轻盈"],
+ bpm:132, praise:["那些长音阶像一串珍珠,好均匀!","听起来很轻松很阳光,就是莫扎特的感觉。"], q:"Mozart Sonata K 545 first movement"},
+{id:"p05", group:"古典 Classical", title:"致爱丽丝", en:"Für Elise, WoO 59", composer:"beethoven", year:"1810(1867年才出版)", period:"classical",
+ hook:"全世界最有名的钢琴小品——但'爱丽丝'是谁,至今是个谜。",
+ bg:"贝多芬生前没有发表这首曲子,他死后40年才被发现出版。手稿上写着'献给爱丽丝'——但很可能是誊写者看错了字,真名可能是'特蕾莎'(他求过婚的学生特蕾莎·马尔法蒂)。也有学者认为是歌唱家伊丽莎白·勒克尔。手稿已经遗失,真相无法确认。",
+ about:"开头的主题温柔、略带忧伤,像在轻声叫一个人的名字;中间两段对比:一段明亮温暖,一段激动不安。",
+ structure:["A:著名的主题(小调,两个音来回摇摆)","B:转到大调,明亮温暖,有快速的音阶","A:主题回来","C:低音一直重复敲击,紧张、激动","A:主题最后一次回来,轻轻结束"],
+ checks:["开头的两个摇摆音是否轻柔连贯(不要敲)","A段每次回来是否同样细腻","C段是否有紧张感,然后平静下来","踏板是否干净:换和弦时声音不糊","中间快速音阶是否均匀"],
+ mistakes:["开头太重太快","踏板没换,声音糊","C段的重复低音没控制好"],
+ bpm:69, praise:["开头好轻柔,像在叫一个人的名字。","中间那段紧张的地方我心都提起来了。"], q:"Beethoven Fur Elise"},
+{id:"p06", group:"古典 Classical", title:"月光奏鸣曲 第一乐章", en:"Piano Sonata No. 14 'Moonlight', Op. 27 No. 2 — I. Adagio sostenuto", composer:"beethoven", year:"1801", period:"classical",
+ hook:"'月光'这个名字不是贝多芬起的,但这片宁静与哀伤,让全世界都这样记住了它。",
+ bg:"贝多芬自己的标题是'幻想风格的奏鸣曲' (Sonata quasi una fantasia)。他死后,诗人雷尔施塔布说它让他想起琉森湖上的月光,'月光'从此成名。曲子献给他的学生、伯爵小姐朱丽叶塔·圭恰迪尼。同一时期他开始意识到自己在失聪。",
+ about:"深沉、宁静、哀伤,像夜里独自沉思。三层声音:低音像缓慢的脚步,中间是一直流动的三连音,最上面是一条孤独的旋律。",
+ structure:["引子:三连音缓缓流动","旋律进入:右手上方出现孤独的'长-短-长'旋律","中段:和声走向更暗、更远的地方","回归:旋律回来","尾声:沉入低音,非常安静地结束"],
+ checks:["三连音是否均匀、安静、像背景","旋律(最上面那个音)是否比三连音突出——这叫 voicing","整体是否很轻 (pp),没有突然的大声","踏板连绵但不糊","速度是否稳定、从容,不拖也不赶"],
+ mistakes:["三连音太响,盖住旋律","弹得太快,失去沉思感","踏板没换,和声混在一起"],
+ bpm:54, praise:["好安静,我听得屏住呼吸了。","上面那条旋律好清楚,像有人在独白。"], q:"Beethoven Moonlight Sonata first movement"},
+{id:"p07", group:"浪漫 Romantic", title:"快乐的农夫", en:"The Happy Farmer, Op. 68 No. 10 (Album for the Young)", composer:"schumann", year:"1848", period:"romantic",
+ hook:"农夫干完活哼着歌回家:旋律在左手,低音唱歌。",
+ bg:"舒曼为女儿玛丽的7岁生日开始写《少年曲集》,最后成了43首,从简单到较难。原标题'快乐的农夫干完活回家'。弟弟的铃木小提琴第1册里也有这首!",
+ about:"健康、朴实、心满意足。特别之处:旋律在左手(低音),右手只是'嚓嚓'的伴奏。后来旋律换到右手。",
+ structure:["A:左手唱旋律,右手轻轻伴奏","A':旋律移到右手","结尾:有力收束"],
+ checks:["左手旋律是否饱满响亮","右手伴奏是否比旋律轻","节奏是否有精神(附点清楚)","是否有'快乐'的劲头"],
+ mistakes:["右手伴奏太重,盖过左手旋律","附点节奏不清楚"],
+ bpm:120, praise:["左手唱得好清楚!","哎,弟弟的小提琴也有这首——你们可以合奏一下?"], q:"Schumann Happy Farmer Op 68 No 10"},
+{id:"p08", group:"浪漫 Romantic", title:"梦幻曲", en:"Träumerei, Op. 15 No. 7 (Scenes from Childhood)", composer:"schumann", year:"1838", period:"romantic",
+ hook:"大人回忆童年的白日梦,史上最温柔的钢琴小品之一。",
+ bg:"出自《童年情景》(Kinderszenen)的13首小曲。舒曼说这是'一个大人回忆童年'而写,不是给孩子弹的简单曲。当时他正在和克拉拉相爱,却被她父亲坚决反对。钢琴大师霍洛维茨常把它作为音乐会返场曲。",
+ about:"梦境、温柔、怀念。旋律一次次向上伸展又回落,像在梦里伸手去够什么。",
+ structure:["同一个旋律句出现多次,每次往上伸展到不同的高点","中段和声变得更远更朦胧","最后一次出现,停在悬而未决的和弦上,再轻轻落下"],
+ checks:["旋律是否像唱歌一样连贯,有呼吸","几条声部同时进行时,旋律是否最清楚","速度是否有微妙的弹性(rubato),但不失控","整体很轻,没有刺耳的大声","句子高点是否有'伸展'的感觉"],
+ mistakes:["弹得太机械,没有梦幻感","踏板糊","太慢,句子断了"],
+ bpm:66, praise:["好像在做梦,我听得好放松。","那个往上伸的地方好美,像想抓住什么。"], q:"Schumann Traumerei"},
+{id:"p09", group:"浪漫 Romantic", title:"E小调前奏曲", en:"Prelude in E minor, Op. 28 No. 4", composer:"chopin", year:"1839", period:"romantic",
+ hook:"肖邦葬礼上演奏过的曲子:简单的音符,深深的哀伤。",
+ bg:"肖邦在西班牙马略卡岛过冬时完成24首前奏曲,当时他病重,天气阴冷。1849年在他的葬礼上,这首前奏曲被用管风琴演奏。",
+ about:"悲伤、叹息、无力。右手是一条几乎不动、一直在叹气的旋律;左手的和弦一点点地往下滑,像慢慢沉下去。",
+ structure:["前半:右手长音叹息,左手和弦缓慢下滑","中间:唯一一次情绪爆发 (stretto),变强、变急","后半:回到叹息,越来越慢","结尾:三个缓慢的和弦,中间有一段沉默"],
+ checks:["左手和弦是否非常轻、平均,像背景的变化","右手旋律是否有'叹息'的歌唱感","中间爆发是否真的有冲击,再落回去","结尾的沉默是否'敢'停够长"],
+ mistakes:["左手和弦太重","中间高潮没有推上去","结尾太急,没给沉默留时间"],
+ bpm:60, praise:["好悲伤,最后那个停顿我都屏住呼吸了。","中间那一下爆发好有力量。"], q:"Chopin Prelude E minor Op 28 No 4"},
+{id:"p10", group:"浪漫 Romantic", title:"A小调圆舞曲(遗作)", en:"Waltz in A minor, B. 150 (posthumous)", composer:"chopin", year:"约1843–1848(1955年才出版)", period:"romantic",
+ hook:"肖邦最简单的圆舞曲之一,忧郁的华尔兹。",
+ bg:"肖邦生前没发表,手稿在20世纪才被找到并于1955年出版,具体写作年份不确定。肖邦的圆舞曲多数不是用来跳的,而是'可以听的舞'——优雅、怀念、带波兰式的忧郁。",
+ about:"忧郁、优雅、带点思念。左手'嘭-嚓-嚓'的华尔兹节奏,右手唱一首小调的歌;中段转大调,短暂地明亮起来。",
+ structure:["A:小调的忧郁旋律","B:转到大调,温暖一些","A:旋律回来,结束"],
+ checks:["左手是否轻,第一拍低音稍重、后两拍轻","右手旋律是否歌唱、有弹性 (rubato)","大调段落是否有温暖的颜色变化","踏板干净"],
+ mistakes:["左手三拍一样重,像在敲","没有 rubato,太机械"],
+ bpm:132, praise:["好优雅又有一点难过的华尔兹。","中间变温暖的那段好好听。"], q:"Chopin Waltz A minor B 150 posthumous"},
+{id:"p11", group:"浪漫 Romantic", title:"古老的法国歌曲", en:"Old French Song, Op. 39 No. 16 (Children's Album)", composer:"tchaikovsky", year:"1878", period:"romantic",
+ hook:"柴可夫斯基笔下的一首忧伤小歌,像遥远的回忆。",
+ bg:"出自柴可夫斯基《儿童曲集》Op.39,他仿照舒曼的《少年曲集》写成,献给侄子。24首曲子描写孩子一天的生活和各国风情。这首模仿法国古老民歌的风格。",
+ about:"怀旧、淡淡的忧伤,像在听祖母讲很久以前的故事。",
+ structure:["A:小调的忧伤旋律","B:中段稍有起伏","A:回来,轻轻结束"],
+ checks:["旋律是否像唱歌、连贯","伴奏和弦是否比旋律轻","乐句结尾是否轻轻收住","整体有没有'怀念'的情绪"],
+ mistakes:["伴奏太重","速度太快,没有忧伤感"],
+ bpm:72, praise:["好像在讲一个很老的故事,有点难过。"], q:"Tchaikovsky Old French Song Op 39"},
+{id:"p12", group:"浪漫 Romantic", title:"阿拉伯风格曲", en:"Arabesque, Op. 100 No. 2", composer:"burgmuller", year:"1851", period:"romantic",
+ hook:"儿童钢琴最受欢迎的练习曲:快速、调皮、像一阵旋风。",
+ bg:"出自布格缪勒《25首简易进阶练习曲》。'Arabesque' 原指阿拉伯风格的花纹装饰,在音乐里指花哨、盘旋的音型。",
+ about:"兴奋、紧张、追逐的游戏。快速的五指音型在两手间穿梭,小调带来一点神秘紧张。",
+ structure:["A:快速的上下盘旋音型,小调","B:转到大调,短暂明亮","A:回来","结尾:强有力的和弦收尾"],
+ checks:["快速音符是否均匀清楚,不含糊","左手的和弦是否短促干脆","强弱对比:突然变弱、渐强的地方","速度是否保持,不在难处减速"],
+ mistakes:["快音符不均匀","难处减速,简单处冲","结尾和弦不干脆"],
+ bpm:144, praise:["好快好清楚,像一阵旋风!","结尾好干脆!"], q:"Burgmuller Arabesque Op 100 No 2"},
+{id:"p13", group:"浪漫 Romantic", title:"小咏叹调", en:"Arietta, Op. 12 No. 1 (Lyric Pieces)", composer:"grieg", year:"1867", period:"nationalism",
+ hook:"挪威作曲家格里格《抒情小品》的第一首,也是他三十多年后最后一首的回响。",
+ bg:"格里格一生写了66首《抒情小品》,分成10册。这是第一册第一首;在最后一册的最后一首《回忆》(Remembrances, Op.71 No.7)里,他把这个旋律变成了华尔兹——一个作曲家用同一首歌开始和结束了一生的作品集。",
+ about:"温柔、纯真、像一首挪威的小歌。右手旋律下面有流动的伴奏。",
+ structure:["一段歌唱般的旋律","重复并发展","安静结束"],
+ checks:["旋律是否在伴奏之上清楚歌唱","伴奏的流动是否平稳轻柔","整体是否温柔纯朴"],
+ mistakes:["伴奏太重","旋律断断续续"],
+ bpm:60, praise:["好温柔的一首歌。你知道格里格是挪威人吗?"], q:"Grieg Arietta Op 12 No 1"},
+{id:"p14", group:"20世纪 20th c.", title:"小托卡塔", en:"Toccatina, Op. 27 No. 12", composer:"kabalevsky", year:"1938", period:"c20",
+ hook:"左手唱旋律,右手像鼓一样敲和弦——有力、现代。",
+ bg:"出自卡巴列夫斯基的《30首儿童小品》Op.27。'Toccata' 意思是'触键',指快速有力、展示技巧的曲子,'Toccatina' 是迷你版。",
+ about:"急促、有力、带点紧张。右手快速重复的和弦像马蹄或鼓声,左手在下面唱一条小调旋律。",
+ structure:["A:右手和弦急促跳动,左手旋律","B:旋律移位,情绪升高","A:回来,有力结束"],
+ checks:["右手和弦是否短促整齐(所有音同时落下)","左手旋律是否被听见,不被和弦盖住","速度稳定、有冲劲","强弱变化"],
+ mistakes:["右手和弦不整齐","左手旋律太弱","速度越来越快"],
+ bpm:160, praise:["好有冲劲,像骑马冲锋!"], q:"Kabalevsky Toccatina Op 27 No 12"},
+{id:"p15", group:"印象派 Impressionism", title:"格拉杜斯博士", en:"Doctor Gradus ad Parnassum (Children's Corner)", composer:"debussy", year:"1908", period:"impressionism",
+ hook:"德彪西取笑枯燥的钢琴练习曲:一个小女孩在练琴,越练越走神。",
+ bg:"出自《儿童园地》,写给女儿'小丘丘'。标题拿克莱门蒂的练习曲集《通往帕纳斯山之路》(Gradus ad Parnassum) 开玩笑——就是孩子们必须弹的那种无聊练习曲。德彪西想象一个孩子在练习,刚开始很认真,中间走神做白日梦,最后急急忙忙弹完了事。",
+ about:"幽默、流动、带画面感。开头像认真的手指练习,中间慢下来、和声变朦胧(走神了),最后加速冲刺。",
+ structure:["开头:像练习曲一样流动的十六分音符","中段:慢下来,朦胧梦幻(孩子走神)","回归:又开始认真练习","结尾:越来越快,冲向结束(终于练完了!)"],
+ checks:["开头流动的音符是否均匀轻盈","中段是否有'走神/做梦'的朦胧感(速度放松、音色变柔)","结尾冲刺是否兴奋有力","踏板是否营造了色彩而不糊"],
+ mistakes:["中段没有对比","音符不均匀","踏板太多太糊"],
+ bpm:132, praise:["中间那段好像在发呆,哈哈,你练琴时也这样吗?"], q:"Debussy Doctor Gradus ad Parnassum"}
+];
+
+
+</script>
+<script>
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const PIECES=[...PIANO.map(p=>({...p,inst:"piano"})),...VIOLIN.map(p=>({...p,inst:"violin"}))];
+const PERIOD_NAME=Object.fromEntries(ERAS.map(p=>[p.id,p.name]));
+const store={get(k){try{return localStorage.getItem(k)||""}catch(e){return ""}},set(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}};
+
+// ---------- English annotation: "(English)" after the first mention of a term in each card
+const TERM_MAP={...TERMS};
+Object.entries(COMPOSERS).forEach(([id,c])=>{if(id!=="folk"&&!TERM_MAP[c.name])TERM_MAP[c.name]=c.en});
+const TERM_RE=new RegExp(Object.keys(TERM_MAP).filter(k=>TERM_MAP[k]).sort((a,b)=>b.length-a.length).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|"),"g");
+function gloss(html,seen){return html.replace(TERM_RE,(m,off,str)=>{if(seen.has(m))return m;seen.add(m);
+  if(/^\s?[((A-Za-z]/.test(str.slice(off+m.length,off+m.length+3)))return m; // already annotated in the text
+  return m+'<span class="en">('+esc(TERM_MAP[m])+')</span>'})}
+const G=seen=>x=>gloss(esc(x),seen);
+
+// ---------- pictures from Wikipedia (lead image of the English article), cached
+const wikiURL=t=>"https://en.wikipedia.org/wiki/"+encodeURIComponent(t);
+let wcache={};try{wcache=JSON.parse(store.get("mp-wiki-v1")||"{}")}catch(e){}
+function ava(id,cls=""){const c=COMPOSERS[id]||{name:"?"},t=WIKI[id];const ini=id==="folk"?"♪":esc(c.name.slice(0,1));
+  return t?`<a class="ava ${cls}" href="${wikiURL(t)}" target="_blank" rel="noopener" data-wiki="${esc(t)}" title="${esc(c.en)} (Wikipedia)">${ini}</a>`:`<span class="ava ${cls}">${ini}</span>`}
+function applyImages(){$$("[data-wiki]").forEach(el=>{const u=wcache[el.dataset.wiki];if(u&&!el.querySelector("img"))el.innerHTML=`<img loading="lazy" alt="" src="${esc(u)}">`})}
+async function loadImages(){
+  const need=[...new Set($$("[data-wiki]").map(e=>e.dataset.wiki))].filter(t=>!(t in wcache));let i=0;
+  const worker=async()=>{while(i<need.length){const t=need[i++];try{const r=await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(t));if(r.ok){const j=await r.json();wcache[t]=j.thumbnail?j.thumbnail.source:""}}catch(e){}}};
+  await Promise.all([1,2,3,4,5,6].map(worker));store.set("mp-wiki-v1",JSON.stringify(wcache));applyImages();
+}
+
+// ---------- tabs
+function showTab(t){$$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));$$("main>section").forEach(s=>s.classList.toggle("on",s.id===t));window.scrollTo(0,0)}
+$$("#nav button").forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+
+// ---------- pieces
+let inst="all", byComposer=null, byEra=null;
+function pieceHTML(p){
+  const c=COMPOSERS[p.composer]||{name:p.composer,en:""};
+  const T=G(new Set([c.name]));
+  const li=a=>"<ul>"+a.map(x=>"<li>"+T(x)+"</li>").join("")+"</ul>";
+  const yt="https://www.youtube.com/results?search_query="+encodeURIComponent(p.q);
+  return `<details class="piece" id="${p.id}"><summary><span class="t">${p.inst==="piano"?"🎹":"🎻"} ${esc(p.title)}</span><span class="e">${esc(p.en)}</span><span class="h">${esc(p.hook)}</span></summary>
+  <div class="body">
+   <div class="meta" style="align-items:center">${ava(p.composer,"sm")}<span class="chip">作曲 ${esc(c.name)} ${esc(c.en)}</span><span class="chip">${esc(p.year)}</span><button class="chip chiplink" data-goto="history" data-anchor="era-${p.period}">${esc(PERIOD_NAME[p.period]||"")} ›</button><button class="chip chiplink" data-goto="composers" data-anchor="c-${p.composer}">关于${esc(c.name)} ›</button><span class="chip">参考速度 ≈ ${p.bpm} BPM</span></div>
+   <h4>背景故事 Background</h4><p>${T(p.bg)}</p>
+   <h4>讲的是什么 · 情绪 What it's about</h4><p>${T(p.about)}</p>
+   ${p.skill?`<h4>这首在练什么 Skill</h4><p>${T(p.skill)}</p>`:""}
+   <h4>结构地图 Structure — 按"听到的"描述</h4><ol>${p.structure.map(x=>"<li>"+T(x)+"</li>").join("")}</ol>
+   <h4>怎么听出弹得好 What good sounds like</h4>${li(p.checks)}
+   <h4>常见问题 Common slips</h4>${li(p.mistakes)}
+   <h4>听完可以这样夸 What to say</h4>${li(p.praise)}
+   <div class="bar" style="margin-top:12px"><a class="btn" href="${yt}" target="_blank" rel="noopener">▶ 听一听 Listen (YouTube)</a><button class="btn" data-bpm="${p.bpm}" data-title="${esc(p.title)}">⏱ 用这首的速度测速</button></div>
+   <h4>我的笔记 My notes</h4><textarea data-note="${p.id}" placeholder="例如:11月8日 中间那段比上周稳;结尾还是有点急。">${esc(store.get("mp-note-"+p.id))}</textarea><span class="saved" data-saved="${p.id}"></span>
+  </div></details>`;
+}
+function renderPieces(){
+  const q=$("#q").value.trim().toLowerCase();
+  const list=PIECES.filter(p=>(inst==="all"||p.inst===inst)&&(!byComposer||p.composer===byComposer)&&(!byEra||p.period===byEra)&&(!q||[p.title,p.en,p.hook,(COMPOSERS[p.composer]||{}).name,(COMPOSERS[p.composer]||{}).en].join(" ").toLowerCase().includes(q)));
+  const groups={};list.forEach(p=>{const g=(p.inst==="piano"?"🎹 钢琴 · ":"🎻 小提琴 · ")+p.group;(groups[g]=groups[g]||[]).push(p)});
+  $("#list").innerHTML=Object.entries(groups).map(([g,ps])=>`<h2 class="grp">${esc(g)} (${ps.length})</h2>`+ps.map(pieceHTML).join("")).join("")||"<p class='note'>没有找到。试试别的关键词。</p>";
+  const f=byComposer?COMPOSERS[byComposer].name:byEra?PERIOD_NAME[byEra]:null;
+  $("#filterNote").innerHTML=f?`只显示:${esc(f)} · <a href="#" id="clearComp">显示全部</a>`:"";
+  if(f)$("#clearComp").onclick=e=>{e.preventDefault();byComposer=null;byEra=null;renderPieces()};
+  applyImages();
+}
+$$("#instSeg button").forEach(b=>b.onclick=()=>{inst=b.dataset.v;$$("#instSeg button").forEach(x=>x.classList.toggle("on",x===b));renderPieces()});
+$("#q").oninput=renderPieces;
+$("#list").addEventListener("input",e=>{const id=e.target.dataset.note;if(!id)return;const ok=store.set("mp-note-"+id,e.target.value);const s=document.querySelector(`[data-saved="${id}"]`);s.textContent=ok?"✓ 已保存在本机":"⚠ 浏览器不允许保存";});
+$("#list").addEventListener("click",e=>{const b=e.target.closest("[data-bpm]");if(!b)return;$("#target").value=b.dataset.bpm;$("#targetFor").textContent="("+b.dataset.title+")";resetTaps();showTab("tools");$("#tapBtn").scrollIntoView({block:"center"})});
+
+// ---------- basics
+$("#guide").innerHTML=LISTEN_GUIDE.map(g=>{const s=new Set();return `<h4 style="color:var(--acc);margin:12px 0 4px">${esc(g.t)}</h4><ul>${g.items.map(i=>"<li>"+gloss(i,s)+"</li>").join("")}</ul>`}).join("");
+document.addEventListener("click",e=>{const g=e.target.closest("[data-goto]");if(!g)return;e.preventDefault();showTab(g.dataset.goto);if(g.dataset.anchor){const el=document.getElementById(g.dataset.anchor);if(el)el.scrollIntoView({block:"start"})}});
+
+// ---------- history
+const yt=q=>"https://www.youtube.com/results?search_query="+encodeURIComponent(q);
+$("#overview").innerHTML=gloss(OVERVIEW,new Set());
+$("#hooks").innerHTML=CHINA_HOOKS.map(h=>"<li>"+G(new Set())(h)+"</li>").join("");
+$("#eras").innerHTML=ERAS.filter(e=>!e.hidden).map(e=>{const kids=PIECES.filter(p=>p.period===e.id).length;const T=G(new Set());const art=ERA_ART[e.id];
+  return `<div class="card era" id="era-${e.id}" style="border-left-color:${ERA_COLORS[e.id]}"><h3>${esc(e.name)} <span class="yrs">${esc(e.years)}</span></h3>
+  ${art?`<div class="art"><a class="pic" href="${wikiURL(art[0])}" target="_blank" rel="noopener" data-wiki="${esc(art[0])}"></a><p>${esc(art[1])}</p></div>`:""}
+  <p><b>时代背景:</b>${T(e.context)}</p>
+  <p><b>听起来像什么:</b></p><ul>${e.traits.map(t=>"<li>"+T(t)+"</li>").join("")}</ul>
+  <p><b>在哪里演奏:</b>${T(e.where)}</p>
+  <p><b>代表作曲家:</b> ${e.who.map(id=>`<button class="chip chiplink" data-goto="composers" data-anchor="c-${id}">${esc(COMPOSERS[id].name)}</button>`).join(" ")}</p>
+  <p><b>入门先听:</b> ${e.listen.map(l=>`<a href="${yt(l[1])}" target="_blank" rel="noopener">▶ ${esc(l[0])}</a>`).join(" · ")}</p>
+  <p class="note">💡 ${T(e.tip)}</p>
+  ${kids?`<button class="btn" data-era="${e.id}">孩子的曲目里有 ${kids} 首属于这个时期 →</button>`:""}</div>`}).join("");
+$("#eras").addEventListener("click",e=>{const b=e.target.closest("[data-era]");if(!b)return;byEra=b.dataset.era;byComposer=null;inst="all";$$("#instSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v==="all"));$("#q").value="";renderPieces();showTab("pieces")});
+$("#genres").innerHTML=GENRES.map(g=>{const T=G(new Set([g.name.split(" ")[0]]));return `<div class="card"><h3>${esc(g.name)}</h3><p>${T(g.what)}</p><p class="note"><b>怎么认:</b>${T(g.hear)}</p><p class="note"><b>例子:</b>${T(g.eg)}</p></div>`}).join("");
+const cats=[...new Set(GLOSSARY.map(g=>g[0]))];let glCat=cats[0];
+$("#glSeg").innerHTML=cats.map(c=>`<button data-v="${esc(c)}">${esc(c)}</button>`).join("");
+function renderGloss(){$$("#glSeg button").forEach(b=>b.classList.toggle("on",b.dataset.v===glCat));const rows=GLOSSARY.filter(g=>g[0]===glCat);const hasBpm=rows.some(r=>r[3]);$("#gloss").innerHTML=`<tr><th>术语 Term</th><th>意思</th>${hasBpm?"<th>大约 BPM</th>":""}</tr>`+rows.map(r=>`<tr><td><b>${esc(r[1])}</b></td><td>${G(new Set())(r[2])}</td>${hasBpm?`<td>${esc(r[3])}</td>`:""}</tr>`).join("")}
+$$("#glSeg button").forEach(b=>b.onclick=()=>{glCat=b.dataset.v;renderGloss()});renderGloss();
+
+// ---------- composers
+const counts={};PIECES.forEach(p=>counts[p.composer]=(counts[p.composer]||0)+1);
+const born=c=>parseInt((c.years.match(/\d{4}/)||["9999"])[0],10);
+$("#comps").innerHTML=ERAS.map(e=>{const cs=Object.entries(COMPOSERS).filter(([,c])=>c.period===e.id).sort((a,b)=>born(a[1])-born(b[1]));if(!cs.length)return"";
+  return `<h2 class="grp">${esc(e.name)} ${esc(e.years)}</h2><div class="grid">`+cs.map(([id,c])=>`<div class="card" id="c-${id}"><div class="chead">${ava(id)}<div><h3>${esc(c.name)}</h3><div class="note">${esc(c.en)}</div><div class="note">${esc(c.years)}${counts[id]?' · <span class="comp-has">● 孩子的曲目里有</span>':""}</div></div></div><p>${G(new Set([c.name]))(c.bio)}</p>${counts[id]?`<button class="btn" data-comp="${id}">看曲目 (${counts[id]})</button>`:""}</div>`).join("")+"</div>"}).join("");
+$("#comps").addEventListener("click",e=>{const b=e.target.closest("[data-comp]");if(!b)return;byComposer=b.dataset.comp;byEra=null;inst="all";$$("#instSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v==="all"));$("#q").value="";renderPieces();showTab("pieces")});
+
+// ---------- audio core (pure functions exposed for testing)
+const NOTE=["C","C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"];
+const SOLFA=["do","do♯","re","re♯","mi","fa","fa♯","sol","sol♯","la","la♯","si"];
+function freqToNote(f){const m=69+12*Math.log2(f/440);const n=Math.round(m);return{midi:n,name:NOTE[(n%12+12)%12]+(Math.floor(n/12)-1),solfa:SOLFA[(n%12+12)%12],cents:Math.round((m-n)*100)}}
+function midiToFreq(m){return 440*Math.pow(2,(m-69)/12)}
+function detectPitch(buf,sr){
+  let rms=0;for(let i=0;i<buf.length;i++)rms+=buf[i]*buf[i];rms=Math.sqrt(rms/buf.length);if(rms<0.01)return -1;
+  const n=buf.length,maxLag=Math.min(n-1,Math.floor(sr/70)),minLag=Math.floor(sr/1500),c=new Float32Array(maxLag+2);
+  for(let l=0;l<=maxLag+1;l++){let s=0;for(let i=0;i<n-l;i++)s+=buf[i]*buf[i+l];c[l]=s/(n-l)}
+  let d=minLag;while(d<maxLag&&c[d]>c[d+1])d++;
+  let best=-1,bv=-Infinity;for(let l=d;l<=maxLag;l++)if(c[l]>bv){bv=c[l];best=l}
+  if(best<=0||bv<c[0]*0.3)return -1;
+  // prefer the first peak close to the max (avoids octave-down errors)
+  for(let l=d;l<best;l++){if(c[l]>c[l-1]&&c[l]>=c[l+1]&&c[l]>bv*0.9){best=l;break}}
+  const x1=c[best-1],x2=c[best],x3=c[best+1],a=(x1+x3-2*x2)/2,b=(x3-x1)/2;
+  const T=a?best-b/(2*a):best;return sr/T;
+}
+function bpmFromTaps(ts){if(ts.length<3)return null;const iv=[];for(let i=1;i<ts.length;i++)iv.push(ts[i]-ts[i-1]);const s=[...iv].sort((a,b)=>a-b);const med=s[Math.floor(s.length/2)];const spread=Math.max(...iv)/Math.min(...iv);return{bpm:Math.round(60000/med),steady:spread<1.25}}
+window.__test={detectPitch,freqToNote,bpmFromTaps,PIECES};
+
+let ctx=null,analyser=null,micOn=false,mode=null,buf=null;
+function ac(){if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();if(ctx.state==="suspended")ctx.resume();return ctx}
+function tone(f,dur=1.5){const a=ac(),o=a.createOscillator(),g=a.createGain();o.type="triangle";o.frequency.value=f;g.gain.setValueAtTime(0,a.currentTime);g.gain.linearRampToValueAtTime(.35,a.currentTime+.05);g.gain.setValueAtTime(.35,a.currentTime+dur-.2);g.gain.linearRampToValueAtTime(0,a.currentTime+dur);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+dur)}
+async function startMic(m){
+  mode=m;if(micOn)return true;
+  try{const a=ac();const st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    analyser=a.createAnalyser();analyser.fftSize=4096;buf=new Float32Array(analyser.fftSize);a.createMediaStreamSource(st).connect(analyser);micOn=true;loop();return true}
+  catch(e){alert("无法使用麦克风:"+e.message+"\n请在浏览器地址栏左侧的权限设置里允许麦克风。");return false}
+}
+let smooth=[];
+function loop(){
+  analyser.getFloatTimeDomainData(buf);const f=detectPitch(buf,ctx.sampleRate);
+  if(f>0){smooth.push(f);if(smooth.length>5)smooth.shift()}else smooth=[];
+  const fs=smooth.length>=3?[...smooth].sort((a,b)=>a-b)[Math.floor(smooth.length/2)]:-1;
+  if(mode==="tuner")updTuner(fs);else if(mode==="sing")updSing(fs);
+  requestAnimationFrame(loop);
+}
+const needle=(el,v,range)=>el.style.left=(50+Math.max(-1,Math.min(1,v/range))*50)+"%";
+
+// tuner
+$("#tunerStart").onclick=async()=>{if(await startMic("tuner")){$("#tunerStart").textContent="正在听… Listening";$("#tunerStart").disabled=true}};
+$$(".ref").forEach(b=>b.onclick=()=>tone(+b.dataset.f,2));
+function updTuner(f){
+  if(f<0){$("#tFreq").textContent="等待声音…(请拉/唱一个长音)";return}
+  const n=freqToNote(f);$("#tNote").textContent=n.name+"  "+n.solfa;$("#tFreq").textContent=f.toFixed(1)+" Hz · "+(n.cents>0?"+":"")+n.cents+" 音分";
+  needle($("#tNeedle"),n.cents,50);const a=Math.abs(n.cents);
+  $("#tVerdict").innerHTML=a<=10?'<span style="color:var(--ok)">✓ 很准</span>':a<=25?'<span style="color:#c08a00">基本准</span>':`<span style="color:var(--bad)">${n.cents>0?"偏高 ↑":"偏低 ↓"}</span>`;
+}
+
+// tempo
+let taps=[];
+function resetTaps(){taps=[];$("#bpmOut").textContent="–";$("#bpmVerdict").textContent=""}
+function tap(){const t=performance.now();if(taps.length&&t-taps[taps.length-1]>2500)taps=[];taps.push(t);if(taps.length>9)taps.shift();const r=bpmFromTaps(taps);if(!r){$("#bpmOut").textContent="…";return}
+  $("#bpmOut").textContent=r.bpm+" BPM";const tg=+$("#target").value;const d=Math.round((r.bpm-tg)/tg*100);
+  $("#bpmVerdict").innerHTML=(Math.abs(d)<=8?`<span style="color:var(--ok)">和参考速度差不多 (${d>0?"+":""}${d}%)</span>`:d>0?`比参考快 ${d}%`:`比参考慢 ${-d}%(学生慢一点很正常)`)+(r.steady?"":" · <span style='color:var(--bad)'>你点的拍子不太均匀,可能是他在某处加速或拖慢了</span>")}
+$("#tapBtn").onclick=tap;$("#tapReset").onclick=resetTaps;
+document.addEventListener("keydown",e=>{if(e.code==="Space"&&$("#tools").classList.contains("on")&&e.target.tagName!=="TEXTAREA"&&e.target.tagName!=="INPUT"){e.preventDefault();tap()}});
+let metTimer=null,metNext=0,metBeat=0;
+function click(t,accent){const a=ctx,o=a.createOscillator(),g=a.createGain();o.frequency.value=accent?1500:1000;g.gain.setValueAtTime(.4,t);g.gain.exponentialRampToValueAtTime(.001,t+.05);o.connect(g).connect(a.destination);o.start(t);o.stop(t+.06)}
+function sched(){const sp=60/+$("#metBpm").value;while(metNext<ctx.currentTime+.1){click(metNext,metBeat%4===0);metNext+=sp;metBeat++}}
+$("#metBpm").oninput=()=>$("#metVal").textContent=$("#metBpm").value;
+$("#metBtn").onclick=()=>{if(metTimer){clearInterval(metTimer);metTimer=null;$("#metBtn").textContent="开始";return}ac();metNext=ctx.currentTime+.05;metBeat=0;metTimer=setInterval(sched,25);$("#metBtn").textContent="停止"};
+
+// sing-along
+let range="low",target=null,hold=0,score={ok:0,n:0},done=false;
+$$("#rangeSeg button").forEach(b=>b.onclick=()=>{range=b.dataset.v;$$("#rangeSeg button").forEach(x=>x.classList.toggle("on",x===b))});
+$("#singNew").onclick=async()=>{const [lo,hi]=range==="low"?[57,69]:[60,72];const nat=[0,2,4,5,7,9,11];let m;do{m=lo+Math.floor(Math.random()*(hi-lo+1))}while(!nat.includes(m%12)||m===target);target=m;hold=0;done=false;score.n++;
+  const n=freqToNote(midiToFreq(m));$("#sTarget").textContent="目标 "+n.name+"  "+n.solfa;$("#sVerdict").textContent="听…然后唱";$("#singReplay").disabled=false;tone(midiToFreq(m),1.5);setTimeout(()=>startMic("sing"),1600);updScore()};
+$("#singReplay").onclick=()=>{if(target)tone(midiToFreq(target),1.5)};
+function updScore(){$("#sScore").textContent=`本轮 ${score.ok} / ${score.n} 唱准`}
+function updSing(f){
+  if(target==null)return;if(f<0){$("#sYou").textContent="你唱的:–";hold=0;return}
+  let c=1200*Math.log2(f/midiToFreq(target));c=c-1200*Math.round(c/1200);c=Math.round(c);
+  $("#sYou").textContent="你唱的:"+freqToNote(f).name+" · "+(c>0?"+":"")+c+" 音分";needle($("#sNeedle"),c,100);
+  if(done)return;
+  if(Math.abs(c)<=25){hold++;$("#sVerdict").innerHTML='<span style="color:var(--ok)">对了,保持住…</span>';if(hold>40){done=true;score.ok++;updScore();$("#sVerdict").innerHTML='<span style="color:var(--ok)">✓ 唱准了!点"出题"继续</span>'}}
+  else{hold=0;$("#sVerdict").innerHTML=c>0?'<span style="color:var(--bad)">高了一点,往下 ↓</span>':'<span style="color:var(--bad)">低了一点,往上 ↑</span>'}
+}
+
+// ---------- timeline (SVG)
+function yrs(c){const m=(c.years.match(/\d{4}/g)||[]).map(Number);return{b:m[0],d:m[1]||(/–$/.test(c.years)?2026:m[0]),alive:/–$/.test(c.years)}}
+function buildTimeline(){
+  const W=1200,L=96,R=24,span=W-L-R,cut=1550,f=0.14;
+  const x=y=>y<cut?L+(Math.max(y,1000)-1000)/(cut-1000)*f*span:L+f*span+(y-cut)/(2030-cut)*(1-f)*span;
+  const cs=Object.entries(COMPOSERS).filter(([id])=>id!=="folk").map(([id,c])=>({id,c,...yrs(c)})).filter(o=>o.b).sort((a,b)=>a.b-b.b);
+  const top=150,rh=17,H=top+cs.length*rh+16;let s=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg" font-size="11">`;
+  s+=`<rect class="tbg" x="0" y="0" width="${W}" height="${H}"/>`;
+  WARS.forEach(([a,b,t])=>s+=`<rect x="${x(a)}" y="20" width="${x(b)-x(a)}" height="${H-20}" fill="#c0392b" opacity=".08"/>`);
+  const ticks=[1000,1200,1400,1550];for(let y=1600;y<=2000;y+=50)ticks.push(y);
+  ticks.forEach(y=>s+=`<line class="tl" x1="${x(y)}" x2="${x(y)}" y1="16" y2="${H}" stroke-dasharray="2 3"/><text class="tm" x="${x(y)}" y="12" text-anchor="middle">${y}</text>`);
+  s+=`<text class="tm" x="4" y="12">年份 Year</text>`;
+  const band=(a,b,y,col,label,h=20)=>`<rect x="${x(a)}" y="${y}" width="${Math.max(2,x(b)-x(a)-1)}" height="${h}" rx="3" fill="${col}"/><text x="${(x(a)+x(b))/2}" y="${y+h/2+4}" text-anchor="middle" fill="#fff" font-size="11">${label}</text>`;
+  s+=`<text class="tk" x="4" y="36" font-weight="600">时代 Era</text>`;
+  [["medieval",1000,1400,"中世纪"],["renaissance",1400,1600,"文艺复兴"],["baroque",1600,1750,"巴洛克"],["classical",1750,1820,"古典"],["romantic",1820,1900,"浪漫"],["c20",1900,1975,"20世纪"],["contemporary",1975,2030,"当代"]].forEach(e=>s+=`<g data-goto="history" data-anchor="era-${e[0]}">${band(e[1],e[2],22,ERA_COLORS[e[0]],e[3])}</g>`);
+  [["nationalism",1850,1920,"民族乐派"],["impressionism",1890,1920,"印象派"]].forEach((e,i)=>s+=`<g data-goto="history" data-anchor="era-${e[0]}">${band(e[1],e[2],45,ERA_COLORS[e[0]],i?"":e[3],16)}</g>`);
+  s+=`<text x="${x(1890)+2}" y="${45+12+16}" fill="${ERA_COLORS.impressionism}" font-size="10">↑印象派</text>`;
+  s+=`<text class="tk" x="4" y="92" font-weight="600">中国 China</text>`;
+  DYNASTIES.forEach(([a,b,t],i)=>s+=`<rect x="${x(Math.max(a,1000))}" y="80" width="${x(b)-x(Math.max(a,1000))-1}" height="16" rx="3" fill="${i%2?"#b8a58f":"#d8c7b0"}"/><text x="${(x(Math.max(a,1000))+x(b))/2}" y="92" text-anchor="middle" fill="#3b2f22">${t}</text>`);
+  s+=`<text class="tk" x="4" y="116" font-weight="600">大事 Events</text>`;
+  EVENTS.forEach(([y,t,en],i)=>{const yy=i%2?132:114;s+=`<circle cx="${x(y)}" cy="${yy-4}" r="3" fill="var(--acc2)"/><text class="tk" x="${x(y)+5}" y="${yy}" font-size="10">${t}</text>`});
+  WARS.forEach(([a,b,t])=>s+=`<text x="${x(a)+2}" y="${H-4}" fill="#c0392b" font-size="10">${t}</text>`);
+  cs.forEach((o,i)=>{const y=top+i*rh,col=ERA_COLORS[o.c.period]||"#888",star=counts[o.id]?"★":"";
+    s+=`<g data-goto="composers" data-anchor="c-${o.id}"><title>${esc(o.c.name)} ${esc(o.c.en)} ${esc(o.c.years)}</title><rect x="${x(o.b)}" y="${y}" width="${Math.max(3,x(o.d)-x(o.b))}" height="11" rx="5" fill="${col}"/>${o.alive?`<text x="${x(o.d)+2}" y="${y+10}" fill="${col}">→</text>`:""}<text class="tk" x="${x(o.b)-4}" y="${y+10}" text-anchor="end"${star?' font-weight="700"':""}>${star}${esc(o.c.name)}</text><text class="tm" x="${x(o.d)+(o.alive?14:4)}" y="${y+10}" font-size="9">${o.b}–${o.alive?"":o.d}</text></g>`});
+  return s+"</svg>";
+}
+$("#timeline").innerHTML=buildTimeline();
+
+// ---------- diagrams
+function sv(w,h,inner){return `<svg viewBox="0 0 ${w} ${h}" width="100%" style="max-width:${w}px;min-width:${Math.min(w,400)}px" xmlns="http://www.w3.org/2000/svg" font-size="13">${inner}</svg>`}
+const lab=(x1,y1,x2,y2,zh,en)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--mute)" stroke-width="1"/><circle cx="${x1}" cy="${y1}" r="2.5" fill="var(--acc2)"/><text class="tk" x="${x2+4}" y="${y2+4}">${zh} <tspan class="tm" font-size="11">${en}</tspan></text>`;
+$("#dViolin").innerHTML=sv(560,470,`
+ <circle cx="150" cy="28" r="13" fill="#6b3a1e"/><circle cx="150" cy="28" r="5" fill="none" stroke="#3a1d0b" stroke-width="2"/>
+ <rect x="141" y="38" width="18" height="42" rx="3" fill="#6b3a1e"/>
+ <rect x="124" y="46" width="17" height="6" rx="2" fill="#2b1608"/><rect x="124" y="64" width="17" height="6" rx="2" fill="#2b1608"/><rect x="159" y="52" width="17" height="6" rx="2" fill="#2b1608"/><rect x="159" y="70" width="17" height="6" rx="2" fill="#2b1608"/>
+ <ellipse cx="150" cy="232" rx="62" ry="50" fill="#b5651d"/><ellipse cx="150" cy="322" rx="72" ry="58" fill="#b5651d"/><rect x="100" y="240" width="100" height="72" fill="#b5651d"/>
+ <ellipse class="tbg" cx="84" cy="276" rx="20" ry="26"/><ellipse class="tbg" cx="216" cy="276" rx="20" ry="26"/>
+ <rect x="143" y="78" width="14" height="178" rx="2" fill="#222"/>
+ <text x="112" y="312" font-size="38" fill="#3a1d0b" font-style="italic">ƒ</text><text x="172" y="312" font-size="38" fill="#3a1d0b" font-style="italic">ƒ</text>
+ <rect x="124" y="292" width="52" height="6" rx="2" fill="#f0d9a8" stroke="#8a6a3a"/>
+ <path d="M139 334 L161 334 L166 372 L134 372 Z" fill="#222"/><ellipse cx="114" cy="374" rx="20" ry="8" fill="#222"/>
+ ${[145.5,148.5,151.5,154.5].map(v=>`<line x1="${v}" y1="58" x2="${v}" y2="336" stroke="#e8e8e8" stroke-width=".9"/>`).join("")}
+ ${lab(162,24,250,24,"涡卷","scroll")}${lab(176,55,250,58,"弦轴","pegs")}${lab(157,150,250,140,"指板","fingerboard")}${lab(206,215,250,205,"面板 / 琴身","top / body")}
+ ${lab(186,300,250,262,"音孔 (f孔)","f-holes")}${lab(176,295,250,298,"琴马","bridge")}${lab(164,352,250,340,"拉弦板","tailpiece")}${lab(126,376,250,378,"腮托","chin rest")}
+ <text class="tk" x="6" y="110">四根弦 strings</text><text class="tm" x="6" y="128" font-size="12">从左到右(低→高)</text><text class="tk" x="6" y="148" font-weight="700">G · D · A · E</text>
+ <line x1="262" y1="420" x2="540" y2="412" stroke="#6b3a1e" stroke-width="4" stroke-linecap="round"/><line x1="268" y1="428" x2="536" y2="428" stroke="#eee" stroke-width="3"/><line x1="536" y1="413" x2="536" y2="428" stroke="#6b3a1e" stroke-width="3"/>
+ <rect x="256" y="414" width="24" height="18" rx="3" fill="#222"/>
+ <text class="tk" x="250" y="455">弓根 <tspan class="tm" font-size="11">frog</tspan></text><text class="tk" x="360" y="455">弓毛(马尾) <tspan class="tm" font-size="11">bow hair</tspan></text><text class="tk" x="490" y="455">弓尖 <tspan class="tm" font-size="11">tip</tspan></text>
+ <text class="tm" x="262" y="400" font-size="12">弓 bow:弓毛擦松香 (rosin) 后才能拉出声音</text>`);
+(function keys(){
+  const lo=48,hi=84,ww=30,wh=130,bw=18,bh=80,isB=m=>[1,3,6,8,10].includes(m%12);let wx=0,whites="",blacks="",pos={};
+  for(let m=lo;m<=hi;m++){if(!isB(m)){pos[m]=wx;const mid=m===60;whites+=`<rect x="${10+wx}" y="10" width="${ww}" height="${wh}" fill="${mid?"#fff2b3":"#fff"}" stroke="#555"/><text x="${10+wx+ww/2}" y="${wh-12}" text-anchor="middle" font-size="12" fill="#222">${NOTE[m%12]}${m%12===0?Math.floor(m/12)-1:""}</text><text x="${10+wx+ww/2}" y="${wh+3}" text-anchor="middle" font-size="10" fill="#777">${SOLFA[m%12]}</text>`;wx+=ww}else{pos[m]=wx-bw/2;blacks+=`<rect x="${10+wx-bw/2}" y="10" width="${bw}" height="${bh}" fill="#222"/>`}}
+  let dots=[55,62,69,76].map(m=>`<circle cx="${10+pos[m]+ww/2}" cy="98" r="8" fill="#e67e22"/><text x="${10+pos[m]+ww/2}" y="102" text-anchor="middle" font-size="10" fill="#fff">${NOTE[m%12]}</text>`).join("");
+  const mc=10+pos[60]+ww/2,a4=10+pos[69]+ww/2;
+  $("#dKeys").innerHTML=sv(10+wx+10,205,whites+blacks+dots+`<text class="tk" x="${mc}" y="${wh+30}" text-anchor="middle" font-weight="700">↑ 中央C Middle C (C4)</text><text class="tk" x="${a4}" y="${wh+52}" text-anchor="middle">↑ A4 = 440 Hz(乐队对音用的'标准音')</text><text class="tm" x="12" y="${wh+72}" font-size="12">● 橙点 = 小提琴四根空弦 G3 · D4 · A4 · E5 · 每过7个白键,音名重复一次 = 一个八度 (octave)</text>`);
+})();
+(function orch(){
+  const cx=330,cy=340,P=(r,a)=>[cx+r*Math.cos(a*Math.PI/180),cy-r*Math.sin(a*Math.PI/180)];
+  const sec=(r1,r2,a1,a2,col,zh,en)=>{const [x1,y1]=P(r2,a1),[x2,y2]=P(r2,a2),[x3,y3]=P(r1,a2),[x4,y4]=P(r1,a1),[tx,ty]=P((r1+r2)/2,(a1+a2)/2);
+    return `<path d="M${x1} ${y1} A${r2} ${r2} 0 0 1 ${x2} ${y2} L${x3} ${y3} A${r1} ${r1} 0 0 0 ${x4} ${y4} Z" fill="${col}" stroke="var(--card)" stroke-width="2"/><text x="${tx}" y="${ty}" text-anchor="middle" font-size="12" fill="#fff" font-weight="600">${zh}</text><text x="${tx}" y="${ty+13}" text-anchor="middle" font-size="10" fill="#fff">${en}</text>`};
+  const S="#9c5a2e",Wd="#3f8a5a",B="#c9962b",Pc="#6b7280",H="#7a5cc0";
+  let s=sec(60,125,180,137,S,"第一小提琴","1st violins")+sec(60,125,137,93,S,"第二小提琴","2nd violins")+sec(60,125,93,47,S,"中提琴","violas")+sec(60,125,47,0,S,"大提琴","cellos");
+  s+=sec(125,185,180,150,H,"竖琴","harp")+sec(125,185,150,92,Wd,"长笛·双簧管","flutes·oboes")+sec(125,185,92,34,Wd,"单簧管·大管","clarinets·bassoons")+sec(125,245,34,0,S,"低音提琴","double basses");
+  s+=sec(185,245,180,122,B,"圆号","horns")+sec(185,245,122,78,B,"小号","trumpets")+sec(185,245,78,34,B,"长号·大号","trombones·tuba");
+  s+=sec(245,300,180,95,Pc,"打击乐","percussion")+sec(245,300,95,40,Pc,"定音鼓","timpani");
+  s+=`<circle cx="${cx}" cy="${cy-14}" r="22" fill="var(--acc)"/><text x="${cx}" y="${cy-10}" text-anchor="middle" font-size="12" fill="#fff">指挥</text><text class="tm" x="${cx}" y="${cy+16}" text-anchor="middle" font-size="11">conductor · 下方是观众 audience ↓</text>`;
+  s+=`<text x="14" y="22" font-size="12"><tspan fill="${S}">■ 弦乐 strings</tspan>  <tspan fill="${Wd}">■ 木管 woodwinds</tspan>  <tspan fill="${B}">■ 铜管 brass</tspan>  <tspan fill="${Pc}">■ 打击乐 percussion</tspan></text>`;
+  $("#dOrch").innerHTML=sv(660,365,s);
+})();
+(function forms(){
+  const C={A:"#2e6da4",B:"#c07a1a",C:"#3f8a5a",D:"#8a8f98"};
+  const rows=[
+   ["二段式 Binary (A-B)","巴洛克舞曲、小步舞曲(每段各弹两遍)",[["A","A",1],["A","A",1],["B","B",1],["B","B",1]]],
+   ["三段式 Ternary (A-B-A)","《快乐的农夫》、很多铃木小曲",[["A","A",1],["B","B",1],["A","A",1]]],
+   ["回旋曲 Rondo (A-B-A-C-A)","《致爱丽丝》",[["A","A",1],["B","B",1],["A","A",1],["C","C",1],["A","A",1]]],
+   ["主题与变奏 Theme & variations","《小星星变奏曲》",[["主题","A",1],["变奏1","A",1],["变奏2","A",1],["变奏3","A",1]]],
+   ["奏鸣曲式 Sonata form","莫扎特 K.545 第一乐章",[["主题1","A",1],["主题2","B",1],["展开部","D",1.4],["主题1","A",1],["主题2","B",1],["尾声","D",.6]]]];
+  let s="",y=10;rows.forEach(([t,eg,bl])=>{s+=`<text class="tk" x="10" y="${y+12}" font-weight="700">${t}</text><text class="tm" x="10" y="${y+28}" font-size="11">例:${eg}</text>`;y+=38;let x=10;bl.forEach(([lb,k,w],i)=>{const ww=62*w;s+=`<rect x="${x}" y="${y}" width="${ww-4}" height="30" rx="5" fill="${C[k]}" opacity="${k==="A"&&lb.startsWith("变奏")?0.55+0.15*i/3:1}"/><text x="${x+ww/2-2}" y="${y+20}" text-anchor="middle" fill="#fff" font-size="12">${lb}</text>`;x+=ww});
+    if(t.startsWith("奏鸣")){[[10,124,"呈示部 exposition"],[134,87,"展开部 development"],[221,124,"再现部 recapitulation"]].forEach(([bx,bw,l])=>s+=`<path d="M${bx} ${y+36} v4 h${bw-4} v-4" fill="none" stroke="var(--mute)"/><text class="tm" x="${bx+bw/2-2}" y="${y+53}" text-anchor="middle" font-size="10">${l}</text>`);y+=20}
+    y+=50});
+  $("#dForms").innerHTML=sv(400,y,s);
+})();
+
+renderPieces();
+loadImages();
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>

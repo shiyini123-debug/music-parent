@@ -1,0 +1,16 @@
+{
+  "name": "古典音乐家长手册 Music Parent Companion",
+  "short_name": "音乐手册",
+  "description": "听懂孩子在弹什么:曲目、音乐史、作曲家、调音器与测速工具",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f5ef",
+  "theme_color": "#7a3e9d",
+  "lang": "zh",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
